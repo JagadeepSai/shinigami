@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.MainClass;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
