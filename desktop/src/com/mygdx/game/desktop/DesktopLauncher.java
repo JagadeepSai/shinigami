@@ -7,6 +7,8 @@ import com.mygdx.game.MainClass;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = (int)(1242f /4f);
+		config.height = (int)(2208f/4f);
 		new LwjglApplication(new MainClass(), config);
 	}
 }
