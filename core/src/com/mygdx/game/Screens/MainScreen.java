@@ -22,6 +22,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MainClass;
 
+import javax.swing.text.View;
+
 /**
  * Created by root on 1/10/17.
  */
@@ -30,25 +32,37 @@ public class MainScreen extends ScreenAdapter {
 
     MainClass game;
     Stage stage;
+    final TextButton button ;
 
+    Texture background = new Texture("background.png");
+
+    float GameWidth = Gdx.graphics.getWidth();
+    float GameHeight = Gdx.graphics.getHeight();
+
+    float AspectRatio1 = 16/9;
+
+    float AspectRatio = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
+
+    Viewport viewport ;
     private Skin skin;
-    private Texture badlogic;
 
     public MainScreen(MainClass game){
-    this.game = game;
-        skin = new Skin(Gdx.files.internal("neon-ui.json"));
-       // skin.add("text");
-        game.batch = new SpriteBatch();
-        stage = new Stage(new StretchViewport(200,500));
-        badlogic = new Texture("badlogic.jpg");
 
-        final TextButton button = new TextButton("PLAY",skin,"default");
-        button.setWidth(100);
-        button.setHeight(50);
+        this.game = game;
+        skin = new Skin(Gdx.files.internal("neon-ui.json"));
+        viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
+        stage = new Stage(viewport);
+
+        button = new TextButton("PLAY",skin,"default");
+        button.setWidth((150/310.5f)*GameWidth);
+        button.setHeight(button.getWidth()*AspectRatio1/2f);
+        button.setPosition(GameWidth/2 - button.getWidth()/2 ,GameWidth/(AspectRatio*2) - button.getHeight()/2);
+        System.out.println(GameWidth/(AspectRatio*2) - button.getHeight()/2);
 
         final TextField login = new TextField("Username",skin,"password") ;
         login.setHeight(50);
         login.setWidth(100);
+
         stage.addActor(button);
         //stage.addActor(button);
         Gdx.input.setInputProcessor(stage);
@@ -62,12 +76,14 @@ public class MainScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+        stage.act(Gdx.graphics.getDeltaTime());
+
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-       // game.batch.begin();
-       // game.batch.draw(badlogic,0,0);
-       // game.batch.end();
-         stage.act(Gdx.graphics.getDeltaTime());
+        stage.getBatch().begin();
+        stage.getBatch().draw(background,0,0,GameWidth,GameHeight);
+        stage.getBatch().end();
         stage.draw();
     }
 

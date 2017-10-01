@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1024097785373",
+    "firebase_url": "https://noragami-5.firebaseio.com",
+    "project_id": "noragami-5",
+    "storage_bucket": "noragami-5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024097785373:android:a29c971dfc44c526",
+        "android_client_info": {
+          "package_name": "com.mygdx.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024097785373-7d3vgt9gujur569s8nts7ab9om227bvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mygdx.game",
+            "certificate_hash": "a93686c20a829cac42eb63196a5233edabfc8842"
+          }
+        },
+        {
+          "client_id": "1024097785373-kikptd8224tf37phh4rbm98p66aqcktg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ApcM57_HN9YakZ2DkxBitxthRlvVh9U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024097785373-kikptd8224tf37phh4rbm98p66aqcktg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
