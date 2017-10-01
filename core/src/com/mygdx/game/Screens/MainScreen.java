@@ -17,7 +17,7 @@ import com.mygdx.game.MainClass;
  */
 
 public class MainScreen extends ScreenAdapter {
-
+  
     MainClass game;
     OrthographicCamera cam;
 
