@@ -6,6 +6,7 @@ import com.mygdx.game.Screens.MainScreen;
 
 public class MainClass extends Game {
 	public SpriteBatch batch;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
