@@ -8,8 +8,8 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 	font-pressed: {
 		file: font-pressed-export.fnt
-	}
-}
+				}
+		}
 com.badlogic.gdx.graphics.Color: {
 	color: {
 		r: 0
@@ -18,10 +18,10 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 	selected: {
-		r: 0
-		g: .4
-		b: .4
-		a: 1
+        r:0
+        g: .4
+        b: .4
+        a: 1
 	}
 	text: {
 		r: .580392156
