@@ -362,7 +362,7 @@
 }
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: playfont
+		font: font
 		fontColor: text
 		downFontColor: text-selected
 		up: button-c
