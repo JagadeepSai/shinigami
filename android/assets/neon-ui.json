@@ -9,6 +9,7 @@
 	font-pressed: {
 		file: font-pressed-export.fnt
 	}
+
 }
 	com.badlogic.gdx.graphics.Color: {
 	
@@ -361,7 +362,7 @@
 }
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: font
+		font: playfont
 		fontColor: text
 		downFontColor: text-selected
 		up: button-c
