@@ -96,11 +96,6 @@ public class MainScreen extends ScreenAdapter {
        // TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
        /// tbs.font= playfont;
 
-        final TextField login = new TextField("Username",skin,"password") ;
-        login.setHeight(50);
-        login.setWidth(100);
-
-
 
         stage.addActor(button);
 
@@ -121,7 +116,7 @@ public class MainScreen extends ScreenAdapter {
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(GameScreen);
+                game.setScreen(new GameScreen(game));
             }
         });
 
