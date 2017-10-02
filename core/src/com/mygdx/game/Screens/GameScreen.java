@@ -10,5 +10,7 @@ import com.mygdx.game.MainClass;
 class GameScreen extends ScreenAdapter{
     MainClass game;
 
-
+    public GameScreen(MainClass game){
+        this.game = game;
+    }
 }
