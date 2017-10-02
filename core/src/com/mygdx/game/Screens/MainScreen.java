@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -54,29 +55,27 @@ import static java.awt.SystemColor.info;
 public class MainScreen extends ScreenAdapter {
 
     MainClass game;
-    Stage stage;
+    //Stage stage;  last change
     GeneralButton playbutton ;
     GeneralButton settingbutton ;
     GeneralButton groupbutton;
     GeneralButton createbutton;
     Texture background = new Texture("background.png");
 
-   // Type font
+    public float GameWidth = Gdx.graphics.getWidth();
+	public float GameHeight = Gdx.graphics.getHeight();
+	public float AspectRatio = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
+	public float AspectRatio1 = 16/9;
 
 
 
-    float GameWidth = Gdx.graphics.getWidth();
-    float GameHeight = Gdx.graphics.getHeight();
+  //  private Skin skin;
 
-    float AspectRatio1 = 16/9;
-
-    float AspectRatio = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
-
-    Viewport viewport ;
-    private Skin skin;
-
-    public MainScreen(MainClass game){
-        this.game = game;
+    public MainScreen(MainClass gam){
+        this.game = gam;
+        game.stage.clear();
+        game.viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
+        game.stage.setViewport(game.viewport);
         /// Font for the Skin ( Failed )
     /*
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Play.TTF"));
@@ -90,8 +89,8 @@ public class MainScreen extends ScreenAdapter {
     */
     /// Skin for the buttons
 
-     /*   skin = new Skin(Gdx.files.internal("neon-ui.json"));
-        skin.add("font", playfont, BitmapFont.class);
+  //      skin = new Skin(Gdx.files.internal("neon-ui.json"));
+      /*  skin.add("font", playfont, BitmapFont.class);
         FileHandle filehandle = Gdx.files.internal("neon-ui.json");
         FileHandle atlasfile = filehandle.sibling("neon-ui.json") ;
         if (atlasfile.exists()){
@@ -112,6 +111,8 @@ public class MainScreen extends ScreenAdapter {
          stage.addActor(button);
 
 */
+
+
         playbutton = new GeneralButton("icons/Circled Play-260.png","");
         playbutton.setWidth(GameWidth/3);
         playbutton.setHeight(playbutton.getWidth()/AspectRatio);
@@ -121,7 +122,7 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.setWidth(GameWidth/6);
         settingbutton.setHeight(settingbutton.getWidth()/AspectRatio);
         settingbutton.setPosition(GameWidth/5 - settingbutton.getWidth()/2 , GameHeight/(AspectRatio*6) - settingbutton.getHeight()/2 );
-        settingbutton.setOrigin(settingbutton.getWidth()/2,settingbutton.getWidth()/2);
+     //   settingbutton.setOrigin(settingbutton.getWidth()/2,settingbutton.getWidth()/2);
        // settingbutton.addAction(Actions.rotateBy(360,1));
 
         groupbutton = new GeneralButton("icons/User Groups-260.png","");
@@ -134,15 +135,15 @@ public class MainScreen extends ScreenAdapter {
         createbutton.setHeight(createbutton.getWidth()/AspectRatio);
         createbutton.setPosition(GameWidth/2 - createbutton.getWidth()/2,GameWidth/(AspectRatio*2) - createbutton.getHeight()/2);
 
-        viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
-        stage = new Stage(viewport);
+        //viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);  last change
+        //stage = new Stage(viewport);  last change
 
 
-        stage.addActor(playbutton.button);
-        stage.addActor(settingbutton.button);
-        stage.addActor(groupbutton.button);
-        stage.addActor(createbutton.button);
-        Gdx.input.setInputProcessor(stage);
+        game.stage.addActor(playbutton.button);
+        game.stage.addActor(settingbutton.button);
+        game.stage.addActor(groupbutton.button);
+        game.stage.addActor(createbutton.button);
+        Gdx.input.setInputProcessor(game.stage);
     }
 
 
@@ -155,23 +156,35 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         playbutton.setTouchable();
-        playbutton.addListener(new ChangeListener() {
+        playbutton.addChangeListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+             //   game.getScreen().hide();
+
+                game.stage.clear();
                 game.setScreen(new GameScreen(game));
             }
         });
-        settingbutton.addAction(repeat(RepeatAction.FOREVER,sequence(
-                rotateBy(360,1),rotateTo(0))));
+        settingbutton.setTouchable();
+        settingbutton.addChangeListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+              //  game.getScreen().hide();
 
-        stage.act(Gdx.graphics.getDeltaTime());
+                game.stage.clear();
+                game.setScreen(new SettingScreen(game));
+            }
+        });
+
+//        settingbutton.addAction(repeat(RepeatAction.FOREVER,sequence(
+//                rotateBy(360,1),rotateTo(0))));
+
+        game.stage.act(Gdx.graphics.getDeltaTime());
 
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.getBatch().begin();
-      //  stage.getBatch().draw(background,0,0,GameWidth,GameHeight);
-        stage.getBatch().end();
-        stage.draw();
+
+        game.stage.draw();
     }
 
     @Override
@@ -195,7 +208,8 @@ public class MainScreen extends ScreenAdapter {
     }
 
     @Override
-    public void dispose() {
-        stage.dispose();
+    public void dispose()
+    {
+    //    game.stage.dispose();
     }
 }
