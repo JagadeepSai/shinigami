@@ -7,7 +7,6 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AndroidLauncher extends AndroidApplication {
-	//private FirebaseAuth mAuth;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
