@@ -15,8 +15,6 @@ import com.mygdx.game.MainClass;
 
 public class GameScreen extends ScreenAdapter{
     MainClass game;
-   // Stage stage;   last change
-  //  Viewport viewport;   last change
     GeneralButton backbutton;
 
     public float GameWidth = Gdx.graphics.getWidth();
@@ -27,27 +25,18 @@ public class GameScreen extends ScreenAdapter{
 
     public GameScreen(MainClass game){
         this.game = game;
-      //  game.stage = new Stage();
-     //   game.stage = new Stage(new StretchViewport(GameWidth ,GameWidth/AspectRatio1));  Same as the before one :(
-      //  game.viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
-       // game.stage.setViewport(game.viewport);
-       game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
-// viewport = new StretchViewport(game.GameWidth ,game.GameWidth/game.AspectRatio1);   last change
-//        stage = new Stage(viewport);   last change
+        game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
         backbutton = new GeneralButton("icons/Back Arrow-260.png","");
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
-     //   backbutton.setPosition(GameWidth/5 - backbutton.getWidth()/2,(5*GameHeight)/(6*AspectRatio) - backbutton.getHeight()/2);
-   //     game.stage.clear();
         backbutton.setPosition(0,0);
+
         game.stage.addActor(backbutton.button);
     }
 
     @Override
     public void render(float delta) {
-       // super.render(delta);
-      //  game.stage.act(Gdx.graphics.getDeltaTime());
 
         Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

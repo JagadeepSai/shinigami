@@ -58,7 +58,6 @@ import static java.awt.SystemColor.info;
 public class MainScreen extends ScreenAdapter {
 
     MainClass game;
-   // Stage stage;
     GeneralButton playbutton ;
     GeneralButton settingbutton ;
     GeneralButton groupbutton;
@@ -72,51 +71,11 @@ public class MainScreen extends ScreenAdapter {
 
 
 
-  //  private Skin skin;
+
 
     public MainScreen(MainClass gam){
         this.game = gam;
-     //   game.stage = new Stage(new StretchViewport(GameWidth ,GameWidth/AspectRatio1));
-       //   game.stage.clear();
-       // game.viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
-       // game.stage.setViewport(game.viewport);
-          game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
-        /// Font for the Skin ( Failed )
-    /*
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Play.TTF"));
-          FreeTypeFontParameter parametr = new FreeTypeFontParameter();
-        parametr.size = 12 ;
-        BitmapFont playfont =  generator.generateFont(parametr);
-        BitmapFontWriter.writeFont(data, new String[] {"font.png"},Gdx.files.absolute("font.fnt"), info, 512, 512);
-        BitmapFontWriter.writePixmaps(param.packer.getPages(), Gdx.files.absolute("imageDir"), name);
-
-        generator.dispose();
-    */
-    /// Skin for the buttons
-
-  //      skin = new Skin(Gdx.files.internal("neon-ui.json"));
-      /*  skin.add("font", playfont, BitmapFont.class);
-        FileHandle filehandle = Gdx.files.internal("neon-ui.json");
-        FileHandle atlasfile = filehandle.sibling("neon-ui.json") ;
-        if (atlasfile.exists()){
-            skin.addRegions(new TextureAtlas(atlasfile));
-        }
-        skin.load(filehandle);
-        skin.addRegions(new TextureAtlas(Gdx.files.internal("neon-ui.atlas")));
-        skin.load(Gdx.files.internal("neon-ui.json"));
-
-                button = new TextButton("PLAY",skin,"default");
-        button.getStyle().font = playfont;
-        button.setWidth((150/310.5f)*GameWidth);
-        button.setHeight(button.getWidth()*AspectRatio1/2f);
-        button.setPosition(GameWidth/2 - button.getWidth()/2 ,GameWidth/(AspectRatio1*2) + button.getHeight()/2);
-       // TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-       /// tbs.font= playfont;
-
-         stage.addActor(button);
-
-*/
-
+        game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
         playbutton = new GeneralButton("icons/Circled Play-260.png","");
         playbutton.setWidth(GameWidth/3);
@@ -158,15 +117,8 @@ public class MainScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        playbutton.setTouchable();/*
-        playbutton.addChangeListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.getScreen().hide();
-                game.stage.clear();
-                game.setScreen(new GameScreen(game));
-            }
-        });*/
+        playbutton.setTouchable();
+
         playbutton.button.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event,float x,float y){
@@ -187,16 +139,8 @@ public class MainScreen extends ScreenAdapter {
                 game.setScreen(settingScreen);
             }
         });
-        /*
-        settingbutton.addChangeListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.getScreen().hide();
-                game.stage.clear();
-                game.setScreen(new SettingScreen(game));
-            }
-        });*/
-  
+
+
 //        settingbutton.addAction(repeat(RepeatAction.FOREVER,sequence(
 //                rotateBy(360,1),rotateTo(0))));
 
