@@ -27,15 +27,16 @@ public class SettingScreen extends ScreenAdapter {
 
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
-    public float AspectRatio = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
-    public float AspectRatio1 = 16/9;
+    public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
+    public float AspectRatio = 16/9;
 
 
     public SettingScreen(MainClass game){
         this.game = game;
-        game.viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
-        game.stage.setViewport(game.viewport);
-//        viewport = new StretchViewport(game.GameWidth ,game.GameWidth/game.AspectRatio1);
+      //  game.viewport = new StretchViewport(GameWidth ,GameWidth/AspectRatio1);
+       // game.stage.setViewport(game.viewport);
+        game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
+// viewport = new StretchViewport(game.GameWidth ,game.GameWidth/game.AspectRatio1);
 //        stage = new Stage(viewport);
 
         backbutton = new GeneralButton("icons/Back Arrow-260.png","");

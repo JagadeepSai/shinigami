@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.tools.flame.EventManager;
 
@@ -65,6 +66,8 @@ public class GeneralButton  {
     public void addChangeListener(ChangeListener listener){
         button.addListener(listener);
     }
+
+    public void addClickListener(ClickListener listener) { button.addListener(listener);  }
 
     public  void setOrigin(float  x ,float y){
         button.setOrigin(x,y);
