@@ -1,15 +1,23 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
 
 public class MainClass extends Game {
-	public SpriteBatch batch;
+	public Stage stage;
+	public Viewport viewport ;
+
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+        stage = new Stage();
+		viewport = new StretchViewport(0,0);
 		setScreen(new MainScreen(this));
 	}
 
@@ -20,6 +28,6 @@ public class MainClass extends Game {
 	
 	@Override
 	public void dispose () {
-
+		stage.dispose();
 	}
 }
