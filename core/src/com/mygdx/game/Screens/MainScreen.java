@@ -196,7 +196,7 @@ public class MainScreen extends ScreenAdapter {
                 game.setScreen(new SettingScreen(game));
             }
         });*/
-
+  
 //        settingbutton.addAction(repeat(RepeatAction.FOREVER,sequence(
 //                rotateBy(360,1),rotateTo(0))));
 
