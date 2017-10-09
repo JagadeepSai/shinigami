@@ -18,7 +18,8 @@ public class MainClass extends Game {
 	public void create () {
         stage = new Stage();
 		viewport = new StretchViewport(0,0);
-		setScreen(new MainScreen(this));
+		MainScreen mainScreen = new MainScreen(this);
+		setScreen(mainScreen);
 	}
 
 	@Override

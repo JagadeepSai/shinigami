@@ -33,6 +33,10 @@ public class GeneralButton  {
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
         button = new ImageButton(buttonStyle);
     }
+    public GeneralButton(String buttonup){
+        TextureRegionDrawable up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
+        button = new ImageButton(up);
+    }
 
     public void setHover(String buttonover){
         buttonStyle.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonover))));
@@ -87,6 +91,8 @@ public class GeneralButton  {
         position.y = button.getY();
         return position;
     }
+
+
 
 
 }
