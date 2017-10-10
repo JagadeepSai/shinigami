@@ -9,10 +9,10 @@
 	font-pressed: {
 		file: font-pressed-export.fnt
 	}
-
 }
+
 	com.badlogic.gdx.graphics.Color: {
-	
+
 	color: {
 		r: 0
 		g: 0

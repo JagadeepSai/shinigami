@@ -86,7 +86,7 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.setWidth(GameWidth/6);
         settingbutton.setHeight(settingbutton.getWidth()/AspectRatio1);
         settingbutton.setPosition(GameWidth/5 - settingbutton.getWidth()/2 , GameHeight/(AspectRatio1*6) - settingbutton.getHeight()/2 );
-     //   settingbutton.setOrigin(settingbutton.getWidth()/2,settingbutton.getWidth()/2);
+    //    settingbutton.setOrigin(settingbutton.getWidth()/2,settingbutton.getWidth()/2);
        // settingbutton.addAction(Actions.rotateBy(360,1));
 
         groupbutton = new GeneralButton("icons/User Groups-260.png","");
@@ -140,9 +140,21 @@ public class MainScreen extends ScreenAdapter {
             }
         });
 
+        createbutton.setTouchable();
+        createbutton.button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event,float x,float y){
+                game.getScreen().hide();
+                game.stage.clear();
+                UserGameScreen userGameScreen = new UserGameScreen(game);
+                game.setScreen(userGameScreen);
+            }
+        });
 
-//        settingbutton.addAction(repeat(RepeatAction.FOREVER,sequence(
-//                rotateBy(360,1),rotateTo(0))));
+
+      //  settingbutton.button.addAction(repeat(RepeatAction.FOREVER,sequence(
+      //          rotateBy(360,1),rotateTo(0))));
+        //settingbutton.button.act(delta);
 
         game.stage.act(Gdx.graphics.getDeltaTime());
 
