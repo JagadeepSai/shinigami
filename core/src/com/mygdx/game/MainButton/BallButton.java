@@ -11,8 +11,8 @@ public class BallButton {
 
    public GeneralButton ontapbutton;
 
-    public BallButton(float width,float height){
-        ontapbutton = new GeneralButton("icons/MeshFill-260.png");
+    public BallButton(float width,float height,String buttonup){
+        ontapbutton = new GeneralButton(buttonup);
         ontapbutton.setWidth(width);
         ontapbutton.setHeight(height);
         ontapbutton.setOrigin(-width/2,-height/2);
@@ -30,5 +30,6 @@ public class BallButton {
     public Vector2 getPosition(){
         return new Vector2(ontapbutton.getPosition().x , ontapbutton.getPosition().y);
     }
+
 
 }
