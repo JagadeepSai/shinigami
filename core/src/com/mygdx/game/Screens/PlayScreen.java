@@ -23,11 +23,14 @@ import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
 
 public class PlayScreen extends ScreenAdapter{
-    public PlayScreen(){}
+    public PlayScreen(MainClass game){
+        this.game=game;
+    }
 
     public enum GameState{
         start,ongoing,end;
     }
+    public MainClass game;
     public float Scale =8f;
     GameState gameState ;
     float w=Gdx.graphics.getWidth();
@@ -46,7 +49,7 @@ public class PlayScreen extends ScreenAdapter{
     public Box2DDebugRenderer b2dr= new Box2DDebugRenderer();
     public SpriteBatch batch = new SpriteBatch();
     public Texture Player = new Texture("game_elements/obstacle.png");
-    public Texture Obstacle = new Texture(("icons/MeshFill-260.png"));
+    public Texture Obstacle = new Texture(("icons/MeshFill-260_12.png"));
     public OrthographicCamera camera=new OrthographicCamera(w/Scale,h/Scale);
 
     public class InputHandler implements InputProcessor{
@@ -58,10 +61,7 @@ public class PlayScreen extends ScreenAdapter{
 
         @Override
         public boolean keyUp(int keycode) {
-            if((keycode == Input.Keys.ESCAPE) || (keycode == Input.Keys.BACK)){
-
-            }
-            return true;
+            return false;
         }
         @Override
         public boolean keyTyped(char character) {
@@ -70,7 +70,7 @@ public class PlayScreen extends ScreenAdapter{
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            //if(gameState=GameState.start)
+
             switch (gameState){
                 case start:
                     gameState=GameState.ongoing;
@@ -85,6 +85,7 @@ public class PlayScreen extends ScreenAdapter{
                     }
                     break;
                 case end:
+                    game.setScreen(new MainScreen(game));
                     break;
 
             }

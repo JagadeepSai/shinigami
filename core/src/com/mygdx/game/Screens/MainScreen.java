@@ -126,7 +126,7 @@ public class MainScreen extends ScreenAdapter {
                game.stage.clear();
 //               GameScreen gameScreen = new GameScreen(game);
 //               game.setScreen(gameScreen);
-               game.setScreen(new PlayScreen());
+               game.setScreen(new PlayScreen(game));
            }
         });
 

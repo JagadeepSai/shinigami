@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -34,6 +35,9 @@ import sun.rmi.runtime.Log;
 public class StageCreatorScreen extends ScreenAdapter {
 
     MainClass game ;
+    Group fg=new Group();
+    Group bg = new Group();
+
     List<BallButton> obs ;
     int total_count = 0;
     boolean state;
@@ -87,6 +91,42 @@ public class StageCreatorScreen extends ScreenAdapter {
         box3.setPosition(2*GameWidth/3,0);
 
 
+
+        back = new Image(new Texture(Gdx.files.internal("background.png")));
+        game.stage.addActor(bg);
+        game.stage.addActor(fg);
+        fg.addActor(box1.button);
+        fg.addActor(box2.button);
+        fg.addActor(box3.button);
+
+        fg.addActor(backbutton.button);
+
+    }
+
+
+    @Override
+    public void render(float delta) {
+
+
+
+
+        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        /*if(Gdx.input.justTouched()) {
+            obs.add(new BallButton(GameWidth/3,GameWidth/(3*AspectRatio)));
+            obs.get(count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
+           // obs.setPosition(positions.get(count).x,positions.get(count).y)
+
+            game.stage.addActor(obs.get(count).ontapbutton.button) ;
+            count++;
+        }*/
+        game.stage.draw();
+        super.render(delta);
+    }
+
+    @Override
+    public void show() {
+
         game.stage.addListener(new InputListener() {
 
             /*@Override
@@ -130,7 +170,7 @@ public class StageCreatorScreen extends ScreenAdapter {
                 //System.out.println("X: " + Float.toString(x) + ", Y: "+Float.toString(prevDragPos.y));
                 game.stage.getCamera().position.add(0, y - prevDragPos.y, 0);
                 height = height + y - prevDragPos.y;
-                System.out.println("Height: " + Float.toString(height));
+                //System.out.println("Height: " + Float.toString(height));
                 backbutton.setPosition(backbutton.getPosition().x,backbutton.getPosition().y + y - prevDragPos.y);
 
                 box1.setPosition(box1.getPosition().x,box1.getPosition().y + y - prevDragPos.y);
@@ -153,7 +193,7 @@ public class StageCreatorScreen extends ScreenAdapter {
                         //  obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                         // obs.setPosition(positions.get(count).x,positions.get(count).y)
 
-                        game.stage.addActor(obs.get(total_count).ontapbutton.button);
+                        bg.addActor(obs.get(total_count).ontapbutton.button);
                         total_count++;
                     }
                 }
@@ -166,42 +206,9 @@ public class StageCreatorScreen extends ScreenAdapter {
         multiplexer.addProcessor(new StageScrollListener(game.stage));
 
         Gdx.input.setInputProcessor(multiplexer);
-      //  Gdx.input.setInputProcessor(game.stage);
-
-        back = new Image(new Texture(Gdx.files.internal("background.png")));
-      //  game.stage.addActor(back);
-
-        game.stage.addActor(box1.button);
-        game.stage.addActor(box2.button);
-        game.stage.addActor(box3.button);
-
-        game.stage.addActor(backbutton.button);
-
-    }
+        //  Gdx.input.setInputProcessor(game.stage);
 
 
-    @Override
-    public void render(float delta) {
-
-
-
-
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        /*if(Gdx.input.justTouched()) {
-            obs.add(new BallButton(GameWidth/3,GameWidth/(3*AspectRatio)));
-            obs.get(count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
-           // obs.setPosition(positions.get(count).x,positions.get(count).y)
-
-            game.stage.addActor(obs.get(count).ontapbutton.button) ;
-            count++;
-        }*/
-        game.stage.draw();
-        super.render(delta);
-    }
-
-    @Override
-    public void show() {
 
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
