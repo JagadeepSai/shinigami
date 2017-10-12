@@ -111,22 +111,16 @@ public class MainScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-
-    }
-
-
-    @Override
-    public void render(float delta) {
         playbutton.setTouchable();
 
         playbutton.button.addListener(new ClickListener(){
-           @Override
+            @Override
             public void clicked(InputEvent event,float x,float y){
-               game.getScreen().hide();
-               game.stage.clear();
-               GameScreen gameScreen = new GameScreen(game);
-               game.setScreen(gameScreen);
-           }
+                game.getScreen().hide();
+                game.stage.clear();
+                GameScreen gameScreen = new GameScreen(game);
+                game.setScreen(gameScreen);
+            }
         });
 
         settingbutton.setTouchable();
@@ -150,6 +144,12 @@ public class MainScreen extends ScreenAdapter {
                 game.setScreen(userGameScreen);
             }
         });
+
+    }
+
+
+    @Override
+    public void render(float delta) {
 
 
       //  settingbutton.button.addAction(repeat(RepeatAction.FOREVER,sequence(
