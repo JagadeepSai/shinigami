@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.Interface.Login;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 
@@ -27,6 +28,7 @@ public class LoginScreen extends ScreenAdapter {
     GeneralButton backbutton;
     GeneralButton submitbutton;
     GeneralButton newuserbutton;
+    public Login authenticate;
 
    // TextFieldStyle style;
     public float GameWidth = Gdx.graphics.getWidth();
@@ -45,6 +47,7 @@ public class LoginScreen extends ScreenAdapter {
     Skin skin = new Skin(Gdx.files.internal("neon-ui.json"));
     public  LoginScreen(MainClass gam){
         this.game = gam;
+        this.authenticate=gam.authenticate;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
 
@@ -152,6 +155,9 @@ public class LoginScreen extends ScreenAdapter {
                 if(state == true) {
                     String user = login.getText();
                     String pass = password.getText();
+                    //Gdx.app.log(user,pass);
+                    //Gdx.app.log("qq","11");
+                    authenticate.check(user,pass);
                 }
                 else{
                     String user = login.getText();
@@ -186,6 +192,7 @@ public class LoginScreen extends ScreenAdapter {
 
             }
         });
+        //super.show();
     }
 
     @Override
@@ -207,4 +214,5 @@ public class LoginScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
     }
+
 }

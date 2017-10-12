@@ -169,7 +169,7 @@ public class StageCreatorScreen extends ScreenAdapter {
       //  Gdx.input.setInputProcessor(game.stage);
 
         back = new Image(new Texture(Gdx.files.internal("background.png")));
-        game.stage.addActor(back);
+      //  game.stage.addActor(back);
 
         game.stage.addActor(box1.button);
         game.stage.addActor(box2.button);

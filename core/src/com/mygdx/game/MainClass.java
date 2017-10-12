@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Interface.Login;
 import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
 
 public class MainClass extends Game {
 	public Stage stage;
 	public Viewport viewport ;
+	public Login authenticate;
 
 
 	@Override
@@ -30,5 +32,8 @@ public class MainClass extends Game {
 	@Override
 	public void dispose () {
 		stage.dispose();
+	}
+	public void setLogin(Login login) {
+		this.authenticate = login;
 	}
 }
