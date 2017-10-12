@@ -50,6 +50,13 @@ public class UserGameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+
+        game.stage.draw();
+    }
+
+    @Override
+    public void show() {
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override
@@ -72,13 +79,6 @@ public class UserGameScreen extends ScreenAdapter {
                 game.setScreen(stageCreatorScreen);
             }
         });
-
-        game.stage.draw();
-    }
-
-    @Override
-    public void show() {
-        super.show();
     }
 
     @Override

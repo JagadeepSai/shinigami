@@ -98,6 +98,17 @@ public class SettingScreen extends ScreenAdapter {
     public void render(float delta) {
         //game.stage.act(Gdx.graphics.getDeltaTime());
 
+
+
+
+        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.stage.draw();
+    }
+
+    @Override
+    public void show() {
         speakerbutton.setTouchable();
         speakerbutton.button.addListener(new ClickListener(){
             @Override
@@ -153,17 +164,6 @@ public class SettingScreen extends ScreenAdapter {
                 game.setScreen(loginScreen);
             }
         });
-
-
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        game.stage.draw();
-    }
-
-    @Override
-    public void show() {
-
     }
 
     @Override

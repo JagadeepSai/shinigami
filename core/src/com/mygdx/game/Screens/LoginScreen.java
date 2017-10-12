@@ -118,6 +118,21 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+
+        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.stage.getBatch().begin();
+        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
+        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
+        game.stage.getBatch().end();
+
+        game.stage.draw();
+    }
+
+    @Override
+    public void show() {
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override
@@ -171,21 +186,6 @@ public class LoginScreen extends ScreenAdapter {
 
             }
         });
-
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        game.stage.getBatch().begin();
-        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
-        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
-        game.stage.getBatch().end();
-
-        game.stage.draw();
-    }
-
-    @Override
-    public void show() {
-        super.show();
     }
 
     @Override

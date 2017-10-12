@@ -69,7 +69,7 @@ public class StageCreatorScreen extends ScreenAdapter {
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
         backbutton.button.setZIndex(10);
-        
+
 
         box1 = new ToggleButton("icons/MenuCrop.png","",true);
         box1.setWidth(GameWidth/3);
@@ -112,7 +112,6 @@ public class StageCreatorScreen extends ScreenAdapter {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 state= true;
-
                 /*if(y<GameHeight/4){
                     System.out.println("X: " + Float.toString(x) + ", Y: "+Float.toString(y)+" "+Float.toString(GameHeight/4));
                     return false;}
@@ -183,6 +182,27 @@ public class StageCreatorScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+
+
+
+        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        /*if(Gdx.input.justTouched()) {
+            obs.add(new BallButton(GameWidth/3,GameWidth/(3*AspectRatio)));
+            obs.get(count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
+           // obs.setPosition(positions.get(count).x,positions.get(count).y)
+
+            game.stage.addActor(obs.get(count).ontapbutton.button) ;
+            count++;
+        }*/
+        game.stage.draw();
+        super.render(delta);
+    }
+
+    @Override
+    public void show() {
+
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override
@@ -191,7 +211,7 @@ public class StageCreatorScreen extends ScreenAdapter {
                 game.stage.clear();
                 game.stage.getCamera().translate(0,-height,0);
 
-              //  game.stage.;
+                //  game.stage.;
                 UserGameScreen userGameScreen = new UserGameScreen(game);
                 game.setScreen(userGameScreen);
             }
@@ -215,26 +235,6 @@ public class StageCreatorScreen extends ScreenAdapter {
             }
         });
 
-
-
-
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        /*if(Gdx.input.justTouched()) {
-            obs.add(new BallButton(GameWidth/3,GameWidth/(3*AspectRatio)));
-            obs.get(count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
-           // obs.setPosition(positions.get(count).x,positions.get(count).y)
-
-            game.stage.addActor(obs.get(count).ontapbutton.button) ;
-            count++;
-        }*/
-        game.stage.draw();
-        super.render(delta);
-    }
-
-    @Override
-    public void show() {
-        super.show();
     }
 
     @Override
