@@ -10,20 +10,20 @@ import com.mygdx.game.Interface.Login;
 import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
 import com.mygdx.game.Screens.Transitions.TransitionScreen;
+import com.mygdx.game.Screens.UserGameScreen;
 
 public class MainClass extends Game {
 	public Stage stage;
 	public Viewport viewport ;
 	public Login authenticate;
 
-
 	@Override
 	public void create () {
         stage = new Stage();
 		viewport = new StretchViewport(0,0);
-	//	TransitionScreen transitionScreen = new TransitionScreen(this);
-		MainScreen mainScreen = new MainScreen(this);
-		setScreen(mainScreen);
+		UserGameScreen userGameScreen = new UserGameScreen(this);
+	//	MainScreen mainScreen = new MainScreen(this);
+		setScreen(userGameScreen);
 	}
 
 	@Override
