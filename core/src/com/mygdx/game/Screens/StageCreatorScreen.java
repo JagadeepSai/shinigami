@@ -72,23 +72,28 @@ public class StageCreatorScreen extends ScreenAdapter {
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
-        backbutton.button.setZIndex(10);
+        backbutton.button.setZIndex(1);
 
 
         box1 = new ToggleButton("icons/MenuCrop.png","",true);
         box1.setWidth(GameWidth/3);
         box1.setHeight(GameHeight/6);
         box1.setPosition(0,0);
+        box1.button.setZIndex(1);
 
         box2 = new ToggleButton("icons/MenuCrop.png","",true);
         box2.setWidth(GameWidth/3);
         box2.setHeight(GameHeight/6);
         box2.setPosition(GameWidth/3,0);
+        box2.button.setZIndex(1);
+
 
         box3 = new ToggleButton("icons/MenuCrop.png","",true);
         box3.setWidth(GameWidth/3);
         box3.setHeight(GameHeight/6);
         box3.setPosition(2*GameWidth/3,0);
+        box3.button.setZIndex(1);
+
 
 
 
@@ -188,6 +193,7 @@ public class StageCreatorScreen extends ScreenAdapter {
                     if (state) {
                         obs.add(new BallButton(GameWidth / 3, GameWidth / (3 * AspectRatio), item));
                         obs.get(total_count).setPosition(x, y);
+                        obs.get(total_count).ontapbutton.button.setZIndex(10);
                         // Gdx.app.log("X", Float.toString(x));
                         // Gdx.app.log("Y", Float.toString(y));
                         //  obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
