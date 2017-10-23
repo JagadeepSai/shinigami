@@ -43,6 +43,11 @@ public class GeneralButton  {
         button.setStyle(buttonStyle);
     }
 
+    public void setImage(String string){
+        TextureRegionDrawable up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(string))));
+        button = new ImageButton(up);
+    }
+
     public void setWidth(float width){
         button.setWidth(width);
     }
@@ -91,8 +96,5 @@ public class GeneralButton  {
         position.y = button.getY();
         return position;
     }
-
-
-
 
 }

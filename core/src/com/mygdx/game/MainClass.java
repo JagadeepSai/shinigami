@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
+import com.mygdx.game.Screens.StageCreatorScreen;
 import com.mygdx.game.Screens.Transitions.TransitionScreen;
 import com.mygdx.game.Screens.UserGameScreen;
 
@@ -21,9 +22,10 @@ public class MainClass extends Game {
 	public void create () {
         stage = new Stage();
 		viewport = new StretchViewport(0,0);
-		UserGameScreen userGameScreen = new UserGameScreen(this);
+		StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(this);
+		//UserGameScreen userGameScreen = new UserGameScreen(this);
 	//	MainScreen mainScreen = new MainScreen(this);
-		setScreen(userGameScreen);
+		setScreen(stageCreatorScreen);
 	}
 
 	@Override
