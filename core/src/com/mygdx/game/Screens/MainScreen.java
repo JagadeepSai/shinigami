@@ -40,6 +40,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.i18n.BundleText;
+import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 
@@ -62,7 +63,7 @@ public class MainScreen extends ScreenAdapter {
     GeneralButton settingbutton ;
     GeneralButton groupbutton;
     GeneralButton createbutton;
-    Texture background = new Texture("background.png");
+    Assets assets;
 
     public float GameWidth = Gdx.graphics.getWidth();
 	public float GameHeight = Gdx.graphics.getHeight();
@@ -75,27 +76,26 @@ public class MainScreen extends ScreenAdapter {
 
     public MainScreen(MainClass gam){
         this.game = gam;
-
+        this.assets=game.assets;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
-        playbutton = new GeneralButton("icons/Circled Play-260.png","");
+        playbutton = new GeneralButton(assets.CircledPlay,assets.CircledPlay);
         playbutton.setWidth(GameWidth/3);
         playbutton.setHeight(playbutton.getWidth()/AspectRatio1);
         playbutton.setPosition(GameWidth/2 - playbutton.getWidth()/2 ,GameWidth/(AspectRatio1*2) + playbutton.getHeight());
-
-        settingbutton = new GeneralButton("icons/Settings-500.png","");
+        settingbutton = new GeneralButton(assets.Settings,assets.Settings);
         settingbutton.setWidth(GameWidth/6);
         settingbutton.setHeight(settingbutton.getWidth()/AspectRatio1);
         settingbutton.setPosition(GameWidth/5 - settingbutton.getWidth()/2 , GameHeight/(AspectRatio1*6) - settingbutton.getHeight()/2 );
     //    settingbutton.setOrigin(settingbutton.getWidth()/2,settingbutton.getWidth()/2);
        // settingbutton.addAction(Actions.rotateBy(360,1));
 
-        groupbutton = new GeneralButton("icons/User Groups-260.png","");
+        groupbutton = new GeneralButton(assets.UserGroups,assets.UserGroups);
         groupbutton.setWidth(GameWidth/5.3f);
         groupbutton.setHeight(groupbutton.getWidth()/AspectRatio1);
         groupbutton.setPosition(3.9f*GameWidth/5 - groupbutton.getWidth()/2 , GameHeight/(AspectRatio1*6) - groupbutton.getHeight()/2 );
 
-        createbutton = new GeneralButton("icons/Create -260.png","");
+        createbutton = new GeneralButton(assets.Create,assets.Create);
         createbutton.setWidth(GameWidth/4.5f);
         createbutton.setHeight(createbutton.getWidth()/AspectRatio1);
         createbutton.setPosition(GameWidth/2 - createbutton.getWidth()/2,GameWidth/(AspectRatio1*2) - createbutton.getHeight()/2);
@@ -113,25 +113,21 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void show() {
 
-        if(!game.back_tune.isPlaying() && game.back_tune_play ) game.back_tune.play();
-        if (game.button_tune_play )game.back_tune.setLooping(true);
-
     }
 
 
     @Override
     public void render(float delta) {
         playbutton.setTouchable();
+
         playbutton.button.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event,float x,float y){
-               game.button_tune.play();
-               game.back_tune.stop();
                game.getScreen().hide();
                game.stage.clear();
 //               GameScreen gameScreen = new GameScreen(game);
 //               game.setScreen(gameScreen);
-               game.setScreen(new PlayScreen());
+               game.setScreen(new PlayScreen(game));
            }
         });
 
@@ -139,7 +135,6 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 SettingScreen settingScreen = new SettingScreen(game);
@@ -151,7 +146,6 @@ public class MainScreen extends ScreenAdapter {
         createbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -195,7 +189,6 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void dispose()
     {
-            game.back_tune.pause();
     //    game.stage.dispose();
     }
 }

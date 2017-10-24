@@ -1,7 +1,6 @@
 package com.mygdx.game.MainButton;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,43 +23,22 @@ import com.badlogic.gdx.tools.flame.EventManager;
 public class GeneralButton  {
 
    public ImageButton button ;
-
     ImageButtonStyle buttonStyle;
 
-    public GeneralButton(String buttonup, String buttondown ) {
-
-        if(buttondown == "") buttondown = buttonup;
+    public GeneralButton(TextureRegion buttonup, TextureRegion buttondown ) {
         buttonStyle = new ImageButtonStyle();
-        buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
-        buttonStyle.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
-        button = new ImageButton(buttonStyle);
-
-    }
-    public GeneralButton(String buttonup, String buttondown ,boolean state){
-        buttonStyle = new ImageButtonStyle();
-        if (!state) {
-            buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
-
-        }
-        else
-            buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
-
+        buttonStyle.up = new TextureRegionDrawable(new TextureRegion(buttonup));
+        buttonStyle.down = new TextureRegionDrawable(new TextureRegion(buttondown));
         button = new ImageButton(buttonStyle);
     }
-
-    public GeneralButton(String buttonup){
-        TextureRegionDrawable up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
+    public GeneralButton(TextureRegion buttonup){
+        TextureRegionDrawable up = new TextureRegionDrawable(buttonup);
         button = new ImageButton(up);
     }
 
-    public void setHover(String buttonover){
-        buttonStyle.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonover))));
+    public void setHover(TextureRegion buttonover){
+        buttonStyle.over = new TextureRegionDrawable(buttonover);
         button.setStyle(buttonStyle);
-    }
-
-    public void setImage(String string){
-        TextureRegionDrawable up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(string))));
-        button = new ImageButton(up);
     }
 
     public void setWidth(float width){
@@ -111,5 +89,8 @@ public class GeneralButton  {
         position.y = button.getY();
         return position;
     }
+
+
+
 
 }
