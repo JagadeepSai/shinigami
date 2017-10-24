@@ -48,7 +48,7 @@ public class PlayScreen extends ScreenAdapter{
     public float Presentxp;
     public float Presentyp;
 
-    public Vector3[] Obstaclepos;
+    public float[][] Obstaclepos;
 
 
     public Box2DDebugRenderer b2dr= new Box2DDebugRenderer();
@@ -157,8 +157,8 @@ public class PlayScreen extends ScreenAdapter{
         //batch.draw(Obstacle,0,0,10,10);
 
         for(int i=0;i<PStage.noofobstacles;i++){
-            batch.draw(Obstacle,Obstaclepos[i].y-Obstaclepos[i].x ,
-                    Obstaclepos[i].z-Obstaclepos[i].x,2*Obstaclepos[i].x,2*Obstaclepos[i].x);
+            batch.draw(Obstacle,Obstaclepos[i][1]-Obstaclepos[i][0] ,
+                    Obstaclepos[i][2]-Obstaclepos[i][0],2*Obstaclepos[i][0],2*Obstaclepos[i][0]);
         }
         batch.draw(Player,player.getPosition().x - PlayerRadious ,player.getPosition().y - PlayerRadious,2*PlayerRadious,2*PlayerRadious);
         batch.draw(Wall,w/2/Scale-1,-h/2,1,h);
@@ -217,37 +217,35 @@ public class PlayScreen extends ScreenAdapter{
         Presentxp = player.getPosition().x - PlayerRadious;
         Presentyp = player.getPosition().y - PlayerRadious;
         PStage = new Stage(10, 15);
-        PStage.obstacles[0] = new Vector3(0.1f, 0.3f, 0.1f);
-        PStage.obstacles[1] = new Vector3(0.2f, -0.28f, 0.5f);
-        PStage.obstacles[2] = new Vector3(0.15f, -0.3f, 0.9f);
-        PStage.obstacles[3] = new Vector3(0.05f, 0.2f, 1f);
-        PStage.obstacles[4] = new Vector3(0.25f, 0.15f, 1.3f);
-        PStage.obstacles[5] = new Vector3(0.1f, -0.35f, 1.6f);
-        PStage.obstacles[6] = new Vector3(0.05f, 0f, 1.75f);
-        PStage.obstacles[7] = new Vector3(0.08f, -0.3f, 1.85f);
-        PStage.obstacles[8] = new Vector3(0.12f, 0.1f, 2.05f);
-        PStage.obstacles[9] = new Vector3(0.1f, 0.25f, 2.18f);
-        PStage.obstacles[10] = new Vector3(0.26f, -0.2f, 2.4f);
-        PStage.obstacles[11] = new Vector3(0.2f, 0f, 2.9f);
-        PStage.obstacles[12] = new Vector3(0.17f, 0.22f, 4.3f);
-        PStage.obstacles[13] = new Vector3(0.2f, 0.15f, 4.6f);
-        PStage.obstacles[14] = new Vector3(0.1f, -0.2f, 4.85f);
+        PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
+        PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
+        PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
+        PStage.obstacles[3] = new float[]{0.05f, 0.2f, 1f};
+        PStage.obstacles[4] = new float[]{0.25f, 0.15f, 1.3f};
+        PStage.obstacles[5] = new float[]{0.1f, -0.35f, 1.6f};
+        PStage.obstacles[6] = new float[]{0.05f, 0f, 1.75f};
+        PStage.obstacles[7] = new float[]{0.08f, -0.3f, 1.85f};
+        PStage.obstacles[8] = new float[]{0.12f, 0.1f, 2.05f};
+        PStage.obstacles[9] = new float[]{0.1f, 0.25f, 2.18f};
+        PStage.obstacles[10] = new float[]{0.26f, -0.2f, 2.4f};
+        PStage.obstacles[11] = new float[]{0.2f, 0f, 2.9f};
+        PStage.obstacles[12] = new float[]{0.17f, 0.22f, 4.3f};
+        PStage.obstacles[13] = new float[]{0.2f, 0.15f, 4.6f};
+        PStage.obstacles[14] = new float[]{0.1f, -0.2f, 4.85f};
 
-        Obstaclepos = new Vector3[PStage.noofobstacles] ;
+        Obstaclepos = new float[PStage.noofobstacles][3] ;
 
-
-            //Obstaclepos[1].x=1;
 
         for (int i = 0; i < PStage.noofobstacles; i++) {
-            Obstaclepos[i]= new Vector3(w*PStage.obstacles[i].x/Scale,w*PStage.obstacles[i].y/Scale,w*PStage.obstacles[i].z/Scale);
+            Obstaclepos[i]= new float[]{w*PStage.obstacles[i][0]/Scale,w*PStage.obstacles[i][1]/Scale,w*PStage.obstacles[i][2]/Scale};
 
             BodyDef def = new BodyDef();
             def.type = BodyDef.BodyType.StaticBody;
-            def.position.set(Obstaclepos[i].y, Obstaclepos[i].z);
+            def.position.set(Obstaclepos[i][1], Obstaclepos[i][2]);
             def.fixedRotation = true;
             Body b = world.createBody(def);
             CircleShape shape = new CircleShape();
-            shape.setRadius(Obstaclepos[i].x);
+            shape.setRadius(Obstaclepos[i][0]);
             b.createFixture(shape, 0);
             shape.dispose();
         }
