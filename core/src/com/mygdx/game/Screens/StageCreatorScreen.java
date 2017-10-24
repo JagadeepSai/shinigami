@@ -546,7 +546,6 @@ public class StageCreatorScreen extends ScreenAdapter{
         box1.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-
                 if(scrollmode && !pinchmode && !delmode) {
                     total_count--;
                     total--;
@@ -555,14 +554,11 @@ public class StageCreatorScreen extends ScreenAdapter{
                     System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
                     obs.remove(total);
-
                 }
-
                 scrollmode = true;
                 delmode = pinchmode = false;
             }
         });
-
     }
 
     @Override
@@ -584,8 +580,4 @@ public class StageCreatorScreen extends ScreenAdapter{
     public void dispose() {
         super.dispose();
     }
-
-
 }
-
-
