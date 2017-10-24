@@ -48,6 +48,7 @@ public class StageCreatorScreen extends ScreenAdapter{
     MainClass game ;
     ArrayList<BallButton> obs ;
     int total_count = 0;
+    int total = 0;
 
 
     GeneralButton backbutton;
@@ -113,7 +114,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                    System.out.println("Stage Tap Inside Pinchmode");
 
 
-                   if(!(total_count==0) && obs.get(0).select ) {
+                   if(!(total==0) && obs.get(0).select ) {
                        pre_zoom = 0;
                        current_id = obs.get(0).getCurrent_id();
                        for (int i = 0; i < obs.size(); i++) {
@@ -135,7 +136,8 @@ public class StageCreatorScreen extends ScreenAdapter{
                        current_id = obs.get(0).getCurrent_id();
                        for (int i = 0; i < obs.size(); i++) {
                            if (obs.get(i).getId() == current_id) {
-                               total_count--;
+                               //total_count--;
+                               total--;
                                obs.get(i).ontapbutton.button.remove();
                                obs.remove(i);
 
@@ -165,7 +167,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                            }
                        }else*/
                        if (pinchmode ) {
-                           if(!(total_count==0) && obs.get(0).select ) {
+                           if(!(total==0) && obs.get(0).select ) {
                                 pre_zoom = 0;
                                current_id = obs.get(0).getCurrent_id();
                                for (int i = 0; i < obs.size(); i++) {
@@ -179,19 +181,19 @@ public class StageCreatorScreen extends ScreenAdapter{
                               // obs.get(current_index).ontapbutton.setImage("icons/Star.png");
                            }
                        } else {
-
-                           obs.add(new BallButton(GameWidth / 3, GameWidth / (3 * AspectRatio), item));
-                           obs.get(total_count).setPosition(x, GameHeight - y + height);
-                           obs.get(total_count).ontapbutton.button.setZIndex(10);
-                           obs.get(total_count).setId(total_count);
-
-
-                           //    Gdx.app.log("X", Float.toString(x));
-                           //    Gdx.app.log("Y", Float.toString(y));
+                           if (!delmode) {
+                               obs.add(new BallButton(GameWidth / 3, GameWidth / (3 * AspectRatio), item));
+                               obs.get(total).setPosition(x, GameHeight - y + height);
+                               obs.get(total).ontapbutton.button.setZIndex(10);
+                               obs.get(total).setId(total_count);
+                               //    Gdx.app.log("X", Float.toString(x));
+                               //    Gdx.app.log("Y", Float.toString(y));
                      /* obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                      obs.setPosition(positions.get(count).x,positions.get(count).y)*/
-                           game.stage.addActor(obs.get(total_count).ontapbutton.button);
-                           total_count++;
+                               game.stage.addActor(obs.get(total).ontapbutton.button);
+                               total_count++;
+                               total++;
+                           }
                        }
                    }
 
@@ -463,11 +465,12 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                 if(scrollmode && !pinchmode) {
                     total_count--;
-                    obs.get(total_count).ontapbutton.button.remove();
-                    System.out.println("Removed ,tap on box3 : " + Integer.toString(total_count));
+                    total--;
+                    obs.get(total).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box4 : " + Integer.toString(total));
                     System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
-                    obs.remove(total_count);
+                    obs.remove(total);
 
                 }
 
@@ -482,14 +485,15 @@ public class StageCreatorScreen extends ScreenAdapter{
             public void clicked(InputEvent event, float x, float y){
 
                if(scrollmode && !pinchmode) {
-                    total_count--;
-                    obs.get(total_count).ontapbutton.button.remove();
-                    System.out.println("Removed ,tap on box3 : " + Integer.toString(total_count));
-                    System.out.println("Current id : " + Integer.toString(current_id));
-                    //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
-                    obs.remove(total_count);
+                   total_count--;
+                   total--;
+                   obs.get(total).ontapbutton.button.remove();
+                   System.out.println("Removed ,tap on box3 : " + Integer.toString(total));
+                   System.out.println("Current id : " + Integer.toString(current_id));
+                   //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
+                   obs.remove(total);
 
-                }
+               }
 
                 scrollmode = delmode = true;
                 pinchmode = false;
@@ -505,11 +509,13 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                 if(scrollmode && !pinchmode) {
                     total_count--;
-                    obs.get(total_count).ontapbutton.button.remove();
-                    System.out.println("Removed ,tap on box2 : " + Integer.toString(total_count));
+                    total--;
+                    obs.get(total).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box2 : " + Integer.toString(total));
                     System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
-                    obs.remove(total_count);
+                    obs.remove(total);
+
 
                 }
 
@@ -525,13 +531,15 @@ public class StageCreatorScreen extends ScreenAdapter{
             public void clicked(InputEvent event, float x, float y){
 
                if(scrollmode && !pinchmode) {
-                    total_count--;
-                    obs.get(total_count).ontapbutton.button.remove();
-                    System.out.println("Removed ,tap on box1 : " + Integer.toString(total_count));
-                    System.out.println("Current id : " + Integer.toString(current_id));
-                    //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
-                    obs.remove(total_count);
-                }
+                   total_count--;
+                   total--;
+                   obs.get(total).ontapbutton.button.remove();
+                   System.out.println("Removed ,tap on box1 : " + Integer.toString(total));
+                   System.out.println("Current id : " + Integer.toString(current_id));
+                   //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
+                   obs.remove(total);
+
+               }
 
                 scrollmode = true;
                 delmode = pinchmode = false;
