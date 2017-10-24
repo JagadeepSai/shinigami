@@ -1,5 +1,6 @@
 package com.mygdx.game.MainButton;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 
@@ -11,7 +12,7 @@ public class BallButton {
 
    public GeneralButton ontapbutton;
 
-    public BallButton(float width,float height,String buttonup){
+    public BallButton(float width,float height,TextureRegion buttonup){
         ontapbutton = new GeneralButton(buttonup);
         ontapbutton.setWidth(width);
         ontapbutton.setHeight(height);

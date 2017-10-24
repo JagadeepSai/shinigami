@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 
@@ -16,7 +17,7 @@ import com.mygdx.game.MainClass;
 public class GameScreen extends ScreenAdapter{
     MainClass game;
     GeneralButton backbutton;
-
+    Assets assets;
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
     public float AspectRatio = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
@@ -25,9 +26,10 @@ public class GameScreen extends ScreenAdapter{
 
     public GameScreen(MainClass game){
         this.game = game;
+        assets=game.assets;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
-        backbutton = new GeneralButton("icons/Back Arrow-260.png","");
+        backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(0,0);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,10 +22,14 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
+import com.sun.java.swing.plaf.windows.WindowsLabelUI;
 
 public class PlayScreen extends ScreenAdapter{
     public PlayScreen(MainClass game){
         this.game=game;
+        Player=game.assets.Player;
+        Obstacle=game.assets.Obstacle;
+        Wall=game.assets.Wall;
     }
 
     public enum GameState{
@@ -48,8 +53,9 @@ public class PlayScreen extends ScreenAdapter{
 
     public Box2DDebugRenderer b2dr= new Box2DDebugRenderer();
     public SpriteBatch batch = new SpriteBatch();
-    public Texture Player = new Texture("game_elements/obstacle.png");
-    public Texture Obstacle = new Texture(("icons/MeshFill-260_12.png"));
+    public TextureRegion Player ;
+    public TextureRegion Wall;
+    public TextureRegion Obstacle ;
     public OrthographicCamera camera=new OrthographicCamera(w/Scale,h/Scale);
 
     public class InputHandler implements InputProcessor{
@@ -87,7 +93,6 @@ public class PlayScreen extends ScreenAdapter{
                 case end:
                     game.setScreen(new MainScreen(game));
                     break;
-
             }
             return true;
         }
@@ -146,13 +151,18 @@ public class PlayScreen extends ScreenAdapter{
             Presentyp=player.getPosition().y;
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        System.out.println(Presentxp);
+        System.out.println(Presentyp);
         batch.begin();
+        //batch.draw(Obstacle,0,0,10,10);
+
         for(int i=0;i<PStage.noofobstacles;i++){
             batch.draw(Obstacle,Obstaclepos[i].y-Obstaclepos[i].x ,
                     Obstaclepos[i].z-Obstaclepos[i].x,2*Obstaclepos[i].x,2*Obstaclepos[i].x);
         }
         batch.draw(Player,player.getPosition().x - PlayerRadious ,player.getPosition().y - PlayerRadious,2*PlayerRadious,2*PlayerRadious);
-
+        batch.draw(Wall,w/2/Scale-1,-h/2,1,h);
+        batch.draw(Wall,-w/2/Scale,-h/2,1,h);
         batch.end();
 
       //  b2dr.render(world,camera.combined);
@@ -162,6 +172,9 @@ public class PlayScreen extends ScreenAdapter{
         if(player.getPosition().y > Presentyp)
             camera.position.set(0,player.getPosition().y,0);
         camera.update();
+        if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale){
+            gameState=GameState.end;
+        }
         batch.setProjectionMatrix(camera.combined);
     }
 

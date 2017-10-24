@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.Assets;
 import com.mygdx.game.Cards.BWCard;
 import com.mygdx.game.Cards.Card;
 import com.mygdx.game.MainButton.GeneralButton;
@@ -23,6 +24,7 @@ import com.mygdx.game.MainClass;
 
 public class UserGameScreen extends ScreenAdapter {
     MainClass game ;
+    Assets assets;
     //List<Card> cardList;
     Table scrollTable = new Table();
 
@@ -59,6 +61,7 @@ public class UserGameScreen extends ScreenAdapter {
 
     public UserGameScreen(MainClass gam){
         this.game= gam;
+        assets=gam.assets;
         nav_control = new Group();
        // cardList = new ArrayList<Card>();
 
@@ -70,20 +73,20 @@ public class UserGameScreen extends ScreenAdapter {
         generator.dispose();
 
 
-        UserCard = new Card("Username",cardWidth,AspectRatio1*1.75f,font);
+        UserCard = new Card("Username",cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
         UserCard.L_name_scale(6/2);
 
-        bufferEnd = new Card("",cardWidth,AspectRatio1*1.75f,font);
+        bufferEnd = new Card("",cardWidth,AspectRatio1*1.75f,font,assets);
 
 
-        UserCard2 = new BWCard("Shinigami",cardWidth,AspectRatio1*1.75f,false,font);
-        UserCard3 = new BWCard("Noragami",cardWidth,AspectRatio1*1.75f,true,font);
-        UserCard4 = new BWCard("Suraj Soni",cardWidth,AspectRatio1*1.75f,false,font);
+        UserCard2 = new BWCard("Shinigami",cardWidth,AspectRatio1*1.75f,false,font,assets);
+        UserCard3 = new BWCard("Noragami",cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard4 = new BWCard("Suraj Soni",cardWidth,AspectRatio1*1.75f,false,font,assets);
 
-        UserCard5 = new BWCard("Suseendran",cardWidth,AspectRatio1*1.75f,true,font);
-        UserCard6 = new BWCard("Jagadeep",cardWidth,AspectRatio1*1.75f,false,font);
+        UserCard5 = new BWCard("Suseendran",cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard6 = new BWCard("Jagadeep",cardWidth,AspectRatio1*1.75f,false,font,assets);
 
 
        // scrollTable.setDebug(true); //For Debugging
@@ -111,13 +114,13 @@ public class UserGameScreen extends ScreenAdapter {
         //scrollTable.setFillParent(true);
       //  scrollTable.add(scrollPane).fill().expand();
 
-        designbutton = new GeneralButton("icons/PalleteBB.png","");
+        designbutton = new GeneralButton(assets.PalleteBB,assets.PalleteBB);
         designbutton.setWidth(GameWidth/5.3f);
         designbutton.setHeight(designbutton.getWidth()/AspectRatio);
         designbutton.setPosition(3.9f*GameWidth/5 - designbutton.getWidth()/2 , GameHeight/(AspectRatio*6) - designbutton.getHeight() );
         designbutton.button.setZIndex(5);
 
-        backbutton = new GeneralButton("icons/Back Arrow-260.png","");
+        backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);

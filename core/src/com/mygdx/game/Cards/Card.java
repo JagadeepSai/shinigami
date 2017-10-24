@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 
@@ -27,14 +28,16 @@ public class Card {
     Image dp;
     Label L_name;
     LabelStyle labelStyle;
+    Assets assets;
 
 
-    public Card(String string,float g_width,float aspect_ratio,BitmapFont font) {
+    public Card(String string,float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
+        this.assets=assets;
         group = new Group();
         group.setWidth(g_width);
         group.setHeight(g_width/aspect_ratio);
 
-        dp = new Image(new Texture(Gdx.files.internal("White.png")));
+        dp = new Image(assets.White);
         dp.setSize(group.getWidth(),group.getHeight());
         dp.setPosition(0,0);
 
@@ -69,8 +72,8 @@ public class Card {
             L_name.setPosition(other,dp.getHeight() / 2f - L_name.getHeight() / 2f);
         }
     }
-    public void setDp(String string){
-        dp.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture (Gdx.files.internal(string)))));
+    public void setDp(TextureRegion textureRegion){
+        dp.setDrawable(new TextureRegionDrawable(textureRegion));
     }
 
     public float getHeight(){

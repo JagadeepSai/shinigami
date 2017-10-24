@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.Assets;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
@@ -25,6 +26,7 @@ import com.mygdx.game.MainClass;
 public class LoginScreen extends ScreenAdapter {
 
     MainClass game;
+    Assets assets;
     GeneralButton backbutton;
     GeneralButton submitbutton;
     GeneralButton newuserbutton;
@@ -47,6 +49,7 @@ public class LoginScreen extends ScreenAdapter {
     Skin skin = new Skin(Gdx.files.internal("neon-ui.json"));
     public  LoginScreen(MainClass gam){
         this.game = gam;
+        assets=gam.assets;
         this.authenticate=gam.authenticate;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
@@ -63,19 +66,19 @@ public class LoginScreen extends ScreenAdapter {
 
         skin.getFont("font").getData().setScale(AspectRatio1,AspectRatio1);
 
-        backbutton = new GeneralButton("icons/Back Arrow-260.png","");
+        backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
 
 
-        newuserbutton = new GeneralButton("icons/Newuser-260.png","");
+        newuserbutton = new GeneralButton(Assets.Newuser,Assets.Newuser);
         newuserbutton.setWidth(GameWidth/4.5f);
         newuserbutton.setHeight(newuserbutton.getWidth()/AspectRatio);
         newuserbutton.setPosition(GameWidth/2 - newuserbutton.getWidth()/2,GameWidth/(AspectRatio*2) - newuserbutton.getHeight());
 
-        submitbutton = new GeneralButton("icons/Play Button-500.png","");
+        submitbutton = new GeneralButton(assets.PlayButton,assets.PlayButton);
         submitbutton.setWidth(GameWidth/4.5f);
         submitbutton.setHeight(submitbutton.getWidth()/AspectRatio);
         submitbutton.setPosition(GameWidth/2 - submitbutton.getWidth()/2,GameWidth/(AspectRatio*2) + submitbutton.getHeight()/3);

@@ -16,14 +16,15 @@ public class MainClass extends Game {
 	public Stage stage;
 	public Viewport viewport ;
 	public Login authenticate;
-
+	public Assets assets;
 	@Override
 	public void create () {
         stage = new Stage();
 		viewport = new StretchViewport(0,0);
-		UserGameScreen userGameScreen = new UserGameScreen(this);
-	//	MainScreen mainScreen = new MainScreen(this);
-		setScreen(userGameScreen);
+		//UserGameScreen userGameScreen = new UserGameScreen(this);
+		assets.load();
+		MainScreen mainScreen = new MainScreen(this);
+		setScreen(mainScreen);
 	}
 
 	@Override

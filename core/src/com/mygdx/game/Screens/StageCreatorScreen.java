@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.Assets;
 import com.mygdx.game.InputListerners.StageScrollListener;
 import com.mygdx.game.MainButton.BallButton;
 import com.mygdx.game.MainButton.GeneralButton;
@@ -35,6 +36,7 @@ import sun.rmi.runtime.Log;
 public class StageCreatorScreen extends ScreenAdapter {
 
     MainClass game ;
+    Assets assets;
     Group fg=new Group();
     Group bg = new Group();
 
@@ -48,7 +50,7 @@ public class StageCreatorScreen extends ScreenAdapter {
     ToggleButton box3;
 
     boolean inbox = false;
-    String item;
+    TextureRegion item;
 
 
     Image back;
@@ -65,30 +67,33 @@ public class StageCreatorScreen extends ScreenAdapter {
 
     public  StageCreatorScreen (MainClass gam) {
         this.game = gam;
+        assets=gam.assets;
         obs = new ArrayList<BallButton>();
-        item = "icons/MeshFill-260.png";
+        //item = "icons/MeshFill-260.png";
+        item = assets.Obstacle;
 
-        backbutton = new GeneralButton("icons/Back Arrow-260.png","");
+        backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
         backbutton.button.setZIndex(1);
 
 
-        box1 = new ToggleButton("icons/MenuCrop.png","",true);
+        box1 = new ToggleButton(Assets.NavObs,Assets.NavObs,true);
         box1.setWidth(GameWidth/3);
+
         box1.setHeight(GameHeight/6);
         box1.setPosition(0,0);
         box1.button.setZIndex(1);
 
-        box2 = new ToggleButton("icons/MenuCrop.png","",true);
+        box2 = new ToggleButton(Assets.Resize,Assets.Resize,true);
         box2.setWidth(GameWidth/3);
         box2.setHeight(GameHeight/6);
         box2.setPosition(GameWidth/3,0);
         box2.button.setZIndex(1);
 
 
-        box3 = new ToggleButton("icons/MenuCrop.png","",true);
+        box3 = new ToggleButton(Assets.Save,Assets.Save,true);
         box3.setWidth(GameWidth/3);
         box3.setHeight(GameHeight/6);
         box3.setPosition(2*GameWidth/3,0);
@@ -165,8 +170,7 @@ public class StageCreatorScreen extends ScreenAdapter {
             }
 
             @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer)
-            {
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 state = false;
 
                 y = Gdx.input.getY(pointer);
@@ -234,7 +238,7 @@ public class StageCreatorScreen extends ScreenAdapter {
         box2.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                item = "icons/Star.png";
+                item = assets.Obstacle;
                 inbox = true;
             }
         });
@@ -243,7 +247,7 @@ public class StageCreatorScreen extends ScreenAdapter {
         box1.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                item = "icons/MeshFill-260.png";
+                item = assets.Obstacle;
                 inbox = true;
             }
         });

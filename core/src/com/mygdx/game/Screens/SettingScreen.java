@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
@@ -19,6 +20,7 @@ import com.mygdx.game.MainClass;
 
 public class SettingScreen extends ScreenAdapter {
     MainClass game;
+    Assets assets;
     GeneralButton backbutton;
     ToggleButton fbbutton;
     GeneralButton loginbutton;
@@ -43,43 +45,44 @@ public class SettingScreen extends ScreenAdapter {
 
     public SettingScreen(MainClass game){
         this.game = game;
+        assets=game.assets;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
-        backbutton = new GeneralButton("icons/Back Arrow-260.png","");
+        backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
-        speakerbutton = new ToggleButton("icons/Speaker-260.png","",true);
+        speakerbutton = new ToggleButton(assets.Speaker,assets.Speaker,true);
         speakerbutton.setWidth(GameWidth/4);
         speakerbutton.setHeight(speakerbutton.getWidth()/AspectRatio);
         speakerbutton.setPosition(GameWidth/3 - 2*speakerbutton.getWidth()/3,GameHeight/2 + speakerbutton.getHeight()/6);
-        speakerbutton.setToggle("icons/SpeakerIn.png");
+        speakerbutton.setToggle(assets.SpeakerIn);
 
 
-        musicbutton = new ToggleButton("icons/Music-500.png","",true);
+        musicbutton = new ToggleButton(assets.MusicCircle,assets.MusicCircle,true);
         musicbutton.setWidth(GameWidth/4);
         musicbutton.setHeight(musicbutton.getWidth()/AspectRatio);
         musicbutton.setPosition(2*GameWidth/3 -musicbutton.getWidth()/3,GameHeight/2 + musicbutton.getHeight()/6);
-        musicbutton.setToggle("icons/MusicIn.png");
+        musicbutton.setToggle(assets.MusicIn);
 
 
-        fbbutton = new ToggleButton("icons/Facebook - 260.png","",false);
+        fbbutton = new ToggleButton(assets.Facebook,assets.Facebook,false);
         fbbutton.setWidth(3*GameWidth/13);
         fbbutton.setHeight(fbbutton.getWidth()/AspectRatio);
         fbbutton.setPosition(fbbutton.getWidth()/3 ,GameWidth/(AspectRatio*2) - fbbutton.getHeight()/2);
-        fbbutton.setToggle("icons/FacebookIn-512.png");
+        fbbutton.setToggle(assets.FacebookIn);
 
-        loginbutton = new ToggleButton("icons/Create -260.png","",false);
+        loginbutton = new ToggleButton(assets.Facebook,assets.Facebook,false);
         loginbutton.setWidth(3*GameWidth/13);
         loginbutton.setHeight(loginbutton.getWidth()/AspectRatio);
         loginbutton.setPosition(GameWidth/2 - loginbutton.getWidth()/2 ,GameWidth/(AspectRatio*2) - loginbutton.getHeight()/2);
 
-        gplusbutton = new ToggleButton("icons/Google Plus-500.png","",false);
+        gplusbutton = new ToggleButton(assets.GooglePlus,assets.GooglePlus,false);
         gplusbutton.setWidth(3*GameWidth/13);
         gplusbutton.setHeight(gplusbutton.getWidth()/AspectRatio);
         gplusbutton.setPosition(GameWidth - gplusbutton.getWidth()/3 - gplusbutton.getWidth() ,GameWidth/(AspectRatio*2) - gplusbutton.getHeight()/2);
-        gplusbutton.setToggle("icons/Google PlusIn-512.png");
+        gplusbutton.setToggle(assets.GooglePlusIn);
 
         game.stage.addActor(backbutton.button);
         game.stage.addActor(speakerbutton.button);

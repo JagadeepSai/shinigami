@@ -17,15 +17,15 @@ public class ToggleButton extends GeneralButton {
     TextureRegionDrawable t1 ;
     TextureRegionDrawable t2 ;
 
-    public ToggleButton(String buttonup, String buttondown,boolean state) {
+    public ToggleButton(TextureRegion buttonup, TextureRegion buttondown,boolean state) {
         super(buttonup);
-        t1 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
+        t1 = new TextureRegionDrawable(buttonup);
         this.State = state;
         togglestate = false;
     }
 
-    public void setToggle(String buttondown){
-      t2  = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
+    public void setToggle(TextureRegion buttondown){
+      t2  = new TextureRegionDrawable(buttondown);
         togglestate = true;
     }
 
