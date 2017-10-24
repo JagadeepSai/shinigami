@@ -68,7 +68,7 @@ public class Assets {
         MusicCircle= new TextureRegion(Parent,1515,513,500,500);
         MusicIn= new TextureRegion(Parent ,501,0,500,500);
         NavObs= new TextureRegion(Parent ,501,501,433,405);
-        Newuser= new TextureRegion(Parent ,501,501,433,405);
+        Newuser= new TextureRegion(Parent ,1305,1536,260,260);
         Obstacle= new TextureRegion(Parent,641,908,240,241 );
         PalleteBB= new TextureRegion(Parent,1677,1898,260,260 );
         PlayButton= new TextureRegion(Parent ,2057,0,500,500);

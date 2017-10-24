@@ -31,6 +31,17 @@ public class GeneralButton  {
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion(buttondown));
         button = new ImageButton(buttonStyle);
     }
+    public GeneralButton(TextureRegion buttonup, TextureRegion buttondown ,boolean state){
+        buttonStyle = new ImageButtonStyle();
+        if (!state) {
+            buttonStyle.up = new TextureRegionDrawable(buttonup);
+        }
+        else
+            buttonStyle.up = new TextureRegionDrawable(buttondown);
+
+        button = new ImageButton(buttonStyle);
+    }
+
     public GeneralButton(TextureRegion buttonup){
         TextureRegionDrawable up = new TextureRegionDrawable(buttonup);
         button = new ImageButton(up);
@@ -39,6 +50,11 @@ public class GeneralButton  {
     public void setHover(TextureRegion buttonover){
         buttonStyle.over = new TextureRegionDrawable(buttonover);
         button.setStyle(buttonStyle);
+    }
+
+    public void setImage(TextureRegion textureRegion){
+        TextureRegionDrawable up = new TextureRegionDrawable(textureRegion);
+        button = new ImageButton(up);
     }
 
     public void setWidth(float width){
