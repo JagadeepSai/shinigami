@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.tools.flame.EventManager;
@@ -48,6 +51,7 @@ public class StageCreatorScreen extends ScreenAdapter{
 
 
     GeneralButton backbutton;
+    TextField name;
     ToggleButton box1;
     ToggleButton box2;
     ToggleButton box3;
@@ -70,7 +74,7 @@ public class StageCreatorScreen extends ScreenAdapter{
     boolean inbox = false;
     private Vector3 prevDragPos;
 
-
+    Skin skin = new Skin(Gdx.files.internal("neon-ui.json"));
     String item;
 
 
@@ -83,7 +87,6 @@ public class StageCreatorScreen extends ScreenAdapter{
 
 
     class ObsListener implements GestureDetector.GestureListener {
-
 
         //For Scroll
         float height = 0;
@@ -103,8 +106,14 @@ public class StageCreatorScreen extends ScreenAdapter{
         public boolean tap(float x, float y, int count, int button) {
             // prevDragPos = null ;
            if( game.stage.touchDown((int)x,(int)y,0,button)){
-               if (pinchmode) {
-                   if(obs.get(0).select) {
+
+               System.out.println("Stage Tap");
+               System.out.println("Current_id: " + Integer.toString(current_id));
+               if (pinchmode ) {
+                   System.out.println("Stage Tap Inside Pinchmode");
+
+
+                   if(!(total_count==0) && obs.get(0).select ) {
                        pre_zoom = 0;
                        current_id = obs.get(0).getCurrent_id();
                        for (int i = 0; i < obs.size(); i++) {
@@ -114,16 +123,35 @@ public class StageCreatorScreen extends ScreenAdapter{
                                current_center = obs.get(i).center;
                            }
                        }
-                       System.out.println(current_id);
-                       // obs.get(current_index).ontapbutton.setImage("icons/Star.png");
+
                    }
+                   System.out.println("Current_id: " + Integer.toString(current_id));
                }
+               if(delmode) {
+                   System.out.println("Stage Tap Inside Delmode ");
+
+                   if (obs.get(0).select) {
+                       pre_zoom = 0;
+                       current_id = obs.get(0).getCurrent_id();
+                       for (int i = 0; i < obs.size(); i++) {
+                           if (obs.get(i).getId() == current_id) {
+                               total_count--;
+                               obs.get(i).ontapbutton.button.remove();
+                               obs.remove(i);
+
+                           }
+                       }
+                   }
+                   System.out.println("Current_id: " + Integer.toString(current_id));
+               }
+
            }
             else {
-
+                    System.out.println("Inside Tap");
+                    System.out.println("Current_id: " + Integer.toString(current_id));
 
                    if (scrollmode) {
-                       if(delmode) {
+                       /*if(delmode) {
                            if (obs.get(0).select) {
                                pre_zoom = 0;
                                current_id = obs.get(0).getCurrent_id();
@@ -135,9 +163,9 @@ public class StageCreatorScreen extends ScreenAdapter{
                                    }
                                }
                            }
-                       }
-                       if (pinchmode) {
-                           if(obs.get(0).select) {
+                       }else*/
+                       if (pinchmode ) {
+                           if(!(total_count==0) && obs.get(0).select ) {
                                 pre_zoom = 0;
                                current_id = obs.get(0).getCurrent_id();
                                for (int i = 0; i < obs.size(); i++) {
@@ -209,6 +237,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                 box1.setPosition(box1.getPosition().x, box1.getPosition().y +deltaY);
                 box2.setPosition(box2.getPosition().x, box2.getPosition().y +deltaY);
                 box3.setPosition(box3.getPosition().x, box3.getPosition().y +deltaY);
+                box4.setPosition(box4.getPosition().x, box4.getPosition().y +deltaY);
 
             }
 
@@ -226,13 +255,8 @@ public class StageCreatorScreen extends ScreenAdapter{
             if(pinchmode) {
                 Zoom_len = distance - initialDistance;
                 if (abs(-pre_zoom + Zoom_len) < 50) {
-                    System.out.println(-pre_zoom + Zoom_len);
-            /*obs.get(current_index).setPosition(obs.get(current_index).center.x +10,obs.get(current_index).center.y);
-            System.out.println(obs.get(current_index).getPosition().x );
 
-            backbutton.setPosition(backbutton.getPosition().x+Zoom_len,backbutton.getPosition().y );*/
-                    //System.out.println(backbutton.getPosition().x );
-
+                    System.out.println("Zoom:  Current id : " + Integer.toString(current_id));
 
                     float width = obs.get(current_index).ontapbutton.getWidth() - pre_zoom + Zoom_len;
                     if (width > 50) {
@@ -278,11 +302,25 @@ public class StageCreatorScreen extends ScreenAdapter{
         item = "icons/MeshFill-260.png";
         ObsListener obsListener = new ObsListener();
 
+        skin.addRegions(new TextureAtlas(Gdx.files.internal("neon-ui.atlas")));
+        skin.load(Gdx.files.internal("neon-ui.json"));
+
+        skin.getFont("font").getData().setScale(AspectRatio1,AspectRatio1);
+
+
+
         backbutton = new GeneralButton("icons/Back Arrow-260.png","");
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
         backbutton.button.setZIndex(1);
+
+        name = new TextField("", skin);
+
+        name.setMessageText("Stage Name");
+        name.setWidth(4*GameWidth/6);
+        name.setHeight(backbutton.getHeight());
+        name.setPosition(GameWidth/4,(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
 
 
         box1 = new ToggleButton("icons/MenuCrop.png","",true);
@@ -383,6 +421,7 @@ public class StageCreatorScreen extends ScreenAdapter{
         game.stage.addActor(box4.button);
 
         game.stage.addActor(backbutton.button);
+     //   game.stage.addActor(name);
 
     }
 
@@ -417,16 +456,36 @@ public class StageCreatorScreen extends ScreenAdapter{
             }
         });
 
+        box4.setTouchable();
+        box4.button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+
+                if(scrollmode && !pinchmode) {
+                    total_count--;
+                    obs.get(total_count).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box3 : " + Integer.toString(total_count));
+                    System.out.println("Current id : " + Integer.toString(current_id));
+                    //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
+                    obs.remove(total_count);
+
+                }
+
+                scrollmode = true;
+                delmode = pinchmode = false;
+            }
+        });
+
         box3.setTouchable();
         box3.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                //item = "icons/Star.png";
-                //  inbox = true;
-                if(scrollmode) {
 
+               if(scrollmode && !pinchmode) {
                     total_count--;
                     obs.get(total_count).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box3 : " + Integer.toString(total_count));
+                    System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
                     obs.remove(total_count);
 
@@ -439,14 +498,16 @@ public class StageCreatorScreen extends ScreenAdapter{
 
         box2.setTouchable();
         box2.button.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-               //item = "icons/Star.png";
-              //  inbox = true;
-                if(scrollmode) {
 
+
+           @Override
+            public void clicked(InputEvent event, float x, float y){
+
+                if(scrollmode && !pinchmode) {
                     total_count--;
                     obs.get(total_count).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box2 : " + Integer.toString(total_count));
+                    System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
                     obs.remove(total_count);
 
@@ -462,11 +523,12 @@ public class StageCreatorScreen extends ScreenAdapter{
         box1.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                item = "icons/MeshFill-260.png";
-            //    inbox = true;
-                if(scrollmode) {
+
+               if(scrollmode && !pinchmode) {
                     total_count--;
                     obs.get(total_count).ontapbutton.button.remove();
+                    System.out.println("Removed ,tap on box1 : " + Integer.toString(total_count));
+                    System.out.println("Current id : " + Integer.toString(current_id));
                     //obs.get(total_count).ontapbutton.button.addAction(Actions.removeActor());
                     obs.remove(total_count);
                 }
