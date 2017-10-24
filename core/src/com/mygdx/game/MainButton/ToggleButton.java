@@ -12,25 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class ToggleButton extends GeneralButton {
     boolean State ;
-    boolean togglestate;
 
     TextureRegionDrawable t1 ;
     TextureRegionDrawable t2 ;
 
     public ToggleButton(TextureRegion buttonup, TextureRegion buttondown,boolean state) {
-        super(buttonup);
+        super(buttonup,buttondown,state);
         t1 = new TextureRegionDrawable(buttonup);
+        t2 = new TextureRegionDrawable(buttondown);
         this.State = state;
-        togglestate = false;
+
     }
 
-    public void setToggle(TextureRegion buttondown){
-      t2  = new TextureRegionDrawable(buttondown);
-        togglestate = true;
-    }
 
     public void change() {
-        if (togglestate) {
             if (State) {
            /* float size1 = super.button.getImage().getWidth();
             float size2 = super.button.getImage().getHeight();
@@ -50,7 +45,7 @@ public class ToggleButton extends GeneralButton {
                 //   super.buttonStyle.down = t1;
             }
             State = !State;
-        }
+
     }
 
     public boolean getState(){
