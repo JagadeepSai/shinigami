@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -57,6 +58,9 @@ public class StageCreatorScreen extends ScreenAdapter{
     ToggleButton box2;
     ToggleButton box3;
     ToggleButton box4;
+
+    Group fg = new Group();
+    Group bg = new Group();
 
     boolean scrollmode = true;
     boolean pinchmode = false;
@@ -190,7 +194,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                                //    Gdx.app.log("Y", Float.toString(y));
                      /* obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                      obs.setPosition(positions.get(count).x,positions.get(count).y)*/
-                               game.stage.addActor(obs.get(total).ontapbutton.button);
+                               bg.addActor(obs.get(total).ontapbutton.button);
                                total_count++;
                                total++;
                            }
@@ -274,7 +278,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                         // System.out.println(obs.get(current_index).getPosition().x);
                         // System.out.println(obs.get(current_index).getPosition().y);
 
-                        game.stage.addActor(obs.get(current_index).ontapbutton.button);
+                        bg.addActor(obs.get(current_index).ontapbutton.button);
 
                         pre_zoom = Zoom_len;
 
@@ -415,14 +419,25 @@ public class StageCreatorScreen extends ScreenAdapter{
 
         back = new Image(new Texture(Gdx.files.internal("background.png")));
       //  game.stage.addActor(back);
-        game.stage.setDebugAll(true);
+      //  game.stage.setDebugAll(true);
 
-        game.stage.addActor(box1.button);
+        game.stage.addActor(bg);
+        game.stage.addActor(fg);
+
+        fg.addActor(box1.button);
+        fg.addActor(box2.button);
+        fg.addActor(box3.button);
+        fg.addActor(box4.button);
+        fg.addActor(backbutton.button);
+
+
+
+        /*game.stage.addActor(box1.button);
         game.stage.addActor(box2.button);
         game.stage.addActor(box3.button);
         game.stage.addActor(box4.button);
 
-        game.stage.addActor(backbutton.button);
+        game.stage.addActor(backbutton.button);*/
      //   game.stage.addActor(name);
 
     }
@@ -463,7 +478,7 @@ public class StageCreatorScreen extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
 
-                if(scrollmode && !pinchmode) {
+                if(scrollmode && !pinchmode && !delmode) {
                     total_count--;
                     total--;
                     obs.get(total).ontapbutton.button.remove();
@@ -484,7 +499,7 @@ public class StageCreatorScreen extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
 
-               if(scrollmode && !pinchmode) {
+               if(scrollmode && !pinchmode && !delmode) {
                    total_count--;
                    total--;
                    obs.get(total).ontapbutton.button.remove();
@@ -507,7 +522,7 @@ public class StageCreatorScreen extends ScreenAdapter{
            @Override
             public void clicked(InputEvent event, float x, float y){
 
-                if(scrollmode && !pinchmode) {
+                if(scrollmode && !pinchmode && !delmode) {
                     total_count--;
                     total--;
                     obs.get(total).ontapbutton.button.remove();
@@ -530,7 +545,7 @@ public class StageCreatorScreen extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
 
-               if(scrollmode && !pinchmode) {
+               if(scrollmode && !pinchmode && !delmode) {
                    total_count--;
                    total--;
                    obs.get(total).ontapbutton.button.remove();
