@@ -3,11 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.math.Vector3;
 
 public class Stage {
-    public int height;
+    public String name;
+    public float height;
     public int noofobstacles;
     public float [][] obstacles;
-    public Stage(int h, int noof){
+    public Stage(float h, int noof,String n){
         height=h;
+        name = n;
         noofobstacles=noof;
         obstacles = new float[noof][3];
     }
