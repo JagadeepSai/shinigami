@@ -50,36 +50,36 @@ public class SettingScreen extends ScreenAdapter {
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
-        speakerbutton = new ToggleButton("icons/Speaker-260.png","",true);
+        speakerbutton = new ToggleButton("icons/Speaker-260.png","icons/SpeakerIn.png",game.button_tune_play);
         speakerbutton.setWidth(GameWidth/4);
         speakerbutton.setHeight(speakerbutton.getWidth()/AspectRatio);
         speakerbutton.setPosition(GameWidth/3 - 2*speakerbutton.getWidth()/3,GameHeight/2 + speakerbutton.getHeight()/6);
-        speakerbutton.setToggle("icons/SpeakerIn.png");
 
 
-        musicbutton = new ToggleButton("icons/Music-500.png","",true);
+
+        musicbutton = new ToggleButton("icons/Music-500.png","icons/MusicIn.png",game.back_tune_play);
         musicbutton.setWidth(GameWidth/4);
         musicbutton.setHeight(musicbutton.getWidth()/AspectRatio);
         musicbutton.setPosition(2*GameWidth/3 -musicbutton.getWidth()/3,GameHeight/2 + musicbutton.getHeight()/6);
-        musicbutton.setToggle("icons/MusicIn.png");
 
 
-        fbbutton = new ToggleButton("icons/Facebook - 260.png","",false);
+
+        fbbutton = new ToggleButton("icons/Facebook - 260.png","icons/FacebookIn-512.png",false);
         fbbutton.setWidth(3*GameWidth/13);
         fbbutton.setHeight(fbbutton.getWidth()/AspectRatio);
         fbbutton.setPosition(fbbutton.getWidth()/3 ,GameWidth/(AspectRatio*2) - fbbutton.getHeight()/2);
-        fbbutton.setToggle("icons/FacebookIn-512.png");
 
-        loginbutton = new ToggleButton("icons/Create -260.png","",false);
+
+        loginbutton = new ToggleButton("icons/Create -260.png","icons/Create -260.png",false);
         loginbutton.setWidth(3*GameWidth/13);
         loginbutton.setHeight(loginbutton.getWidth()/AspectRatio);
         loginbutton.setPosition(GameWidth/2 - loginbutton.getWidth()/2 ,GameWidth/(AspectRatio*2) - loginbutton.getHeight()/2);
 
-        gplusbutton = new ToggleButton("icons/Google Plus-500.png","",false);
+        gplusbutton = new ToggleButton("icons/Google Plus-500.png","icons/Google PlusIn-512.png",false);
         gplusbutton.setWidth(3*GameWidth/13);
         gplusbutton.setHeight(gplusbutton.getWidth()/AspectRatio);
         gplusbutton.setPosition(GameWidth - gplusbutton.getWidth()/3 - gplusbutton.getWidth() ,GameWidth/(AspectRatio*2) - gplusbutton.getHeight()/2);
-        gplusbutton.setToggle("icons/Google PlusIn-512.png");
+
 
         game.stage.addActor(backbutton.button);
         game.stage.addActor(speakerbutton.button);
@@ -114,6 +114,8 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 speakerbutton.change();
+                if(speakerbutton.getState()) game.button_tune_play = false;
+                else   game.button_tune_play = true;
             }
         });
 
@@ -122,6 +124,15 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 musicbutton.change();
+                if(musicbutton.getState()){
+                    game.back_tune_play = false;
+                    game.back_tune.stop();
+                }
+                else{
+                    game.back_tune_play = true;
+                    game.back_tune.play();
+                }
+
             }
         });
 

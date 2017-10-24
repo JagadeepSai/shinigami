@@ -75,6 +75,7 @@ public class MainScreen extends ScreenAdapter {
 
     public MainScreen(MainClass gam){
         this.game = gam;
+
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
         playbutton = new GeneralButton("icons/Circled Play-260.png","");
@@ -112,16 +113,20 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void show() {
 
+        if(!game.back_tune.isPlaying() && game.back_tune_play ) game.back_tune.play();
+        if (game.button_tune_play )game.back_tune.setLooping(true);
+
     }
 
 
     @Override
     public void render(float delta) {
         playbutton.setTouchable();
-
         playbutton.button.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event,float x,float y){
+               game.button_tune.play();
+               game.back_tune.stop();
                game.getScreen().hide();
                game.stage.clear();
 //               GameScreen gameScreen = new GameScreen(game);
@@ -134,6 +139,7 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
+                game.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 SettingScreen settingScreen = new SettingScreen(game);
@@ -145,6 +151,7 @@ public class MainScreen extends ScreenAdapter {
         createbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
+                game.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -188,6 +195,7 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void dispose()
     {
+            game.back_tune.pause();
     //    game.stage.dispose();
     }
 }

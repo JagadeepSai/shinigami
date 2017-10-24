@@ -1,6 +1,7 @@
 package com.mygdx.game.MainButton;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +24,7 @@ import com.badlogic.gdx.tools.flame.EventManager;
 public class GeneralButton  {
 
    public ImageButton button ;
+
     ImageButtonStyle buttonStyle;
 
     public GeneralButton(String buttonup, String buttondown ) {
@@ -32,7 +34,20 @@ public class GeneralButton  {
         buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
         button = new ImageButton(buttonStyle);
+
     }
+    public GeneralButton(String buttonup, String buttondown ,boolean state){
+        buttonStyle = new ImageButtonStyle();
+        if (!state) {
+            buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
+
+        }
+        else
+            buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttondown))));
+
+        button = new ImageButton(buttonStyle);
+    }
+
     public GeneralButton(String buttonup){
         TextureRegionDrawable up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(buttonup))));
         button = new ImageButton(up);

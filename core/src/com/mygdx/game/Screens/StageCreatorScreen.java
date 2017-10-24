@@ -323,26 +323,26 @@ public class StageCreatorScreen extends ScreenAdapter{
         name.setPosition(GameWidth/4,(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
 
 
-        box1 = new ToggleButton("icons/MenuCrop.png","",true);
+        box1 = new ToggleButton("icons/MenuCrop.png","icons/MenuCrop.png",true);
         box1.setWidth(GameWidth/4);
         box1.setHeight(GameHeight/6);
         box1.setPosition(0,0);
         box1.button.setZIndex(1);
 
-        box2 = new ToggleButton("icons/MenuCrop.png","",true);
+        box2 = new ToggleButton("icons/MenuCrop.png","icons/MenuCrop.png",true);
         box2.setWidth(GameWidth/4);
         box2.setHeight(GameHeight/6);
         box2.setPosition(GameWidth/4,0);
         box2.button.setZIndex(1);
 
 
-        box3 = new ToggleButton("icons/MenuCrop.png","",true);
+        box3 = new ToggleButton("icons/MenuCrop.png","icons/MenuCrop.png",true);
         box3.setWidth(GameWidth/4);
         box3.setHeight(GameHeight/6);
         box3.setPosition(GameWidth/2,0);
         box3.button.setZIndex(1);
 
-        box4 = new ToggleButton("icons/MenuCrop.png","",true);
+        box4 = new ToggleButton("icons/MenuCrop.png","icons/MenuCrop.png",true);
         box4.setWidth(GameWidth/4);
         box4.setHeight(GameHeight/6);
         box4.setPosition(3*GameWidth/4,0);
