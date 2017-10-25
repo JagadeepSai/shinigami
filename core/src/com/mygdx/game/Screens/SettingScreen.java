@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Assets;
+import com.mygdx.game.Interface.GoogleSignin;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
@@ -27,7 +28,7 @@ public class SettingScreen extends ScreenAdapter {
     ToggleButton gplusbutton;
     ToggleButton speakerbutton;
     ToggleButton musicbutton;
-
+    public GoogleSignin googleSignin;
     private boolean fblogin = false;
     private boolean accountlogin = false;
     private boolean gpluslogin = false;
@@ -46,6 +47,7 @@ public class SettingScreen extends ScreenAdapter {
     public SettingScreen(MainClass game){
         this.game = game;
         assets=game.assets;
+        this.googleSignin=game.googleSignin;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
         backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
@@ -142,6 +144,7 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 fbbutton.change();
+
             }
         });
 
@@ -150,6 +153,9 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 gplusbutton.change();
+
+
+                googleSignin.Gsignin();
             }
         });
 

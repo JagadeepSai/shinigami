@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
 import com.sun.java.swing.plaf.windows.WindowsLabelUI;
@@ -151,8 +153,8 @@ public class PlayScreen extends ScreenAdapter{
             Presentyp=player.getPosition().y;
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        System.out.println(Presentxp);
-        System.out.println(Presentyp);
+        //System.out.println(Presentxp);
+        //System.out.println(Presentyp);
         batch.begin();
         //batch.draw(Obstacle,0,0,10,10);
 
