@@ -53,19 +53,19 @@ public class SettingScreen extends ScreenAdapter {
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
-        speakerbutton = new ToggleButton(assets.SpeakerIn,assets.Speaker,game.button_tune_play);
+        speakerbutton = new ToggleButton(assets.Speaker,assets.SpeakerIn,game.button_tune_play);
         speakerbutton.setWidth(GameWidth/4);
         speakerbutton.setHeight(speakerbutton.getWidth()/AspectRatio);
         speakerbutton.setPosition(GameWidth/3 - 2*speakerbutton.getWidth()/3,GameHeight/2 + speakerbutton.getHeight()/6);
 
 
-        musicbutton = new ToggleButton(assets.MusicIn,assets.MusicCircle,game.back_tune_play);
+        musicbutton = new ToggleButton(assets.MusicCircle,assets.MusicIn,game.back_tune_play);
         musicbutton.setWidth(GameWidth/4);
         musicbutton.setHeight(musicbutton.getWidth()/AspectRatio);
         musicbutton.setPosition(2*GameWidth/3 -musicbutton.getWidth()/3,GameHeight/2 + musicbutton.getHeight()/6);
 
 
-        fbbutton = new ToggleButton(assets.Facebook,assets.Facebook,false);
+        fbbutton = new ToggleButton(assets.Facebook,assets.FacebookIn,false);
         fbbutton.setWidth(3*GameWidth/13);
         fbbutton.setHeight(fbbutton.getWidth()/AspectRatio);
         fbbutton.setPosition(fbbutton.getWidth()/3 ,GameWidth/(AspectRatio*2) - fbbutton.getHeight()/2);
@@ -76,7 +76,7 @@ public class SettingScreen extends ScreenAdapter {
         loginbutton.setHeight(loginbutton.getWidth()/AspectRatio);
         loginbutton.setPosition(GameWidth/2 - loginbutton.getWidth()/2 ,GameWidth/(AspectRatio*2) - loginbutton.getHeight()/2);
 
-        gplusbutton = new ToggleButton(assets.GooglePlus,assets.GooglePlus,false);
+        gplusbutton = new ToggleButton(assets.GooglePlus,assets.GooglePlusIn,false);
         gplusbutton.setWidth(3*GameWidth/13);
         gplusbutton.setHeight(gplusbutton.getWidth()/AspectRatio);
         gplusbutton.setPosition(GameWidth - gplusbutton.getWidth()/3 - gplusbutton.getWidth() ,GameWidth/(AspectRatio*2) - gplusbutton.getHeight()/2);
