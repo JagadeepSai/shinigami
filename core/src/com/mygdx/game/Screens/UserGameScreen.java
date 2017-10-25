@@ -137,6 +137,7 @@ public class UserGameScreen extends ScreenAdapter {
             UserCards[i].playbutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    game.stage.clear();
                     game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,stage[2])));
                 }
             });
@@ -152,6 +153,7 @@ public class UserGameScreen extends ScreenAdapter {
 
                     FileHandle fileHandle2= Gdx.files.local("usersaved.txt");
                     String [] stagesarray2 = fileHandle2.readString().split("\\r?\\n");
+
 
                     fileHandle2.writeString("",false);
                     System.out.println("Inside : Empty");
@@ -172,6 +174,13 @@ public class UserGameScreen extends ScreenAdapter {
                    // System.out.println(fileHandle2.readString());
 
 
+                }
+            });
+
+            UserCards[i].sharebutton.button.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.saveToDatabase.save(stage[0], stage[1],stage[2]);
                 }
             });
 

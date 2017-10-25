@@ -9,6 +9,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 public class AndroidLauncher extends AndroidApplication {
 	public  AndroidCreateAccount androidCreateAccount;
 	public AndroidGoogleSignin androidGoogleSignin;
+	public AndroidSaveToDatabase androidSaveToDatabase;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 
@@ -17,9 +18,11 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		androidCreateAccount=new AndroidCreateAccount(this);
 		androidGoogleSignin=new AndroidGoogleSignin();
+		androidSaveToDatabase=new AndroidSaveToDatabase();
 		MainClass mainClass= new MainClass();
 		mainClass.setCreateAccount(androidCreateAccount);
 		mainClass.setGoogleSignin(androidGoogleSignin);
+		mainClass.setSaveToDatabase(androidSaveToDatabase);
 		initialize(mainClass, config);
 
 //		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

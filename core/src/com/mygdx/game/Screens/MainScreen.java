@@ -107,6 +107,7 @@ public class MainScreen extends ScreenAdapter {
         game.stage.addActor(createbutton.button);
 
         Gdx.input.setInputProcessor(game.stage);
+
     }
 
 

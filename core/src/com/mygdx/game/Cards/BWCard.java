@@ -24,16 +24,13 @@ public class BWCard extends Card {
     public GeneralButton deletebutton;
     public GeneralButton playbutton;
     public ToggleButton Lovebutton;
-    public String game;
-
     Long id;
     Assets assets; //////////////////////////////////////// Lot to change;;;
 
-    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets, String game) {
+    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
         super(string,username,dis,likes,g_width,aspect_ratio,font,assets);
         this.assets=assets;
         this.id = id;
-        this.game = game;
         // Play button;
         if (white) {
             playbutton = new GeneralButton(assets.CircledPlay);
