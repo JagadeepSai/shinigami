@@ -5,5 +5,4 @@ package com.mygdx.game.Interface;
  */
 
 public interface Login {
-    public boolean check(String username,String password);
 }

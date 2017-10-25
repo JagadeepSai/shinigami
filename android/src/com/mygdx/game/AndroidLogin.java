@@ -16,21 +16,5 @@ import android.widget.Toast;
 
 public class AndroidLogin implements Login {
 
-    private Activity gameActivity;
-    public FirebaseAuth mAuth;
-    public FirebaseAuth.AuthStateListener mAuthListener;
 
-
-    public AndroidLogin(Activity gameActivity) {
-        mAuth = FirebaseAuth.getInstance();
-        this.gameActivity = gameActivity;
-    }
-
-
-    @Override
-    public boolean check(String username, String password) {
-        Log.d(username,password);
-        mAuth.createUserWithEmailAndPassword(username+ "@firebase.com", password);
-        return true;
-    }
 }

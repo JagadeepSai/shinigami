@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.mygdx.game.Assets;
+import com.mygdx.game.Interface.CreateAccount;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
@@ -36,7 +37,7 @@ public class LoginScreen extends ScreenAdapter {
     GeneralButton backbutton;
     GeneralButton submitbutton;
     GeneralButton newuserbutton;
-    public Login authenticate;
+    public CreateAccount createAccount;
 
     Drawable empty ;
     Drawable cursor;
@@ -65,7 +66,7 @@ public class LoginScreen extends ScreenAdapter {
     public  LoginScreen(MainClass gam){
         this.game = gam;
         assets=gam.assets;
-        this.authenticate=gam.authenticate;
+        this.createAccount=gam.createAccount;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
@@ -285,20 +286,25 @@ public class LoginScreen extends ScreenAdapter {
                     String pass = password.getText();
                     //Gdx.app.log(user,pass);
                     //Gdx.app.log("qq","11");
-                    authenticate.check(user,pass);
                 }
                 else{
                     String user = login.getText();
                     String pass = password.getText();
                     String pass2 = re_password.getText();
 
-                    if(!pass.equals(pass2) || user == "" ){
-                        game.stage.getBatch().begin();
-                        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
-                        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
-                        game.stage.getBatch().end();
-                    }
-                    else{
+//                    if(!pass.equals(pass2) || user == "" ){
+//                        game.stage.getBatch().begin();
+//                        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
+//                        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
+//                        game.stage.getBatch().end();
+//                    }
+//                    else{
+//                        game.getScreen().hide();
+//                        game.stage.clear();
+//                        SettingScreen settingScreen = new SettingScreen(game);
+//                        game.setScreen(settingScreen);
+//                    }
+                    if(!createAccount.check(user,pass,pass2)){
                         game.getScreen().hide();
                         game.stage.clear();
                         SettingScreen settingScreen = new SettingScreen(game);
