@@ -43,6 +43,7 @@ import java.util.List;
 import sun.rmi.runtime.Log;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
 
 /**
  * Created by root on 8/10/17.
@@ -55,7 +56,8 @@ public class StageCreatorScreen extends ScreenAdapter{
     MainClass game ;
     String StageName;
     Stage PStage;
-    float negative_height;
+    int negative_height;
+    int posiive_height;
     ArrayList<BallButton> obs ;
     int total_count = 0;
     int total = 0;
@@ -85,6 +87,7 @@ public class StageCreatorScreen extends ScreenAdapter{
     //For Scroll
     boolean state;
     float height = 0;
+
     boolean inbox = false;
     private Vector3 prevDragPos;
 
@@ -204,8 +207,9 @@ public class StageCreatorScreen extends ScreenAdapter{
                      /* obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                      obs.setPosition(positions.get(count).x,positions.get(count).y)*/
                             bg.addActor(obs.get(total).ontapbutton.button);
+                            if(obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() < obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight()) posiive_height = obs.get(total).getId();
 
-                            if(negative_height > obs.get(total).getPosition().y) negative_height = obs.get(total).getPosition().y;
+                            if(obs.get(negative_height).getPosition().y  > obs.get(total).getPosition().y ) negative_height = obs.get(total).getId();
 
                             total_count++;
                             total++;
@@ -290,9 +294,14 @@ public class StageCreatorScreen extends ScreenAdapter{
                         // System.out.println(obs.get(current_index).getPosition().x);
                         // System.out.println(obs.get(current_index).getPosition().y);
 
+
                         bg.addActor(obs.get(current_index).ontapbutton.button);
 
                         pre_zoom = Zoom_len;
+
+                        if(obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() < obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight()) posiive_height = obs.get(total).getId();
+
+                        if(obs.get(negative_height).getPosition().y  > obs.get(total).getPosition().y ) negative_height = obs.get(total).getId();
 
                     }
                 }
@@ -498,10 +507,10 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                 scrollmode = true;
                 delmode = pinchmode = false;
-                negative_height = -negative_height;
-                height = height + negative_height;
-                PStage = new Stage(height,obs.size());
+                float Stage_height = obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() - obs.get(negative_height).getPosition().y ;
+                PStage = new Stage(Stage_height,obs.size());
                 float xcor, ycor ,radius;
+
                 for (int i = 0; i < obs.size(); i++) {
                     radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2;
                     xcor = obs.get(i).center.x/GameWidth - 0.5f;
