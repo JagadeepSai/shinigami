@@ -232,7 +232,7 @@ public class StageNameScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)   game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -244,7 +244,7 @@ public class StageNameScreen extends ScreenAdapter {
         submitbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.assets.button_tune.play();
+                if(game.button_tune_play)    game.assets.button_tune.play();
 
                 game.getScreen().hide();
                 game.stage.clear();

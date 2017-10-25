@@ -265,7 +265,7 @@ public class LoginScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play) game.assets.button_tune.play();
                 Gdx.input.setOnscreenKeyboardVisible(false);
                 game.stage.unfocusAll();
 
@@ -282,7 +282,7 @@ public class LoginScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println(game.Username);
-                game.assets.button_tune.play();
+                if(game.button_tune_play) game.assets.button_tune.play();
 
                     if (state == true) {
                         String user = login.getText();
@@ -332,7 +332,7 @@ public class LoginScreen extends ScreenAdapter {
         newuserbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)  game.assets.button_tune.play();
 
                 newuserbutton.button.setVisible(false);
                     re_password.setVisible(true);

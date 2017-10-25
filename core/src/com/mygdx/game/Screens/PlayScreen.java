@@ -318,7 +318,7 @@ public class PlayScreen extends ScreenAdapter{
             public void clicked(InputEvent event, float x, float y){
 
                // game.back_tune.play();
-                game.assets.button_tune.play();
+                if(game.button_tune_play)  game.assets.button_tune.play();
 
                 game.getScreen().hide();
                 game.stage.clear();
@@ -344,7 +344,7 @@ public class PlayScreen extends ScreenAdapter{
         restartbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.assets.button_tune.play();
+                if(game.button_tune_play) game.assets.button_tune.play();
                     game.stage.clear();
                     game.setScreen(new PlayScreen(game,PStage,PreviousScreen));
             }

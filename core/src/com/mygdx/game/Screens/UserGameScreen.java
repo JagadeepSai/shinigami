@@ -106,7 +106,7 @@ public class UserGameScreen extends ScreenAdapter {
             UserCards[i].playbutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.assets.button_tune.play();
+                    if(game.button_tune_play)  game.assets.button_tune.play();
                    game.stage.clear();
                     game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,stage[2]),"UserGameScreen"));
                 }
@@ -209,7 +209,7 @@ public class UserGameScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)  game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 MainScreen mainScreen = new MainScreen(game);
@@ -222,7 +222,7 @@ public class UserGameScreen extends ScreenAdapter {
         designbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)  game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 StageNameScreen stageNameScreen = new StageNameScreen(game);

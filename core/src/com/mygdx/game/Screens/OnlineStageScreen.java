@@ -92,7 +92,7 @@ public class OnlineStageScreen extends ScreenAdapter {
             UserCards[j].playbutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.assets.button_tune.play();
+                    if(game.button_tune_play) game.assets.button_tune.play();
                     game.getScreen().hide();
                     game.stage.clear();
                     game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,string),"OnlineStageScreen"));
@@ -132,7 +132,7 @@ public class OnlineStageScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+               if(game.button_tune_play) game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 MainScreen mainScreen = new MainScreen(game);

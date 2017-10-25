@@ -476,7 +476,7 @@ public class StageCreatorScreen extends ScreenAdapter{
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)  game.assets.button_tune.play();
 
                 // game.stage.getCamera().translate(0,0,0);
                 game.stage.getCamera().position.set(GameWidth/2,GameHeight/2,0);
@@ -496,7 +496,7 @@ public class StageCreatorScreen extends ScreenAdapter{
         box4.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)   game.assets.button_tune.play();
 
                 if(scrollmode && !pinchmode && !delmode) {
                     total_count--;

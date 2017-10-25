@@ -127,7 +127,7 @@ public class MainScreen extends ScreenAdapter {
         playbutton.button.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event,float x,float y){
-               game.assets.button_tune.play();
+               if(game.button_tune_play)  game.assets.button_tune.play();
               // game.back_tune.stop();
                game.getScreen().hide();
                game.stage.clear();
@@ -162,7 +162,7 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)    game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 SettingScreen settingScreen = new SettingScreen(game);
@@ -174,7 +174,7 @@ public class MainScreen extends ScreenAdapter {
         createbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)    game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -186,7 +186,7 @@ public class MainScreen extends ScreenAdapter {
         groupbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)   game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);

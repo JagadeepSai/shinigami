@@ -167,7 +167,7 @@ public class SettingScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.assets.button_tune.play();
+                if(game.button_tune_play)   game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 MainScreen mainScreen = new MainScreen(game);
@@ -180,7 +180,7 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 if ((game.Username.equals(""))) {
-
+                    if(game.button_tune_play) game.assets.button_tune.play();
                     game.getScreen().hide();
                 game.stage.clear();
                 LoginScreen loginScreen = new LoginScreen(game);
