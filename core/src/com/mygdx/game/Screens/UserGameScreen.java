@@ -89,7 +89,7 @@ public class UserGameScreen extends ScreenAdapter {
 
 
 //Temporary Creation
-        PStage = new Stage(10, 15,"Hello",UserName);
+        PStage = new Stage(10, 15);
         PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
         PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
         PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};

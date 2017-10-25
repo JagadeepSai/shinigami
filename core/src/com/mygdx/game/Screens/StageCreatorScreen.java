@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.tools.flame.EventManager;
+import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.Assets;
 import com.mygdx.game.InputListerners.StageScrollListener;
 import com.mygdx.game.MainButton.BallButton;
@@ -32,6 +34,8 @@ import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
+
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -496,7 +500,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                 delmode = pinchmode = false;
                 negative_height = -negative_height;
                 height = height + negative_height;
-                PStage = new Stage(height,obs.size(),StageName,"Jagadeep");
+                PStage = new Stage(height,obs.size());
                 float xcor, ycor ,radius;
                 for (int i = 0; i < obs.size(); i++) {
                     radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2;
@@ -504,8 +508,10 @@ public class StageCreatorScreen extends ScreenAdapter{
                     ycor = obs.get(i).center.y;
                     PStage.obstacles[i] = new float[]{radius, xcor, ycor};
                 }
-
-
+                FileHandle fileHandle = Gdx.files.local("usersaved.txt");
+                Json json = new Json();
+                fileHandle.writeString(System.currentTimeMillis()+' '+StageName +' '+ json.toJson(PStage) +'\n',true);
+                System.out.println(fileHandle.readString());
             }
         });
 
