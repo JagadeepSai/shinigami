@@ -1,19 +1,26 @@
 package com.mygdx.game;
 
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AndroidApplication {
-	public  AndroidLogin androidLogin;
+	public  AndroidCreateAccount androidCreateAccount;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		androidLogin=new AndroidLogin(this);
+		androidCreateAccount=new AndroidCreateAccount(this);
 		MainClass mainClass= new MainClass();
-		mainClass.setLogin(androidLogin);
+		mainClass.setCreateAccount(androidCreateAccount);
 		initialize(mainClass, config);
+
+//		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//				.requestIdToken(getString(R.string.default_web_client_id))
+//				.requestEmail()
+//				.build();
 	}
 }
