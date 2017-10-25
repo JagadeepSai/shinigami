@@ -153,7 +153,6 @@ public class UserGameScreen extends ScreenAdapter {
                     FileHandle fileHandle2= Gdx.files.local("usersaved.txt");
                     String [] stagesarray2 = fileHandle2.readString().split("\\r?\\n");
 
-
                     fileHandle2.writeString("",false);
                     System.out.println("Inside : Empty");
                     System.out.println("Hi"+fileHandle2.readString()+"In");
