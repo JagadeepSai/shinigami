@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.Assets;
 import com.mygdx.game.Cards.BWCard;
 import com.mygdx.game.Cards.Card;
@@ -66,7 +67,7 @@ public class UserGameScreen extends ScreenAdapter {
     float padding = GameHeight/33;
 
 
-    public UserGameScreen(MainClass gam){
+    public UserGameScreen(final MainClass gam){
         this.game= gam;
         assets=gam.assets;
         nav_control = new Group();
@@ -112,24 +113,31 @@ public class UserGameScreen extends ScreenAdapter {
 
         FileHandle fileHandle= Gdx.files.local("usersaved.txt");
         String [] stagesarray = fileHandle.readString().split("\\r?\\n");
-       BWCard [] UserCards = new BWCard[stagesarray.length];
+        BWCard [] UserCards = new BWCard[stagesarray.length];
         int i=0;
-
+        final Json json = new Json();
         for (String words : stagesarray) {
             if(words.isEmpty())break;
-            String [] stage = words.split("\\s+");
+            final String [] stage = words.split("\\s+");
             if (!((i+1)%2 == 0)) {
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets);
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets,stage[2]);
             }
             else
             {
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets);
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets,stage[2]);
             }
-                scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
-                scrollTable.row();
-
+            scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
+            scrollTable.row();
+            UserCards[i].playbutton.button.isTouchable();
+            UserCards[i].playbutton.button.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,stage[2])));
+                }
+            });
             i++;
         }
+
 
 //
 //        UserCard2 = new BWCard("Shinigami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
@@ -224,6 +232,8 @@ public class UserGameScreen extends ScreenAdapter {
                 game.setScreen(stageNameScreen);
             }
         });
+
+
     }
 
     @Override

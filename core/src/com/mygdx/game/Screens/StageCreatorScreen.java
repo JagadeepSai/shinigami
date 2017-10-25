@@ -518,11 +518,10 @@ public class StageCreatorScreen extends ScreenAdapter{
                // float Stage_height = obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() - obs.get(negative_height).getPosition().y ;
                 PStage = new Stage(Stage_height,obs.size());
                 float xcor, ycor ,radius;
-
                 for (int i = 0; i < obs.size(); i++) {
-                    radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2;
+                    radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2/GameWidth;
                     xcor = obs.get(i).center.x/GameWidth - 0.5f;
-                    ycor = obs.get(i).center.y;
+                    ycor = obs.get(i).center.y/GameWidth;
                     PStage.obstacles[i] = new float[]{radius, xcor, ycor};
                 }
                 FileHandle fileHandle = Gdx.files.local("usersaved.txt");

@@ -20,20 +20,20 @@ import java.util.Date;
 
 public class BWCard extends Card {
 
-    GeneralButton sharebutton;
-    GeneralButton deletebutton;
-    GeneralButton playbutton;
-    ToggleButton Lovebutton;
-
+    public GeneralButton sharebutton;
+    public GeneralButton deletebutton;
+    public GeneralButton playbutton;
+    public ToggleButton Lovebutton;
+    public String game;
 
     Long id;
     Assets assets; //////////////////////////////////////// Lot to change;;;
 
-    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
+    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets, String game) {
         super(string,username,dis,likes,g_width,aspect_ratio,font,assets);
         this.assets=assets;
         this.id = id;
-
+        this.game = game;
         // Play button;
         if (white) {
             playbutton = new GeneralButton(assets.CircledPlay);
@@ -55,12 +55,14 @@ public class BWCard extends Card {
             setDp(assets.Black);
         }
 
-        playbutton.addClickListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-            }
-        });
+//        playbutton.addClickListener(new ClickListener(){
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                super.clicked(event, x, y);
+//                //setScreen(new )
+//
+//            }
+//        });
 
         group.addActor(playbutton.button);
 

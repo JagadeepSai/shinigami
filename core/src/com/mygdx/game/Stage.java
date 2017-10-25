@@ -13,4 +13,7 @@ public class Stage {
         noofobstacles=noof;
         obstacles = new float[noof][3];
     }
+    public Stage(){
+        obstacles=new float[1000][3];
+    }
 }
