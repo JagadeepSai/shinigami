@@ -45,20 +45,8 @@ public class UserGameScreen extends ScreenAdapter {
     Group nav_control;
     ScrollPane scrollPane ;
 
-
-
-
     Card UserCard;
     Card bufferEnd;
-    BWCard UserCard2;
-    BWCard UserCard3;
-    BWCard UserCard4;
-    BWCard UserCard5;
-    BWCard UserCard6;
-    BWCard UserCard7;
-    BWCard UserCard8;
-
-
 
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
@@ -91,25 +79,6 @@ public class UserGameScreen extends ScreenAdapter {
 
         bufferEnd = new Card("",UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
 
-
-//Temporary Creation
-//        PStage = new Stage(10, 15);
-//        PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
-//        PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
-//        PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
-//        PStage.obstacles[3] = new float[]{0.05f, 0.2f, 1f};
-//        PStage.obstacles[4] = new float[]{0.25f, 0.15f, 1.3f};
-//        PStage.obstacles[5] = new float[]{0.1f, -0.35f, 1.6f};
-//        PStage.obstacles[6] = new float[]{0.05f, 0f, 1.75f};
-//        PStage.obstacles[7] = new float[]{0.08f, -0.3f, 1.85f};
-//        PStage.obstacles[8] = new float[]{0.12f, 0.1f, 2.05f};
-//        PStage.obstacles[9] = new float[]{0.1f, 0.25f, 2.18f};
-//        PStage.obstacles[10] = new float[]{0.26f, -0.2f, 2.4f};
-//        PStage.obstacles[11] = new float[]{0.2f, 0f, 2.9f};
-//        PStage.obstacles[12] = new float[]{0.17f, 0.22f, 4.3f};
-//        PStage.obstacles[13] = new float[]{0.2f, 0.15f, 4.6f};
-//        PStage.obstacles[14] = new float[]{0.1f, -0.2f, 4.85f};
-////
         scrollTable.add(UserCard.group).padBottom(padding).padTop(7*padding).expandX();
         scrollTable.row();
 
@@ -125,11 +94,11 @@ public class UserGameScreen extends ScreenAdapter {
             if (!((i+1)%2 == 0)) {
 
 
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets,stage[2]);
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets);
             }
             else
             {
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets,stage[2]);
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets);
             }
             scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
             scrollTable.row();
@@ -189,31 +158,6 @@ public class UserGameScreen extends ScreenAdapter {
         }
 
 
-//
-//        UserCard2 = new BWCard("Shinigami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
-//        UserCard3 = new BWCard("Noragami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
-//        UserCard4 = new BWCard("Suraj Soni",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
-//
-//        UserCard5 = new BWCard("Suseendran",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
-//        UserCard6 = new BWCard("Jagadeep",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,false,font,assets);
-//
-
-       // scrollTable.setDebug(true); //For Debugging
-/*
-
-
-        scrollTable.add(UserCard2.group).padBottom(padding).expandX();
-        scrollTable.row();
-        scrollTable.add(UserCard3.group).padBottom(padding);
-        scrollTable.row();
-        scrollTable.add(UserCard4.group).padBottom(padding);
-        scrollTable.row();
-        scrollTable.add(UserCard5.group).padBottom(padding);
-        scrollTable.row();
-        scrollTable.add(UserCard6.group).padBottom(padding);
-        scrollTable.row();
-
-*/
 
         scrollTable.add(bufferEnd.group).padBottom(padding);
         scrollTable.row();

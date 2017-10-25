@@ -304,7 +304,7 @@ public class LoginScreen extends ScreenAdapter {
 //                        SettingScreen settingScreen = new SettingScreen(game);
 //                        game.setScreen(settingScreen);
 //                    }
-                    if(!createAccount.check(user,pass,pass2)){
+                    if(!createAccount.createAccount(user,pass,pass2)){
                         game.getScreen().hide();
                         game.stage.clear();
                         SettingScreen settingScreen = new SettingScreen(game);

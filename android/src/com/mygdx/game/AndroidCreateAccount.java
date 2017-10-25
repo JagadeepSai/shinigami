@@ -50,7 +50,7 @@ public class AndroidCreateAccount implements CreateAccount{
     }
 
     @Override
-    public boolean check(String username, String password, String password2) {
+    public boolean createAccount(String username, String password, String password2) {
         if(username.isEmpty()){
             handler.post(new Runnable()
             {
@@ -118,5 +118,11 @@ public class AndroidCreateAccount implements CreateAccount{
          return false;
      }
      else return true;
+    }
+
+    @Override
+    public boolean check(String username, String password) {
+
+        return true;
     }
 }

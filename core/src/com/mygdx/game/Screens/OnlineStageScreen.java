@@ -85,9 +85,6 @@ public class OnlineStageScreen extends ScreenAdapter {
             {
                 UserCards[j] = new BWCard(s[j][0], "", true,0, Long.parseLong("11") , cardWidth, AspectRatio1 * 1.75f,true, font, assets);
             }
-
-
-
             scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
             scrollTable.row();
             UserCards[j].playbutton.button.isTouchable();
@@ -100,11 +97,8 @@ public class OnlineStageScreen extends ScreenAdapter {
                     game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,string)));
                 }
             });
-
             i++;
         }
-
-
         scrollTable.add(bufferEnd.group).padBottom(padding);
         scrollTable.row();
         scrollPane = new ScrollPane(scrollTable);

@@ -5,5 +5,6 @@ package com.mygdx.game.Interface;
  */
 
 public interface CreateAccount {
-    public boolean check(String username,String password, String password2);
+    public boolean createAccount(String username,String password, String password2);
+    public boolean check(String username,String password);
 }
