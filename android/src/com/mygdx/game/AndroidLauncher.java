@@ -8,14 +8,18 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AndroidApplication {
 	public  AndroidCreateAccount androidCreateAccount;
+	public AndroidGoogleSignin androidGoogleSignin;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
+
 
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		androidCreateAccount=new AndroidCreateAccount(this);
+		androidGoogleSignin=new AndroidGoogleSignin();
 		MainClass mainClass= new MainClass();
 		mainClass.setCreateAccount(androidCreateAccount);
+		mainClass.setGoogleSignin(androidGoogleSignin);
 		initialize(mainClass, config);
 
 //		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -23,4 +27,5 @@ public class AndroidLauncher extends AndroidApplication {
 //				.requestEmail()
 //				.build();
 	}
+
 }
