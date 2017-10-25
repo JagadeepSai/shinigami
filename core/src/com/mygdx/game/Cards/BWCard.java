@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
@@ -24,11 +25,12 @@ public class BWCard extends Card {
     GeneralButton playbutton;
     ToggleButton Lovebutton;
 
+
     Date id;
     Assets assets; //////////////////////////////////////// Lot to change;;;
 
-    public BWCard(String string,String username,boolean dis,Date id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
-        super(string,username,dis,g_width,aspect_ratio,font,assets);
+    public BWCard(String string,String username,boolean dis,int likes,Date id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
+        super(string,username,dis,likes,g_width,aspect_ratio,font,assets);
         this.assets=assets;
         this.id = id;
 
@@ -95,27 +97,40 @@ public class BWCard extends Card {
 
 
         }
-        else{
-            TextureRegion love = new TextureRegion(new Texture(Gdx.files.internal("Love.png")));
-            TextureRegion loveIn = new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
-            Lovebutton = new ToggleButton(love,loveIn,false);
+        else {
 
-            Lovebutton.setWidth(group.getWidth()/6.8f);
-            Lovebutton.setHeight(Lovebutton.getWidth()*aspect_ratio/3);
-            Lovebutton.setPosition(playbutton.getPosition().x -Lovebutton.getWidth()*1.5f , 1.75f*group.getHeight()/5);
+                TextureRegion love = new TextureRegion(new Texture(Gdx.files.internal("Love.png")));
+                TextureRegion loveIn = new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
+                Lovebutton = new ToggleButton(love, loveIn, false);
 
-            Lovebutton.setTouchable();
-            Lovebutton.button.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y){
-                    Lovebutton.change();
+                if(white) {
+                    Lovebutton.setWidth(group.getWidth() / 6.8f);
+                    Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2.5f);
+                    Lovebutton.setPosition(playbutton.getPosition().x - Lovebutton.getWidth() * 1.5f, 1.75f * group.getHeight() / 5);
+
                 }
-            });
+                else{
+                    setPosBlack();
+                    setLikes();
+                    Lovebutton.setWidth(group.getWidth() / 6.8f);
+                    Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2);
+                    Lovebutton.setPosition(playbutton.getPosition().x - Lovebutton.getWidth() * 1.5f, 1.75f * group.getHeight() / 5);
+
+                }
 
 
-            group.addActor(Lovebutton.button);
+                Lovebutton.setTouchable();
+                Lovebutton.button.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Lovebutton.change();
+                    }
+                });
+
+                group.addActor(Lovebutton.button);
+            }
         }
 
 
-    }
+
 }

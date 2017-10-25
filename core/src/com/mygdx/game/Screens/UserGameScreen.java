@@ -80,12 +80,12 @@ public class UserGameScreen extends ScreenAdapter {
         generator.dispose();
 
 
-        UserCard = new Card(UserName,UserName,false,cardWidth,AspectRatio1*1.75f,font,assets);
+        UserCard = new Card(UserName,UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
         UserCard.L_name_scale(6/2);
 
-        bufferEnd = new Card("",UserName,false,cardWidth,AspectRatio1*1.75f,font,assets);
+        bufferEnd = new Card("",UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
 
 
 //Temporary Creation
@@ -114,11 +114,11 @@ public class UserGameScreen extends ScreenAdapter {
         for (int i = 0; i < PStage.noofobstacles; i++) {
 
             if (!((i+1)%2 == 0)) {
-                UserCards[i] = new BWCard(PStage.name, UserName, false, PStage.id, cardWidth, AspectRatio1 * 1.35f,false, font, assets);
+                UserCards[i] = new BWCard(PStage.name, UserName, false,likes, PStage.id, cardWidth, AspectRatio1 * 1.35f,false, font, assets);
             }
             else
             {
-                UserCards[i] = new BWCard(PStage.name, UserName, false, PStage.id, cardWidth, AspectRatio1 * 1.75f,true, font, assets);
+                UserCards[i] = new BWCard(PStage.name, UserName, false,likes, PStage.id, cardWidth, AspectRatio1 * 1.75f,true, font, assets);
             }
                 scrollTable.add(UserCards[i].group).padBottom(padding).padTop(7*padding).expandX();
                 scrollTable.row();
@@ -126,12 +126,12 @@ public class UserGameScreen extends ScreenAdapter {
 
 */
 
-        UserCard2 = new BWCard("Shinigami",UserName,true,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
-        UserCard3 = new BWCard("Noragami",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
-        UserCard4 = new BWCard("Suraj Soni",UserName,true,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
+        UserCard2 = new BWCard("Shinigami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
+        UserCard3 = new BWCard("Noragami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard4 = new BWCard("Suraj Soni",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
 
-        UserCard5 = new BWCard("Suseendran",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
-        UserCard6 = new BWCard("Jagadeep",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,false,font,assets);
+        UserCard5 = new BWCard("Suseendran",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard6 = new BWCard("Jagadeep",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,false,font,assets);
 
 
        // scrollTable.setDebug(true); //For Debugging

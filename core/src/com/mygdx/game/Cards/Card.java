@@ -31,9 +31,10 @@ public class Card {
     LabelStyle labelStyle;
     Assets assets;
     Label Username;
+    Label Likes;
     Boolean disp_user = false;
 
-    public Card(String string,String username,boolean dis,float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
+    public Card(String string,String username,boolean dis,int likes, float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
         this.assets=assets;
         group = new Group();
         group.setWidth(g_width);
@@ -63,7 +64,13 @@ public class Card {
 
             Username = new Label(username,labelStyle);
             Username.setPosition(g_width/11,group.getHeight()/30);
+            Username.setColor(Color.GRAY);
             group.addActor(Username);
+
+            Likes = new Label(Integer.toString(likes),labelStyle);
+            Likes.setPosition(3.31f*group.getWidth()/6,-group.getHeight() + 4.5f*Likes.getHeight()/1.75f);
+            group.addActor(Likes);
+
         }
 
     }
@@ -71,6 +78,9 @@ public class Card {
 
     public void L_name_scale(float scale){
         L_name.scaleBy(scale);
+    }
+    public void setLikes(){
+        Likes.setPosition(3.31f*group.getWidth()/6 ,0.8f*Likes.getHeight()/2.5f);
     }
     public void setPosBlack(){
         L_name.setY(2.5f*group.getHeight()/5);
@@ -97,6 +107,7 @@ public class Card {
 
     public void setL_color(Color color){
         L_name.setColor(color);
-        if (disp_user) Username.setColor(Color.GRAY);
+        if(disp_user) Likes.setColor(color);
+
     }
 }
