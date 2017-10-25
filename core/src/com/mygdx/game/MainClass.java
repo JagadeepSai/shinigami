@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,6 +23,8 @@ import org.lwjgl.Sys;
 import java.io.OutputStream;
 
 public class MainClass extends Game {
+	public Preferences prefs ;
+
 	public Stage stage;
 	public Viewport viewport ;
 	public CreateAccount createAccount;
@@ -33,10 +36,21 @@ public class MainClass extends Game {
 	public Music button_tune;
 	public boolean back_tune_play = true;
 	public boolean button_tune_play = true;
+	public  String Username ;
+
+
+
 	public Assets assets;
 
 	@Override
 	public void create () {
+		prefs= Gdx.app.getPreferences("preferences");
+		if(prefs.get()==null) {
+			prefs.putString("username","").flush();
+		}
+		Username = prefs.getString("username");
+
+
 
 		back_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/homescreen_music-not_to_be_played_when_user_plays_game.mp3"));
 		button_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/Remaining_all_buttons.mp3"));

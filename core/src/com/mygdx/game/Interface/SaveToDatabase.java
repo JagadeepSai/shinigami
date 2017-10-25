@@ -5,6 +5,6 @@ package com.mygdx.game.Interface;
  */
 
 public interface SaveToDatabase {
-    public boolean save(String id, String name,String json);
+    public boolean save(String id, String name,String username,String json);
     public String[][] get();
 }

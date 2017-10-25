@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 
 /**
  * Created by suraj on 14/10/17.
@@ -46,6 +47,11 @@ public class Assets {
     public static TextureRegion White;
     public static TextureRegion Black;
     public static TextureRegion Wall;
+    public static TextureRegion Login;
+    public static TextureRegion Logout;
+    public static TextureRegion LoveIn;
+    public static TextureRegion LoveBlack;
+    public static TextureRegion LoveWhite;
 
 
     public static void load () {
@@ -83,6 +89,14 @@ public class Assets {
         Wall= new TextureRegion(Parent ,2028,0,28,572);
         White= new TextureRegion(Parent ,2057,1002,480,270);
         Black = new TextureRegion(Parent,0,1797,893,410);
+        Logout= new TextureRegion(new Texture(Gdx.files.internal("Logout.png")));
+        Login= new TextureRegion(new Texture(Gdx.files.internal("Login.png")));
+        LoveWhite= new TextureRegion(new Texture(Gdx.files.internal("LoveWhite.png")));
+        LoveBlack= new TextureRegion(new Texture(Gdx.files.internal("LoveBlack.png")));
+        LoveIn= new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
+
+
+
     }
 
 }

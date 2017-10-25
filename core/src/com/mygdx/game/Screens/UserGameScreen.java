@@ -72,7 +72,7 @@ public class UserGameScreen extends ScreenAdapter {
         generator.dispose();
 
 
-        UserCard = new Card(UserName,UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
+        UserCard = new Card(game.prefs.getString("username"),UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
         UserCard.L_name_scale(6/2);
@@ -149,7 +149,7 @@ public class UserGameScreen extends ScreenAdapter {
             UserCards[i].sharebutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.saveToDatabase.save(stage[0], stage[1],stage[2]);
+                    game.saveToDatabase.save(stage[0], stage[1],gam.Username,stage[2]);
                 }
             });
 

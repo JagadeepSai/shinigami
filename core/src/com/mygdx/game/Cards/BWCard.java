@@ -99,11 +99,10 @@ public class BWCard extends Card {
         }
         else {
 
-                TextureRegion love = new TextureRegion(new Texture(Gdx.files.internal("Love.png")));
-                TextureRegion loveIn = new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
-                Lovebutton = new ToggleButton(love, loveIn, false);
 
                 if(white) {
+                    Lovebutton = new ToggleButton(assets.LoveBlack, assets.LoveIn, false);
+
                     Lovebutton.setWidth(group.getWidth() / 6.8f);
                     Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2.5f);
                     Lovebutton.setPosition(playbutton.getPosition().x - Lovebutton.getWidth() * 1.5f, 1.75f * group.getHeight() / 5);
@@ -113,6 +112,8 @@ public class BWCard extends Card {
                     setPosBlack();
                     setPosBlackUsername();
                     setLikes();
+                    Lovebutton = new ToggleButton(assets.LoveWhite, assets.LoveIn, false);
+
                     Lovebutton.setWidth(group.getWidth() / 6.8f);
                     Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2);
                     Lovebutton.setPosition(playbutton.getPosition().x - Lovebutton.getWidth() * 1.5f, 1.75f * group.getHeight() / 5);

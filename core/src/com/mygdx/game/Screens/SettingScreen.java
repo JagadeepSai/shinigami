@@ -24,7 +24,7 @@ public class SettingScreen extends ScreenAdapter {
     Assets assets;
     GeneralButton backbutton;
     ToggleButton fbbutton;
-    GeneralButton loginbutton;
+    ToggleButton loginbutton;
     ToggleButton gplusbutton;
     ToggleButton speakerbutton;
     ToggleButton musicbutton;
@@ -47,6 +47,8 @@ public class SettingScreen extends ScreenAdapter {
     public SettingScreen(MainClass game){
         this.game = game;
         assets=game.assets;
+
+        System.out.println("Username :  " + game.prefs.getString("username"));
         this.googleSignin=game.googleSignin;
         game.stage.getViewport().update((int)GameWidth,(int)(GameHeight));
 
@@ -73,7 +75,7 @@ public class SettingScreen extends ScreenAdapter {
         fbbutton.setPosition(fbbutton.getWidth()/3 ,GameWidth/(AspectRatio*2) - fbbutton.getHeight()/2);
 
 
-        loginbutton = new ToggleButton(assets.Create,assets.Create,false);
+        loginbutton = new ToggleButton(assets.Logout,assets.Login,game.prefs.getString("username").equals(""));
         loginbutton.setWidth(3*GameWidth/13);
         loginbutton.setHeight(loginbutton.getWidth()/AspectRatio);
         loginbutton.setPosition(GameWidth/2 - loginbutton.getWidth()/2 ,GameWidth/(AspectRatio*2) - loginbutton.getHeight()/2);
@@ -176,10 +178,18 @@ public class SettingScreen extends ScreenAdapter {
         loginbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.getScreen().hide();
+                if ((game.Username.equals(""))) {
+
+                    game.getScreen().hide();
                 game.stage.clear();
                 LoginScreen loginScreen = new LoginScreen(game);
                 game.setScreen(loginScreen);
+
+                }else{
+                    game.Username = "" ;
+                    game.prefs.putString("username","").flush();
+                }
+
             }
         });
     }

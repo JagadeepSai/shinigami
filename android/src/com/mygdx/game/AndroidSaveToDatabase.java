@@ -50,7 +50,7 @@ public class AndroidSaveToDatabase implements SaveToDatabase{
     }
 
     @Override
-    public boolean save(String id,String name,String json) {
+    public boolean save(String id,String name,String username,String json) {
 //        mChildRefernce.child("Id").child("Ratings").setValue(1);
 //        mChildRefernce.child("Id").child("map").setValue("hushuh");
 //        String ss= mChildRefernce.push().getKey();
@@ -58,8 +58,8 @@ public class AndroidSaveToDatabase implements SaveToDatabase{
 
         mChildRefernce.child(id).child("name").setValue(name);
         mChildRefernce.child(id).child("json").setValue(json);
-        mChildRefernce.child(id).child("username").setValue("");
-        mChildRefernce.child(id).child("rating").setValue("1");
+        mChildRefernce.child(id).child("username").setValue(username);
+        mChildRefernce.child(id).child("rating").setValue("0");
         return false;
     }
 

@@ -24,7 +24,10 @@ import com.mygdx.game.Assets;
 import com.mygdx.game.Interface.CreateAccount;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.MainButton.GeneralButton;
+import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
+
+import org.lwjgl.Sys;
 
 /**
  * Created by root on 7/10/17.
@@ -244,10 +247,6 @@ public class LoginScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.stage.getBatch().begin();
-        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
-        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
-        game.stage.getBatch().end();
 
         game.stage.draw();
     }
@@ -278,53 +277,68 @@ public class LoginScreen extends ScreenAdapter {
 
         submitbutton.setTouchable();
         submitbutton.button.addListener(new ClickListener(){
+
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println(game.Username);
 
-                if(state == true) {
-                    String user = login.getText();
-                    String pass = password.getText();
-                    //Gdx.app.log(user,pass);
-                    //Gdx.app.log("qq","11");
-                }
-                else{
-                    String user = login.getText();
-                    String pass = password.getText();
-                    String pass2 = re_password.getText();
+                    if (state == true) {
+                        String user = login.getText();
+                        String pass = password.getText();
+                        //Gdx.app.log(user,pass);
+                        //Gdx.app.log("qq","11");
 
-//                    if(!pass.equals(pass2) || user == "" ){
-//                        game.stage.getBatch().begin();
-//                        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
-//                        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
-//                        game.stage.getBatch().end();
-//                    }
-//                    else{
-//                        game.getScreen().hide();
-//                        game.stage.clear();
-//                        SettingScreen settingScreen = new SettingScreen(game);
-//                        game.setScreen(settingScreen);
-//                    }
-                    if(!createAccount.createAccount(user,pass,pass2)){
-                        game.getScreen().hide();
-                        game.stage.clear();
-                        SettingScreen settingScreen = new SettingScreen(game);
-                        game.setScreen(settingScreen);
+                        if(createAccount.check(user, pass))
+                        {
+                            game.getScreen().hide();
+                            game.stage.clear();
+                            game.Username = user;
+                            //game.prefs.flush();
+                            game.prefs.putString("username",user).flush();
+
+                            System.out.println("Inside sucessfull login "+ game.Username);
+
+
+                            SettingScreen settingScreen = new SettingScreen(game);
+                            game.setScreen(settingScreen);
+                        }
+
+
+
+                    } else {
+                        String user = login.getText();
+                        String pass = password.getText();
+                        String pass2 = re_password.getText();
+
+                        if (!createAccount.createAccount(user, pass, pass2)) {
+                            game.getScreen().hide();
+                            game.stage.clear();
+                            game.Username = user;
+
+                            //game.prefs.flush();
+                            game.prefs.putString("username",user).flush();
+
+                            SettingScreen settingScreen = new SettingScreen(game);
+                            game.setScreen(settingScreen);
+                        }
                     }
-                }
-            }
+                            }
+
         });
 
         newuserbutton.setTouchable();
         newuserbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                newuserbutton.button.setVisible(false);
-                re_password.setVisible(true);
-                //submitbutton.button.setPosition(submitbutton.getPosition().x,submitbutton.getPosition().y - re_password.getHeight()*6f);
-                submitbutton.button.setPosition(submitbutton.getPosition().x, GameHeight/5f);
-                state = false;
 
-            }
+                newuserbutton.button.setVisible(false);
+                    re_password.setVisible(true);
+                    //submitbutton.button.setPosition(submitbutton.getPosition().x,submitbutton.getPosition().y - re_password.getHeight()*6f);
+                    submitbutton.button.setPosition(submitbutton.getPosition().x, GameHeight / 5f);
+                    state = false;
+
+
+        }
         });
         //super.show();
     }
