@@ -40,6 +40,8 @@ public class MainClass extends Game {
 
 
 		//Gdx.app.log("qwer",Gdx.files.getExternalStoragePath());
+		FileHandle fileHandle = Gdx.files.local("usersaved.txt");
+		fileHandle.writeString("",true);
 
         stage = new Stage();
 		viewport = new StretchViewport(0,0);

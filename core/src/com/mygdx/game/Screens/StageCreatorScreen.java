@@ -56,8 +56,8 @@ public class StageCreatorScreen extends ScreenAdapter{
     MainClass game ;
     String StageName;
     Stage PStage;
-    int negative_height;
-    int posiive_height;
+    float negative_height;
+    float posiive_height;
     ArrayList<BallButton> obs ;
     int total_count = 0;
     int total = 0;
@@ -207,9 +207,9 @@ public class StageCreatorScreen extends ScreenAdapter{
                      /* obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                      obs.setPosition(positions.get(count).x,positions.get(count).y)*/
                             bg.addActor(obs.get(total).ontapbutton.button);
-                            if(obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() < obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight()) posiive_height = obs.get(total).getId();
+                            if(posiive_height < obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight()) posiive_height = obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight();
 
-                            if(obs.get(negative_height).getPosition().y  > obs.get(total).getPosition().y ) negative_height = obs.get(total).getId();
+                            if(negative_height  > obs.get(total).getPosition().y ) negative_height = obs.get(total).getPosition().y;
 
                             total_count++;
                             total++;
@@ -299,9 +299,11 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                         pre_zoom = Zoom_len;
 
-                        if(obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() < obs.get(total).getPosition().y + obs.get(total).ontapbutton.getHeight()) posiive_height = obs.get(total).getId();
 
-                        if(obs.get(negative_height).getPosition().y  > obs.get(total).getPosition().y ) negative_height = obs.get(total).getId();
+                        if(posiive_height < obs.get(current_index).getPosition().y + obs.get(current_index).ontapbutton.getHeight()) posiive_height = obs.get(current_index).getPosition().y + obs.get(current_index).ontapbutton.getHeight();
+
+                        if(negative_height  > obs.get(current_index).getPosition().y ) negative_height = obs.get(total).getPosition().y;
+
 
                     }
                 }
@@ -507,7 +509,13 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                 scrollmode = true;
                 delmode = pinchmode = false;
-                float Stage_height = obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() - obs.get(negative_height).getPosition().y ;
+                float Stage_height = posiive_height - negative_height;
+                /*for (int i = 0 ; i < obs.size() ; i++){
+                    if(obs.get(i).getId() == posiive_height) Stage_height += obs.get(i).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight();
+                    if(obs.get(i).getId() == negative_height) Stage_height -= obs.get(i).getPosition().y ;
+                }*/
+
+               // float Stage_height = obs.get(posiive_height).getPosition().y + obs.get(posiive_height).ontapbutton.getHeight() - obs.get(negative_height).getPosition().y ;
                 PStage = new Stage(Stage_height,obs.size());
                 float xcor, ycor ,radius;
 
@@ -519,7 +527,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                 }
                 FileHandle fileHandle = Gdx.files.local("usersaved.txt");
                 Json json = new Json();
-                fileHandle.writeString(System.currentTimeMillis()+' '+StageName +' '+ json.toJson(PStage) +'\n',true);
+                fileHandle.writeString( Long.toString(System.currentTimeMillis())+ ' ' +' '+StageName +' '+ json.toJson(PStage) +'\n',true);
                 System.out.println(fileHandle.readString());
             }
         });

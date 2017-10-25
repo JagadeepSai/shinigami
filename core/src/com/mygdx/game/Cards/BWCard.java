@@ -26,10 +26,10 @@ public class BWCard extends Card {
     ToggleButton Lovebutton;
 
 
-    Date id;
+    Long id;
     Assets assets; //////////////////////////////////////// Lot to change;;;
 
-    public BWCard(String string,String username,boolean dis,int likes,Date id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
+    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
         super(string,username,dis,likes,g_width,aspect_ratio,font,assets);
         this.assets=assets;
         this.id = id;
@@ -111,6 +111,7 @@ public class BWCard extends Card {
                 }
                 else{
                     setPosBlack();
+                    setPosBlackUsername();
                     setLikes();
                     Lovebutton.setWidth(group.getWidth() / 6.8f);
                     Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2);

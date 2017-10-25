@@ -84,9 +84,12 @@ public class Card {
     }
     public void setPosBlack(){
         L_name.setY(2.5f*group.getHeight()/5);
-        Username.setY(group.getHeight()/7f);
 
     }
+    public  void setPosBlackUsername(){
+        Username.setY(group.getHeight()/7f);
+    }
+
     public void setCenter_L_name(boolean ver,float other) {
         if (!ver) {
             L_name.setPosition(dp.getWidth()/2f - L_name.getWidth()/2f, other);
