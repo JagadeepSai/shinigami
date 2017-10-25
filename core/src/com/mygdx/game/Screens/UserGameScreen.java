@@ -167,8 +167,8 @@ public class UserGameScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y){
                 game.getScreen().hide();
                 game.stage.clear();
-                StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game);
-                game.setScreen(stageCreatorScreen);
+                StageNameScreen stageNameScreen = new StageNameScreen(game);
+                game.setScreen(stageNameScreen);
             }
         });
     }

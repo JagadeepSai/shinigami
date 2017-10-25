@@ -31,6 +31,7 @@ import com.mygdx.game.MainButton.BallButton;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
+import com.mygdx.game.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +49,16 @@ import static java.lang.Math.abs;
 public class StageCreatorScreen extends ScreenAdapter{
     Assets assets;
     MainClass game ;
+    String StageName;
+    Stage PStage;
+    float negative_height;
     ArrayList<BallButton> obs ;
     int total_count = 0;
     int total = 0;
 
 
     GeneralButton backbutton;
-    TextField name;
+
     ToggleButton box1;
     ToggleButton box2;
     ToggleButton box3;
@@ -196,6 +200,9 @@ public class StageCreatorScreen extends ScreenAdapter{
                      /* obs.get(total_count).setPosition(Gdx.input.getX(),GameHeight- Gdx.input.getY());
                      obs.setPosition(positions.get(count).x,positions.get(count).y)*/
                             bg.addActor(obs.get(total).ontapbutton.button);
+
+                            if(negative_height > obs.get(total).getPosition().y) negative_height = obs.get(total).getPosition().y;
+
                             total_count++;
                             total++;
                         }
@@ -303,8 +310,9 @@ public class StageCreatorScreen extends ScreenAdapter{
 
 
 
-    public  StageCreatorScreen (MainClass gam) {
+    public  StageCreatorScreen (MainClass gam, String nam) {
         this.game = gam;
+        this.StageName = nam;
         this.assets=game.assets;
         obs = new ArrayList<BallButton>();
         item = "icons/MeshFill-260.png";
@@ -322,13 +330,6 @@ public class StageCreatorScreen extends ScreenAdapter{
         backbutton.setHeight(backbutton.getWidth()/AspectRatio1);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
         backbutton.button.setZIndex(1);
-
-        name = new TextField("", skin);
-
-        name.setMessageText("Stage Name");
-        name.setWidth(4*GameWidth/6);
-        name.setHeight(backbutton.getHeight());
-        name.setPosition(GameWidth/4,(5*GameHeight)/(6*AspectRatio1) + backbutton.getHeight()/2);
 
 
         box1 = new ToggleButton(assets.NavObs,assets.NavObs,true);
@@ -493,6 +494,18 @@ public class StageCreatorScreen extends ScreenAdapter{
 
                 scrollmode = true;
                 delmode = pinchmode = false;
+                negative_height = -negative_height;
+                height = height + negative_height;
+                PStage = new Stage(height,obs.size(),StageName);
+                float xcor, ycor ,radius;
+                for (int i = 0; i < obs.size(); i++) {
+                    radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2;
+                    xcor = obs.get(i).center.x/GameWidth - 0.5f;
+                    ycor = obs.get(i).center.y;
+                    PStage.obstacles[i] = new float[]{radius, xcor, ycor};
+                }
+
+
             }
         });
 

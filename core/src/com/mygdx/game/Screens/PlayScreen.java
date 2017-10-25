@@ -120,7 +120,7 @@ public class PlayScreen extends ScreenAdapter{
 
 
 
-    Stage stage = new Stage(2,2);
+    //Stage stage = new Stage(2,2);
 
     PlayScreen(MainClass game, int stage){
 
@@ -216,9 +216,7 @@ public class PlayScreen extends ScreenAdapter{
         Gdx.input.setInputProcessor(new InputHandler());
         Presentxp = player.getPosition().x - PlayerRadious;
         Presentyp = player.getPosition().y - PlayerRadious;
-
-
-        PStage = new Stage(10, 15);
+        PStage = new Stage(10, 15,"Hello");
         PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
         PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
         PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
