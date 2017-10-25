@@ -2,14 +2,19 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,10 +26,16 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
+import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
-import com.sun.java.swing.plaf.windows.WindowsLabelUI;
+import com.uwsoft.editor.renderer.SceneLoader;
 
 public class PlayScreen extends ScreenAdapter{
 
@@ -32,10 +43,14 @@ public class PlayScreen extends ScreenAdapter{
     public enum GameState{
         start,ongoing,end;
     }
+
     public MainClass game;
     public float Scale =8f;
+    String PreviousScreen;
+    boolean completed = false;
+
     GameState gameState ;
-    float w=Gdx.graphics.getWidth();
+    float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     float PlayerRadious=w*0.02f/Scale;
 
@@ -48,6 +63,24 @@ public class PlayScreen extends ScreenAdapter{
     public float[][] Obstaclepos;
 
 
+    public float GameWidth = Gdx.graphics.getWidth();
+    public float GameHeight = Gdx.graphics.getHeight();
+    public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
+    public float AspectRatio = 16/9;
+
+    Label.LabelStyle labelStyle;
+    Group group;
+    Image background ;
+    Sprite sprite ;
+
+
+    GeneralButton backbutton;
+    GeneralButton restartbutton;
+    Label Display;
+
+
+
+
     public Box2DDebugRenderer b2dr= new Box2DDebugRenderer();
     public SpriteBatch batch = new SpriteBatch();
     public TextureRegion Player ;
@@ -55,35 +88,72 @@ public class PlayScreen extends ScreenAdapter{
     public TextureRegion Obstacle ;
     public OrthographicCamera camera=new OrthographicCamera(w/Scale,h/Scale);
 
-    public PlayScreen(MainClass game){
+
+    public  PlayScreen(MainClass game , Stage stage,String Pre){
         this.game=game;
-        Player=game.assets.Player;
-        Obstacle=game.assets.Obstacle;
-        Wall=game.assets.Wall;
+        PreviousScreen = Pre;
+       // game.back_tune.stop();
+
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = (int)((8*GameWidth/9)/10f);
+        BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+
+
+        labelStyle = new Label.LabelStyle(font12,Color.BLACK);
+
+        group = new Group();
+        group.setWidth((GameWidth/2));
+        group.setHeight((GameWidth/2*AspectRatio));
+        group.setPosition(GameWidth/2 - group.getWidth()/2,GameHeight/2 - group.getHeight()/2);
+
+
+        background = new Image(game.assets.White);
+        background.setFillParent(true);
+
+
+       /* background.setWidth(GameWidth/3);
+        background.setHeight(background.getWidth()*AspectRatio);
+        background.setPosition(GameWidth/2 - background.getWidth()/2,GameHeight/2 - background.getHeight()/2);
+*/
+        Display = new Label("Let's Party",labelStyle);
+        Display.setPosition(group.getWidth()/5.5f,3.5f*group.getHeight()/5);
+
+        backbutton = new GeneralButton(game.assets.BackArrow,game.assets.BackArrow);
+        backbutton.setWidth(group.getWidth()/3);
+        backbutton.setHeight(backbutton.getWidth()/AspectRatio);
+        backbutton.setPosition(group.getWidth()/3 - backbutton.getWidth()/1.5f,(2*group.getHeight()/6) - backbutton.getHeight()/2);
+
+        restartbutton = new GeneralButton(game.assets.Restart,game.assets.Restart);
+        restartbutton.setWidth((group.getWidth()/3));
+        restartbutton.setHeight((restartbutton.getWidth()/AspectRatio));
+        restartbutton.setPosition(group.getWidth()- 1.25f*restartbutton.getWidth(),(2*group.getHeight()/6) - backbutton.getHeight()/2);
+
+
+        // Texture background2;
+
+        //background2 = new Texture(game.assets.Black);
+        //game.stage.getBatch().setColor(0,0,0,0.5f);
+        sprite = new Sprite(this.game.assets.Black);
+
+        sprite.setColor(0,0,0,0.1f);
+        sprite.setSize(GameWidth,GameHeight);
+        sprite.setPosition(-GameWidth/2,-GameHeight/2);
+        sprite.setAlpha(0);
 
 
 
-        PStage = new Stage(5f, 15);
-        PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
-        PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
-        PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
-        PStage.obstacles[3] = new float[]{0.05f, 0.2f, 1f};
-        PStage.obstacles[4] = new float[]{0.25f, 0.15f, 1.3f};
-        PStage.obstacles[5] = new float[]{0.1f, -0.35f, 1.6f};
-        PStage.obstacles[6] = new float[]{0.05f, 0f, 1.75f};
-        PStage.obstacles[7] = new float[]{0.08f, -0.3f, 1.85f};
-        PStage.obstacles[8] = new float[]{0.12f, 0.1f, 2.05f};
-        PStage.obstacles[9] = new float[]{0.1f, 0.25f, 2.18f};
-        PStage.obstacles[10] = new float[]{0.26f, -0.2f, 2.4f};
-        PStage.obstacles[11] = new float[]{0.2f, 0f, 2.9f};
-        PStage.obstacles[12] = new float[]{0.17f, 0.22f, 4.3f};
-        PStage.obstacles[13] = new float[]{0.2f, 0.15f, 4.6f};
-        PStage.obstacles[14] = new float[]{0.1f, -0.2f, 4.85f};
+        group.addActor(background);
+        group.addActor(Display);
+        group.addActor(backbutton.button);
+        group.addActor(restartbutton.button);
+        group.setVisible(false);
 
-    }
+        game.stage.addActor(group);
 
-    public  PlayScreen(MainClass game , Stage stage){
-        this.game=game;
+
         Player=game.assets.Player;
         Obstacle=game.assets.Obstacle;
         Wall=game.assets.Wall;
@@ -124,7 +194,7 @@ public class PlayScreen extends ScreenAdapter{
                     }
                     break;
                 case end:
-                    game.setScreen(new MainScreen(game));
+                   // game.setScreen(new MainScreen(game));
                     break;
             }
             return true;
@@ -155,9 +225,7 @@ public class PlayScreen extends ScreenAdapter{
 
     //Stage stage = new Stage(2,2);
 
-    PlayScreen(MainClass game, int stage){
 
-    }
     public Body createPlayer(){
         Body pBody;
         BodyDef def= new BodyDef();
@@ -178,6 +246,8 @@ public class PlayScreen extends ScreenAdapter{
 
     @Override
     public void render(float delta) {
+
+
         update(Gdx.graphics.getDeltaTime());
         Presentxp=player.getPosition().x;
         if(Presentyp < player.getPosition().y)
@@ -189,6 +259,7 @@ public class PlayScreen extends ScreenAdapter{
         batch.begin();
         //batch.draw(Obstacle,0,0,10,10);
 
+
         for(int i=0;i<PStage.noofobstacles;i++){
             batch.draw(Obstacle,Obstaclepos[i][1]-Obstaclepos[i][0] ,
                     Obstaclepos[i][2]-Obstaclepos[i][0],2*Obstaclepos[i][0],2*Obstaclepos[i][0]);
@@ -196,7 +267,12 @@ public class PlayScreen extends ScreenAdapter{
         batch.draw(Player,player.getPosition().x - PlayerRadious ,player.getPosition().y - PlayerRadious,2*PlayerRadious,2*PlayerRadious);
         batch.draw(Wall,w/2/Scale-1,-h/2,1,h);
         batch.draw(Wall,-w/2/Scale,-h/2,1,h);
+
+       // group.draw(batch,0);
+        sprite.draw(batch);
         batch.end();
+
+        game.stage.draw();
 
       //  b2dr.render(world,camera.combined);
     }
@@ -205,13 +281,23 @@ public class PlayScreen extends ScreenAdapter{
         if(player.getPosition().y > Presentyp)
             camera.position.set(0,player.getPosition().y,0);
         camera.update();
-        if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale){
-            gameState=GameState.end;
+        if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale || player.getPosition().y < camera.position.y -h/2){
+            if(!completed) {
+                if (game.button_tune_play) game.assets.gameOver_tune.play();
+                gameState = GameState.end;
+
+                Display.setText("Game Over");
+                group.setVisible(true);
+                sprite.setAlpha(0.5f);
+            }
         }
         batch.setProjectionMatrix(camera.combined);
-        Gdx.app.log(Float.toString(player.getPosition().y), Float.toString(PStage.height/Scale));
-        if(player.getPosition().y>PStage.height/Scale){
-            game.setScreen(new PlayScreen(game));
+
+        if(player.getPosition().y > PStage.height/Scale){
+            sprite.setAlpha(0.5f);
+            group.setVisible(true);
+            completed = true;
+            System.out.println("Crossed : ");
         }
     }
 
@@ -224,11 +310,60 @@ public class PlayScreen extends ScreenAdapter{
     public void show() {
        // Gdx.app.log(String.valueOf(h), String.valueOf(w));
 
+        backbutton.setTouchable();
+        backbutton.button.addListener(new ClickListener(){
+
+
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+
+               // game.back_tune.play();
+                game.assets.button_tune.play();
+
+                game.getScreen().hide();
+                game.stage.clear();
+
+                if  (PreviousScreen == "UserGameScreen") {
+                    UserGameScreen userGameScreen = new UserGameScreen(game);
+                    game.setScreen(userGameScreen);
+                }
+                else if (PreviousScreen == "MainScreen"){
+                    MainScreen mainScreen = new MainScreen(game);
+                    game.setScreen(mainScreen);
+                }
+                else if (PreviousScreen == "OnlineStageScreen"){
+                    OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);
+                    game.setScreen(onlineStageScreen);
+                }
+
+
+            }
+        });
+
+        restartbutton.setTouchable();
+        restartbutton.button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.assets.button_tune.play();
+                    game.stage.clear();
+                    game.setScreen(new PlayScreen(game,PStage,PreviousScreen));
+            }
+        });
+
+
+
 
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                gameState = GameState.end;
+                if(!completed) {
+                    if (game.button_tune_play) game.assets.gameOver_tune.play();
+                    gameState = GameState.end;
+
+                    Display.setText("Game Over");
+                    group.setVisible(true);
+                    sprite.setAlpha(0.5f);
+                }
                 player.setLinearVelocity(player.getLinearVelocity().x,-1000000000*w);
             }
 
@@ -250,7 +385,12 @@ public class PlayScreen extends ScreenAdapter{
 
 
         gameState = GameState.start;
-        Gdx.input.setInputProcessor(new InputHandler());
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(game.stage);
+        multiplexer.addProcessor(new InputHandler());
+
+       // Gdx.input.setInputProcessor(new InputHandler());
+        Gdx.input.setInputProcessor(multiplexer);
         Presentxp = player.getPosition().x - PlayerRadious;
         Presentyp = player.getPosition().y - PlayerRadious;
 

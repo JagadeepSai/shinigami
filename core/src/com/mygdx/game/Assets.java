@@ -14,6 +14,10 @@ import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
  */
 
 public class Assets {
+    public static  Music button_tune;
+    public static Music back_tune ;
+    public static  Music gameOver_tune;
+
     public static Texture Parent;
     public static TextureRegion BackArrow;
     public static TextureRegion CircledPlay;
@@ -52,6 +56,7 @@ public class Assets {
     public static TextureRegion LoveIn;
     public static TextureRegion LoveBlack;
     public static TextureRegion LoveWhite;
+    public static TextureRegion Restart;
 
 
     public static void load () {
@@ -94,6 +99,11 @@ public class Assets {
         LoveWhite= new TextureRegion(new Texture(Gdx.files.internal("LoveWhite.png")));
         LoveBlack= new TextureRegion(new Texture(Gdx.files.internal("LoveBlack.png")));
         LoveIn= new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
+        Restart = new TextureRegion(new Texture(Gdx.files.internal("Restart.png")));
+
+        back_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/homescreen_music-not_to_be_played_when_user_plays_game.mp3"));
+        button_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/Remaining_all_buttons.mp3"));
+        gameOver_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/game_over_after _ball_hits_obstacle.wav"));
 
 
 

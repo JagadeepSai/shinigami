@@ -215,11 +215,6 @@ public class StageNameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.stage.getBatch().begin();
-        font.draw(game.stage.getBatch(),"Error, Please Enter Again",0,0);
-        //error.setVisible(true);  GameWidth/5,GameHeight/2 + login.getWidth()/2
-        game.stage.getBatch().end();
-
         game.stage.draw();
     }
 
@@ -237,6 +232,7 @@ public class StageNameScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -248,7 +244,7 @@ public class StageNameScreen extends ScreenAdapter {
         submitbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.assets.button_tune.play();
 
                 game.getScreen().hide();
                 game.stage.clear();

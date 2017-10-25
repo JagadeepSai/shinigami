@@ -349,26 +349,26 @@ public class StageCreatorScreen extends ScreenAdapter{
 
         box1 = new ToggleButton(assets.NavObs,assets.NavObs,true);
         box1.setWidth(GameWidth/5);
-        box1.setHeight(GameHeight/6);
+        box1.setHeight(box1.getWidth()/AspectRatio1);
         box1.setPosition(GameWidth/30,GameHeight/35);
         box1.button.setZIndex(1);
 
         box2 = new ToggleButton(assets.Resize,assets.Resize,true);
         box2.setWidth(GameWidth/5);
-        box2.setHeight(GameHeight/6);
+        box2.setHeight(box2.getWidth()/AspectRatio1);
         box2.setPosition(GameWidth/4+GameWidth/30,GameHeight/35);
         box2.button.setZIndex(1);
 
 
         box3 = new ToggleButton(assets.DeleteInBox,assets.DeleteInBox,true);
         box3.setWidth(GameWidth/5);
-        box3.setHeight(GameHeight/6);
+        box3.setHeight(box3.getWidth()/AspectRatio1);
         box3.setPosition(GameWidth/2+GameWidth/30,GameHeight/35);
         box3.button.setZIndex(1);
 
         box4 = new ToggleButton(assets.Save,    assets.Save,true);
         box4.setWidth(GameWidth/5);
-        box4.setHeight(GameHeight/6);
+        box4.setHeight(box4.getWidth()/AspectRatio1);
         box4.setPosition(3*GameWidth/4+GameWidth/30,GameHeight/35);
         box4.button.setZIndex(1);
 
@@ -476,6 +476,7 @@ public class StageCreatorScreen extends ScreenAdapter{
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.assets.button_tune.play();
 
                 // game.stage.getCamera().translate(0,0,0);
                 game.stage.getCamera().position.set(GameWidth/2,GameHeight/2,0);
@@ -495,6 +496,7 @@ public class StageCreatorScreen extends ScreenAdapter{
         box4.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.assets.button_tune.play();
 
                 if(scrollmode && !pinchmode && !delmode) {
                     total_count--;
@@ -528,7 +530,21 @@ public class StageCreatorScreen extends ScreenAdapter{
                 Json json = new Json();
                 fileHandle.writeString( Long.toString(System.currentTimeMillis())+ ' ' +' '+StageName +' '+ json.toJson(PStage) +'\n',true);
                 System.out.println(fileHandle.readString());
+
+                game.stage.getCamera().position.set(GameWidth/2,GameHeight/2,0);
+                game.stage.getCamera().update();
+
+                game.getScreen().hide();
+                game.stage.clear();
+                //game.stage.getCamera().position.add(0,height,0);
+
+                //  game.stage.;
+                UserGameScreen userGameScreen = new UserGameScreen(game);
+                game.setScreen(userGameScreen);
+
             }
+
+
         });
 
         box3.setTouchable();

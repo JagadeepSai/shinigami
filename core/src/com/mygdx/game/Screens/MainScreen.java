@@ -114,8 +114,8 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void show() {
 
-        if(!game.back_tune.isPlaying() && game.back_tune_play ) game.back_tune.play();
-        if (game.button_tune_play )game.back_tune.setLooping(true);
+        if(!game.assets.back_tune.isPlaying() && game.back_tune_play ) game.assets.back_tune.play();
+        if (game.button_tune_play )game.assets.back_tune.setLooping(true);
 
     }
 
@@ -127,13 +127,34 @@ public class MainScreen extends ScreenAdapter {
         playbutton.button.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event,float x,float y){
-               game.button_tune.play();
-               game.back_tune.stop();
+               game.assets.button_tune.play();
+              // game.back_tune.stop();
                game.getScreen().hide();
                game.stage.clear();
-//               GameScreen gameScreen = new GameScreen(game);
+
+               //  GameScreen gameScreen = new GameScreen(game);
 //               game.setScreen(gameScreen);
-               game.setScreen(new PlayScreen(game));
+               com.mygdx.game.Stage PStage;
+
+               PStage = new com.mygdx.game.Stage(4.85f*GameWidth, 15);
+               PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
+               PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
+               PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
+               PStage.obstacles[3] = new float[]{0.05f, 0.2f, 1f};
+               PStage.obstacles[4] = new float[]{0.25f, 0.15f, 1.3f};
+               PStage.obstacles[5] = new float[]{0.1f, -0.35f, 1.6f};
+               PStage.obstacles[6] = new float[]{0.05f, 0f, 1.75f};
+               PStage.obstacles[7] = new float[]{0.08f, -0.3f, 1.85f};
+               PStage.obstacles[8] = new float[]{0.12f, 0.1f, 2.05f};
+               PStage.obstacles[9] = new float[]{0.1f, 0.25f, 2.18f};
+               PStage.obstacles[10] = new float[]{0.26f, -0.2f, 2.4f};
+               PStage.obstacles[11] = new float[]{0.2f, 0f, 2.9f};
+               PStage.obstacles[12] = new float[]{0.17f, 0.22f, 4.3f};
+               PStage.obstacles[13] = new float[]{0.2f, 0.15f, 4.6f};
+               PStage.obstacles[14] = new float[]{0.1f, -0.2f, 4.85f};
+
+
+               game.setScreen(new PlayScreen(game,PStage,"MainScreen"));
            }
         });
 
@@ -141,7 +162,7 @@ public class MainScreen extends ScreenAdapter {
         settingbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.button_tune.play();
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 SettingScreen settingScreen = new SettingScreen(game);
@@ -153,7 +174,7 @@ public class MainScreen extends ScreenAdapter {
         createbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.button_tune.play();
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 UserGameScreen userGameScreen = new UserGameScreen(game);
@@ -165,7 +186,7 @@ public class MainScreen extends ScreenAdapter {
         groupbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event,float x,float y){
-                game.button_tune.play();
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);
@@ -209,7 +230,7 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void dispose()
     {
-            game.back_tune.pause();
+            game.assets.back_tune.pause();
     //    game.stage.dispose();
     }
 }

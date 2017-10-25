@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Interface.CreateAccount;
 import com.mygdx.game.Interface.GoogleSignin;
+import com.mygdx.game.Screens.GameTurnScreen;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.Interface.SaveToDatabase;
 import com.mygdx.game.Screens.GameScreen;
@@ -31,9 +32,7 @@ public class MainClass extends Game {
 	public GoogleSignin googleSignin;
 	public SaveToDatabase saveToDatabase;
 
-	public  Music back_tune ;
 
-	public Music button_tune;
 	public boolean back_tune_play = true;
 	public boolean button_tune_play = true;
 	public  String Username ;
@@ -51,11 +50,6 @@ public class MainClass extends Game {
 		Username = prefs.getString("username");
 
 
-
-		back_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/homescreen_music-not_to_be_played_when_user_plays_game.mp3"));
-		button_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/Remaining_all_buttons.mp3"));
-
-
 		//Gdx.app.log("qwer",Gdx.files.getExternalStoragePath());
 		FileHandle fileHandle = Gdx.files.local("usersaved.txt");
 		fileHandle.writeString("",true);
@@ -65,8 +59,8 @@ public class MainClass extends Game {
 		//UserGameScreen userGameScreen = new UserGameScreen(this);
 		assets.load();
 		MainScreen mainScreen = new MainScreen(this);
-
-        setScreen(mainScreen);
+		//GameTurnScreen gameTurnScreen = new GameTurnScreen(this,"mainscreen",false);
+		setScreen(mainScreen);
 	}
 
 	@Override

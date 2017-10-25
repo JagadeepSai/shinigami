@@ -68,7 +68,7 @@ public class AndroidSaveToDatabase implements SaveToDatabase{
 
         //System.out.println(s.length);
         System.out.println("jdshfjdjfj");
-        System.out.println(s.length);
+        System.out.println(s.length); // an error of null
         for(int i=0;i<s.length;i++) System.out.println( s[i][1]);
 
         return s;

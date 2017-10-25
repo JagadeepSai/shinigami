@@ -131,11 +131,11 @@ public class SettingScreen extends ScreenAdapter {
                 musicbutton.change();
                 if(musicbutton.getState()){
                     game.back_tune_play = false;
-                    game.back_tune.stop();
+                    game.assets.back_tune.stop();
                 }
                 else{
                     game.back_tune_play = true;
-                    game.back_tune.play();
+                    game.assets.back_tune.play();
                 }
 
             }
@@ -167,6 +167,7 @@ public class SettingScreen extends ScreenAdapter {
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 MainScreen mainScreen = new MainScreen(game);

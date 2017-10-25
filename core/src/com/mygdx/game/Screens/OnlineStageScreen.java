@@ -92,9 +92,10 @@ public class OnlineStageScreen extends ScreenAdapter {
             UserCards[j].playbutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    game.assets.button_tune.play();
                     game.getScreen().hide();
                     game.stage.clear();
-                    game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,string)));
+                    game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,string),"OnlineStageScreen"));
                 }
             });
             i++;
@@ -119,24 +120,34 @@ public class OnlineStageScreen extends ScreenAdapter {
         game.stage.act();
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         game.stage.draw();
     }
 
     @Override
     public void show() {
+
+
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                game.assets.button_tune.play();
                 game.getScreen().hide();
                 game.stage.clear();
                 MainScreen mainScreen = new MainScreen(game);
                 game.setScreen(mainScreen);
             }
         });
+
+
+
     }
+
     @Override
     public void dispose() {
         super.dispose();
     }
 }
+
+
