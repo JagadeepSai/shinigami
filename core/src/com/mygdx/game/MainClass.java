@@ -4,19 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Interface.CreateAccount;
 import com.mygdx.game.Interface.GoogleSignin;
-import com.mygdx.game.Interface.Login;
-import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
-import com.mygdx.game.Screens.Transitions.TransitionScreen;
-import com.mygdx.game.Screens.UserGameScreen;
-
-import java.io.OutputStream;
 
 public class MainClass extends Game {
 	public Stage stage;

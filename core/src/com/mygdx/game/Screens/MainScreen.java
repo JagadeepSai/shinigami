@@ -160,6 +160,18 @@ public class MainScreen extends ScreenAdapter {
             }
         });
 
+        groupbutton.setTouchable();
+        groupbutton.button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event,float x,float y){
+                game.button_tune.play();
+                game.getScreen().hide();
+                game.stage.clear();
+                OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);
+                game.setScreen(onlineStageScreen);
+            }
+        });
+
 
       //  settingbutton.button.addAction(repeat(RepeatAction.FOREVER,sequence(
       //          rotateBy(360,1),rotateTo(0))));

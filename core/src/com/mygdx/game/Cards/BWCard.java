@@ -94,6 +94,7 @@ public class BWCard extends Card {
                 deletebutton.setPosition(sharebutton.getPosition().x ,0.8f*deletebutton.getHeight()/3);
             }
 
+
             group.addActor(sharebutton.button);
             group.addActor(deletebutton.button);
 

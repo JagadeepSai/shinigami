@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -22,23 +20,16 @@ import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
 
-import org.lwjgl.Sys;
-
-import java.util.Date;
-
 /**
- * Created by root on 8/10/17.
+ * Created by root on 25/10/17.
  */
 
-public class UserGameScreen extends ScreenAdapter {
+public class OnlineStageScreen extends ScreenAdapter {
     MainClass game ;
     Assets assets;
-    //List<Card> cardList;
     Table scrollTable = new Table();
-    Stage PStage;
-    String UserName;
 
-    GeneralButton designbutton;
+    String UserName;
     GeneralButton backbutton;
 
 
@@ -46,10 +37,9 @@ public class UserGameScreen extends ScreenAdapter {
     ScrollPane scrollPane ;
 
 
-
-
     Card UserCard;
     Card bufferEnd;
+/*
     BWCard UserCard2;
     BWCard UserCard3;
     BWCard UserCard4;
@@ -57,6 +47,7 @@ public class UserGameScreen extends ScreenAdapter {
     BWCard UserCard6;
     BWCard UserCard7;
     BWCard UserCard8;
+*/
 
 
 
@@ -69,12 +60,12 @@ public class UserGameScreen extends ScreenAdapter {
     float padding = GameHeight/33;
 
 
-    public UserGameScreen(final MainClass gam){
+    public OnlineStageScreen(final MainClass gam){
         this.game= gam;
         assets=gam.assets;
         nav_control = new Group();
         UserName = "Username";
-       // cardList = new ArrayList<Card>();
+        // cardList = new ArrayList<Card>();
 
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
@@ -113,23 +104,22 @@ public class UserGameScreen extends ScreenAdapter {
         scrollTable.add(UserCard.group).padBottom(padding).padTop(7*padding).expandX();
         scrollTable.row();
 
-        FileHandle fileHandle= Gdx.files.local("usersaved.txt");
-        String [] stagesarray = fileHandle.readString().split("\\r?\\n");
-        final BWCard [] UserCards = new BWCard[stagesarray.length];
+        final FileHandle fileHandle= Gdx.files.local("usersaved.txt");
+        final String [] stagesarray = fileHandle.readString().split("\\r?\\n");
+        BWCard [] UserCards = new BWCard[stagesarray.length];
         int i=0;
         final Json json = new Json();
         for (String words : stagesarray) {
-            final int j =i;
+
             if(words.isEmpty())break;
             final String [] stage = words.split("\\s+");
             if (!((i+1)%2 == 0)) {
 
-
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets,stage[2]);
+                UserCards[i] = new BWCard(stage[1], "", true,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets,stage[2]);
             }
             else
             {
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets,stage[2]);
+                UserCards[i] = new BWCard(stage[1], "", true,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets,stage[2]);
             }
             scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
             scrollTable.row();
@@ -141,45 +131,8 @@ public class UserGameScreen extends ScreenAdapter {
                 }
             });
 
-            UserCards[i].deletebutton.button.isTouchable();
-            UserCards[i].deletebutton.button.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-
-                    Long id = Long.parseLong(stage[0]);
-                    System.out.println(stage[1]);
-                    System.out.println(id);
-
-                    FileHandle fileHandle2= Gdx.files.local("usersaved.txt");
-                    String [] stagesarray2 = fileHandle2.readString().split("\\r?\\n");
-
-
-                    fileHandle2.writeString("",false);
-                    System.out.println("Inside : Empty");
-                    System.out.println("Hi"+fileHandle2.readString()+"In");
-
-                    for (String words : stagesarray2) {
-                        if (words.isEmpty()) break;
-                        final String[] stage2 = words.split("\\s+");
-
-                        if(id != Long.parseLong(stage2[0])) fileHandle2.writeString(words +'\n',true);
-                        else
-                        {
-                            scrollTable.removeActor(UserCards[j].group);
-                           // System.out.println(fileHandle.readString());
-                        }
-
-                    }
-                   // System.out.println(fileHandle2.readString());
-
-
-                }
-            });
-
-
             i++;
         }
-
 
 //
 //        UserCard2 = new BWCard("Shinigami",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
@@ -190,7 +143,7 @@ public class UserGameScreen extends ScreenAdapter {
 //        UserCard6 = new BWCard("Jagadeep",UserName,true,0,new Date(),cardWidth,AspectRatio1*1.75f,false,font,assets);
 //
 
-       // scrollTable.setDebug(true); //For Debugging
+        // scrollTable.setDebug(true); //For Debugging
 /*
 
 
@@ -214,20 +167,13 @@ public class UserGameScreen extends ScreenAdapter {
         //scrollPane.setPosition(0,5*GameHeight/6);
 
         //scrollTable.setFillParent(true);
-      //  scrollTable.add(scrollPane).fill().expand();
-
-        designbutton = new GeneralButton(assets.PalleteBB,assets.PalleteBB);
-        designbutton.setWidth(GameWidth/5.3f);
-        designbutton.setHeight(designbutton.getWidth()/AspectRatio);
-        designbutton.setPosition(3.9f*GameWidth/5 - designbutton.getWidth()/2 , GameHeight/(AspectRatio*6) - designbutton.getHeight() );
-        designbutton.button.setZIndex(5);
+        //  scrollTable.add(scrollPane).fill().expand();
 
         backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
-        nav_control.addActor(designbutton.button);
         nav_control.addActor(backbutton.button);
 
         game.stage.addActor(scrollPane);
@@ -238,6 +184,7 @@ public class UserGameScreen extends ScreenAdapter {
         game.stage.addActor(backbutton.button);*/
         Gdx.input.setInputProcessor(game.stage);
     }
+
 
     @Override
     public void render(float delta) {
@@ -264,17 +211,6 @@ public class UserGameScreen extends ScreenAdapter {
         });
 
 
-        designbutton.setTouchable();
-        designbutton.button.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                game.getScreen().hide();
-                game.stage.clear();
-                StageNameScreen stageNameScreen = new StageNameScreen(game);
-                game.setScreen(stageNameScreen);
-            }
-        });
-
 
     }
 
@@ -283,3 +219,5 @@ public class UserGameScreen extends ScreenAdapter {
         super.dispose();
     }
 }
+
+
