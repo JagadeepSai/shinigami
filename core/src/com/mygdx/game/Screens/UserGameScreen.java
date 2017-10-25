@@ -18,6 +18,9 @@ import com.mygdx.game.Cards.BWCard;
 import com.mygdx.game.Cards.Card;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
+import com.mygdx.game.Stage;
+
+import java.util.Date;
 
 /**
  * Created by root on 8/10/17.
@@ -28,6 +31,8 @@ public class UserGameScreen extends ScreenAdapter {
     Assets assets;
     //List<Card> cardList;
     Table scrollTable = new Table();
+    Stage PStage;
+    String UserName;
 
     GeneralButton designbutton;
     GeneralButton backbutton;
@@ -64,6 +69,7 @@ public class UserGameScreen extends ScreenAdapter {
         this.game= gam;
         assets=gam.assets;
         nav_control = new Group();
+        UserName = "Username";
        // cardList = new ArrayList<Card>();
 
 
@@ -74,20 +80,58 @@ public class UserGameScreen extends ScreenAdapter {
         generator.dispose();
 
 
-        UserCard = new Card("Username",cardWidth,AspectRatio1*1.75f,font,assets);
+        UserCard = new Card(UserName,UserName,false,cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
         UserCard.L_name_scale(6/2);
 
-        bufferEnd = new Card("",cardWidth,AspectRatio1*1.75f,font,assets);
+        bufferEnd = new Card("",UserName,false,cardWidth,AspectRatio1*1.75f,font,assets);
 
 
-        UserCard2 = new BWCard("Shinigami",cardWidth,AspectRatio1*1.75f,false,font,assets);
-        UserCard3 = new BWCard("Noragami",cardWidth,AspectRatio1*1.75f,true,font,assets);
-        UserCard4 = new BWCard("Suraj Soni",cardWidth,AspectRatio1*1.75f,false,font,assets);
+//Temporary Creation
+        PStage = new Stage(10, 15,"Hello",UserName);
+        PStage.obstacles[0] = new float[]{0.1f, 0.3f, 0.1f};
+        PStage.obstacles[1] = new float[]{0.2f, -0.28f, 0.5f};
+        PStage.obstacles[2] = new float[]{0.15f, -0.3f, 0.9f};
+        PStage.obstacles[3] = new float[]{0.05f, 0.2f, 1f};
+        PStage.obstacles[4] = new float[]{0.25f, 0.15f, 1.3f};
+        PStage.obstacles[5] = new float[]{0.1f, -0.35f, 1.6f};
+        PStage.obstacles[6] = new float[]{0.05f, 0f, 1.75f};
+        PStage.obstacles[7] = new float[]{0.08f, -0.3f, 1.85f};
+        PStage.obstacles[8] = new float[]{0.12f, 0.1f, 2.05f};
+        PStage.obstacles[9] = new float[]{0.1f, 0.25f, 2.18f};
+        PStage.obstacles[10] = new float[]{0.26f, -0.2f, 2.4f};
+        PStage.obstacles[11] = new float[]{0.2f, 0f, 2.9f};
+        PStage.obstacles[12] = new float[]{0.17f, 0.22f, 4.3f};
+        PStage.obstacles[13] = new float[]{0.2f, 0.15f, 4.6f};
+        PStage.obstacles[14] = new float[]{0.1f, -0.2f, 4.85f};
+//
 
-        UserCard5 = new BWCard("Suseendran",cardWidth,AspectRatio1*1.75f,true,font,assets);
-        UserCard6 = new BWCard("Jagadeep",cardWidth,AspectRatio1*1.75f,false,font,assets);
+
+
+   /*   BWCard [] UserCards = new BWCard[PStage.noofobstacles];
+
+        for (int i = 0; i < PStage.noofobstacles; i++) {
+
+            if (!((i+1)%2 == 0)) {
+                UserCards[i] = new BWCard(PStage.name, UserName, false, PStage.id, cardWidth, AspectRatio1 * 1.35f,false, font, assets);
+            }
+            else
+            {
+                UserCards[i] = new BWCard(PStage.name, UserName, false, PStage.id, cardWidth, AspectRatio1 * 1.75f,true, font, assets);
+            }
+                scrollTable.add(UserCards[i].group).padBottom(padding).padTop(7*padding).expandX();
+                scrollTable.row();
+        }
+
+*/
+
+        UserCard2 = new BWCard("Shinigami",UserName,true,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
+        UserCard3 = new BWCard("Noragami",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard4 = new BWCard("Suraj Soni",UserName,true,new Date(),cardWidth,AspectRatio1*1.35f,false,font,assets);
+
+        UserCard5 = new BWCard("Suseendran",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,true,font,assets);
+        UserCard6 = new BWCard("Jagadeep",UserName,true,new Date(),cardWidth,AspectRatio1*1.75f,false,font,assets);
 
 
        // scrollTable.setDebug(true); //For Debugging
@@ -149,6 +193,8 @@ public class UserGameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+
+
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override

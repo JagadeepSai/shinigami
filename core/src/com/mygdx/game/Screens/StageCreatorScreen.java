@@ -282,7 +282,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                         //obs.get(current_index).ontapbutton.button.getImage().setFillParent(true);
                         obs.get(current_index).ontapbutton.button.getImageCell().expand().fill();
                         // game.stage.addActor(obs.get(current_index).ontapbutton.button);
-                        obs.get(current_index).setPosition(current_center.x, current_center.y);
+                        obs.get(current_index).setPosition(obs.get(current_index).center.x, obs.get(current_index).center.y);
                         // System.out.println(obs.get(current_index).getPosition().x);
                         // System.out.println(obs.get(current_index).getPosition().y);
 
@@ -333,28 +333,28 @@ public class StageCreatorScreen extends ScreenAdapter{
 
 
         box1 = new ToggleButton(assets.NavObs,assets.NavObs,true);
-        box1.setWidth(GameWidth/4);
+        box1.setWidth(GameWidth/5);
         box1.setHeight(GameHeight/6);
-        box1.setPosition(0,0);
+        box1.setPosition(GameWidth/30,GameHeight/35);
         box1.button.setZIndex(1);
 
         box2 = new ToggleButton(assets.Resize,assets.Resize,true);
-        box2.setWidth(GameWidth/4);
+        box2.setWidth(GameWidth/5);
         box2.setHeight(GameHeight/6);
-        box2.setPosition(GameWidth/4,0);
+        box2.setPosition(GameWidth/4+GameWidth/30,GameHeight/35);
         box2.button.setZIndex(1);
 
 
         box3 = new ToggleButton(assets.DeleteInBox,assets.DeleteInBox,true);
-        box3.setWidth(GameWidth/4);
+        box3.setWidth(GameWidth/5);
         box3.setHeight(GameHeight/6);
-        box3.setPosition(GameWidth/2,0);
+        box3.setPosition(GameWidth/2+GameWidth/30,GameHeight/35);
         box3.button.setZIndex(1);
 
         box4 = new ToggleButton(assets.Save,    assets.Save,true);
-        box4.setWidth(GameWidth/4);
+        box4.setWidth(GameWidth/5);
         box4.setHeight(GameHeight/6);
-        box4.setPosition(3*GameWidth/4,0);
+        box4.setPosition(3*GameWidth/4+GameWidth/30,GameHeight/35);
         box4.button.setZIndex(1);
 
 
@@ -496,7 +496,7 @@ public class StageCreatorScreen extends ScreenAdapter{
                 delmode = pinchmode = false;
                 negative_height = -negative_height;
                 height = height + negative_height;
-                PStage = new Stage(height,obs.size(),StageName);
+                PStage = new Stage(height,obs.size(),StageName,"Jagadeep");
                 float xcor, ycor ,radius;
                 for (int i = 0; i < obs.size(); i++) {
                     radius = obs.get(i).ontapbutton.button.getImage().getWidth()/2;

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
+import com.mygdx.game.Screens.UserGameScreen;
 
 import java.awt.Font;
 
@@ -29,12 +30,14 @@ public class Card {
     Label L_name;
     LabelStyle labelStyle;
     Assets assets;
+    Label Username;
+    Boolean disp_user = false;
 
-
-    public Card(String string,float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
+    public Card(String string,String username,boolean dis,float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
         this.assets=assets;
         group = new Group();
         group.setWidth(g_width);
+        disp_user = dis;
         group.setHeight(g_width/aspect_ratio);
 
         dp = new Image(assets.White);
@@ -46,14 +49,22 @@ public class Card {
 
         labelStyle = new LabelStyle(font, Color.WHITE);
         L_name = new Label(string,labelStyle);
+
+
        // L_name.setSize(g_width,g_width/aspect_ratio);
-        L_name.setPosition(g_width/11,2*group.getHeight()/5); //The Upper Left Corner is 0,0
+        L_name.setPosition(g_width/11,2.5f*group.getHeight()/5); //The Upper Left Corner is 0,0
 
 
       //  L_name.setPosition( group.getWidth() / 2f - L_name.getWidth() / 2f, group.getHeight() / 2f - L_name.getHeight() / 2f );
 
         group.addActor(dp);
         group.addActor(L_name);
+        if(disp_user){
+
+            Username = new Label(username,labelStyle);
+            Username.setPosition(g_width/11,group.getHeight()/30);
+            group.addActor(Username);
+        }
 
     }
 
@@ -61,8 +72,9 @@ public class Card {
     public void L_name_scale(float scale){
         L_name.scaleBy(scale);
     }
-    public void setL_name(float x ,float y){
-        L_name.setPosition(x,y);
+    public void setPosBlack(){
+        L_name.setY(2.5f*group.getHeight()/5);
+        Username.setY(group.getHeight()/7f);
 
     }
     public void setCenter_L_name(boolean ver,float other) {
@@ -85,5 +97,6 @@ public class Card {
 
     public void setL_color(Color color){
         L_name.setColor(color);
+        if (disp_user) Username.setColor(Color.GRAY);
     }
 }
