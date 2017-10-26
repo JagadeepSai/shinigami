@@ -108,6 +108,7 @@ public class MainScreen extends ScreenAdapter {
 
         Gdx.input.setInputProcessor(game.stage);
 
+
     }
 
 

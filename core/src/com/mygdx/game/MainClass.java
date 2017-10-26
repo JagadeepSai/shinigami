@@ -13,6 +13,7 @@ import com.mygdx.game.Interface.CreateAccount;
 import com.mygdx.game.Interface.GoogleSignin;
 import com.mygdx.game.Interface.Login;
 import com.mygdx.game.Interface.SaveToDatabase;
+import com.mygdx.game.Interface.Toast;
 import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.MainScreen;
 import com.mygdx.game.Screens.Transitions.TransitionScreen;
@@ -31,6 +32,7 @@ public class MainClass extends Game {
 	public CreateAccount createAccount;
 	public GoogleSignin googleSignin;
 	public SaveToDatabase saveToDatabase;
+	public Toast toast;
 
 	public  Music back_tune ;
 	public Set<String> set;
@@ -72,6 +74,7 @@ public class MainClass extends Game {
 		//UserGameScreen userGameScreen = new UserGameScreen(this);
 		assets.load();
         saveToDatabase.load();
+		toast.showtost("Welcome "+Username);
 		MainScreen mainScreen = new MainScreen(this);
 
         setScreen(mainScreen);
@@ -96,5 +99,8 @@ public class MainClass extends Game {
 		this.saveToDatabase=saveToDatabase;
 		System.out.println("Set"+  set);
 		set=saveToDatabase.getset();
+	}
+	public void setToast(Toast toast){
+		this.toast=toast;
 	}
 }

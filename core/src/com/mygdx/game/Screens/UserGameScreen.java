@@ -163,6 +163,7 @@ public class UserGameScreen extends ScreenAdapter {
                 public void clicked(InputEvent event, float x, float y) {
 
                 if(!game.Username.equals("")) {
+                    gam.toast.showtost("Pass Once To Share");
                     game.load = true;
                     game.idload = stage[0];
                     game.nameload = stage[1];

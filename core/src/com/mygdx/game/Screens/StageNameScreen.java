@@ -244,13 +244,25 @@ public class StageNameScreen extends ScreenAdapter {
         submitbutton.button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(game.button_tune_play)    game.assets.button_tune.play();
 
-                game.getScreen().hide();
-                game.stage.clear();
                 String name = stagename.getText();
-                StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game,name);
-                game.setScreen(stageCreatorScreen);
+                if(name.split("//s+").length != 1 || name.split("//s+")[0].length() < 10) {
+                    if(game.button_tune_play)    game.assets.button_tune.play();
+
+                    game.getScreen().hide();
+                    game.stage.clear();
+                    StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game, name);
+                    game.setScreen(stageCreatorScreen);
+                }
+                else{
+                    if (name.split("//s+").length != 1){
+                    game.toast.showtost("No Spaces in Name");
+                }else
+                    {
+                        game.toast.showtost("Only 10 Letters in Name");
+                    }
+
+                }
             }
 
         });

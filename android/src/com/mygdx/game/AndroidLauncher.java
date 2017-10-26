@@ -10,6 +10,7 @@ public class AndroidLauncher extends AndroidApplication {
 	public  AndroidCreateAccount androidCreateAccount;
 	public AndroidGoogleSignin androidGoogleSignin;
 	public AndroidSaveToDatabase androidSaveToDatabase;
+    public AndroidToast androidToast;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 
@@ -18,12 +19,13 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		androidCreateAccount=new AndroidCreateAccount(this);
 		androidGoogleSignin=new AndroidGoogleSignin();
-
+        androidToast = new AndroidToast(this);
 		MainClass mainClass= new MainClass();
 		mainClass.setCreateAccount(androidCreateAccount);
 		mainClass.setGoogleSignin(androidGoogleSignin);
 		androidSaveToDatabase=new AndroidSaveToDatabase(mainClass);
 		mainClass.setSaveToDatabase(androidSaveToDatabase);
+        mainClass.setToast(androidToast);
 		initialize(mainClass, config);
 
 //		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

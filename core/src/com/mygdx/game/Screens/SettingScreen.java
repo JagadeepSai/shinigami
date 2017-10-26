@@ -187,6 +187,7 @@ public class SettingScreen extends ScreenAdapter {
                 game.setScreen(loginScreen);
 
                 }else{
+                    game.toast.showtost("Successfully Logged Out");
                     game.Username = "" ;
                     game.prefs.putString("username","").flush();
                 }
