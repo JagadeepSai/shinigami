@@ -39,7 +39,13 @@ public class MainClass extends Game {
 	public boolean button_tune_play = true;
 	public  String Username ;
 
+	public boolean completed = false;
+	public boolean load = false;
 
+	public String idload;
+	public String nameload;
+	public String usernameload;
+	public String jsonload;
 
 	public Assets assets;
 

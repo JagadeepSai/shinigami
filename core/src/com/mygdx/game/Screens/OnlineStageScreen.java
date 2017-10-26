@@ -63,7 +63,7 @@ public class OnlineStageScreen extends ScreenAdapter {
         generator.dispose();
 
 
-        UserCard = new Card(UserName,UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
+        UserCard = new Card("Stage Online",UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
         UserCard.L_name_scale(6/2);

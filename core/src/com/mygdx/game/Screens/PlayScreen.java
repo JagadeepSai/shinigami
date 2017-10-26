@@ -281,7 +281,7 @@ public class PlayScreen extends ScreenAdapter{
         if(player.getPosition().y > Presentyp)
             camera.position.set(0,player.getPosition().y,0);
         camera.update();
-        if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale || player.getPosition().y < camera.position.y -h/2){
+        if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale || player.getPosition().y < camera.position.y -h/2/Scale){
             if(!completed) {
                 if (game.button_tune_play) game.assets.gameOver_tune.play();
                 gameState = GameState.end;
@@ -294,9 +294,20 @@ public class PlayScreen extends ScreenAdapter{
         batch.setProjectionMatrix(camera.combined);
 
         if(player.getPosition().y > PStage.height/Scale){
-            sprite.setAlpha(0.5f);
-            group.setVisible(true);
-            completed = true;
+
+            if(game.load) {
+                game.completed = true;
+                restartbutton.button.setVisible(false);
+                Display.setText("Shared :)");
+                sprite.setAlpha(0.5f);
+                group.setVisible(true);
+                completed = true;
+            }
+            else{
+                sprite.setAlpha(0.5f);
+                group.setVisible(true);
+                completed = true;
+            }
             System.out.println("Crossed : ");
         }
     }
@@ -320,6 +331,7 @@ public class PlayScreen extends ScreenAdapter{
                // game.back_tune.play();
                 if(game.button_tune_play)  game.assets.button_tune.play();
 
+                if(!game.completed) game.load = false;
                 game.getScreen().hide();
                 game.stage.clear();
 

@@ -35,8 +35,8 @@ public class SettingScreen extends ScreenAdapter {
 
     private  boolean speakerstate = true;
     private boolean musicstate = true;
-    //  Viewport viewport ;
-    //  Table table = new Table();
+  //  Viewport viewport ;
+ //   Table table = new Table();
 
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
@@ -73,7 +73,7 @@ public class SettingScreen extends ScreenAdapter {
         fbbutton.setWidth(3*GameWidth/13);
         fbbutton.setHeight(fbbutton.getWidth()/AspectRatio);
         fbbutton.setPosition(fbbutton.getWidth()/3 ,GameWidth/(AspectRatio*2) - fbbutton.getHeight()/2);
-
+        fbbutton.button.setVisible(false);
 
         loginbutton = new ToggleButton(assets.Logout,assets.Login,game.prefs.getString("username").equals(""));
         loginbutton.setWidth(3*GameWidth/13);
@@ -84,6 +84,7 @@ public class SettingScreen extends ScreenAdapter {
         gplusbutton.setWidth(3*GameWidth/13);
         gplusbutton.setHeight(gplusbutton.getWidth()/AspectRatio);
         gplusbutton.setPosition(GameWidth - gplusbutton.getWidth()/3 - gplusbutton.getWidth() ,GameWidth/(AspectRatio*2) - gplusbutton.getHeight()/2);
+        gplusbutton.button.setVisible(false);
 
         game.stage.addActor(backbutton.button);
         game.stage.addActor(speakerbutton.button);
@@ -118,7 +119,7 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 speakerbutton.change();
-                if(speakerbutton.getState()) game.button_tune_play = false;
+                if(!speakerbutton.getState()) game.button_tune_play = false;
                 else   game.button_tune_play = true;
             }
         });
@@ -128,7 +129,7 @@ public class SettingScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 musicbutton.change();
-                if(musicbutton.getState()){
+                if(!musicbutton.getState()){
                     game.back_tune_play = false;
                     game.assets.back_tune.stop();
                 }
@@ -211,6 +212,7 @@ public class SettingScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+       // game.stage.dispose();
 
     }
 }

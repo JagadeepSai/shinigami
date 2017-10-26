@@ -25,7 +25,7 @@ public class Card {
     Label Likes;
     Boolean disp_user = false;
 
-    public Card(String string,String username,boolean dis,int likes, float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
+    public Card(String stagename,String username,boolean dis,int likes, float g_width,float aspect_ratio,BitmapFont font, Assets assets) {
         this.assets=assets;
         group = new Group();
         group.setWidth(g_width);
@@ -40,7 +40,7 @@ public class Card {
         //,group.getHeight()/2.1f
 
         labelStyle = new LabelStyle(font, Color.WHITE);
-        L_name = new Label(string,labelStyle);
+        L_name = new Label(stagename,labelStyle);
 
 
        // L_name.setSize(g_width,g_width/aspect_ratio);

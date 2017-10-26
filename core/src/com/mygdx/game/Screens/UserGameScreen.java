@@ -48,6 +48,8 @@ public class UserGameScreen extends ScreenAdapter {
     Card UserCard;
     Card bufferEnd;
 
+
+
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
     public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
@@ -63,6 +65,16 @@ public class UserGameScreen extends ScreenAdapter {
         nav_control = new Group();
         UserName = "Username";
        // cardList = new ArrayList<Card>();
+
+        if(game.load){
+
+            if (game.completed) {
+                System.out.println("Inside Sharing after complete");
+                game.saveToDatabase.save(game.idload, game.nameload,game.usernameload,game.jsonload);
+            }
+            game.load = false;
+            game.completed = false;
+        }
 
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
@@ -149,7 +161,20 @@ public class UserGameScreen extends ScreenAdapter {
             UserCards[i].sharebutton.button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.saveToDatabase.save(stage[0], stage[1],gam.Username,stage[2]);
+
+                if(!game.Username.equals("")) {
+                    game.load = true;
+                    game.idload = stage[0];
+                    game.nameload = stage[1];
+                    game.usernameload = game.Username;
+                    game.jsonload = stage[2];
+
+                    game.getScreen().hide();
+                    game.stage.clear();
+                    game.setScreen(new PlayScreen(gam, json.fromJson(Stage.class, stage[2]), "UserGameScreen"));
+                }
+
+                 //   game.saveToDatabase.save(stage[0], stage[1],gam.Username,stage[2]);
                 }
             });
 
