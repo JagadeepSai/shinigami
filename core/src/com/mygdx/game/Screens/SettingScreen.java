@@ -35,8 +35,8 @@ public class SettingScreen extends ScreenAdapter {
 
     private  boolean speakerstate = true;
     private boolean musicstate = true;
-  //  Viewport viewport ;
- //   Table table = new Table();
+    //  Viewport viewport ;
+    //  Table table = new Table();
 
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
@@ -84,7 +84,6 @@ public class SettingScreen extends ScreenAdapter {
         gplusbutton.setWidth(3*GameWidth/13);
         gplusbutton.setHeight(gplusbutton.getWidth()/AspectRatio);
         gplusbutton.setPosition(GameWidth - gplusbutton.getWidth()/3 - gplusbutton.getWidth() ,GameWidth/(AspectRatio*2) - gplusbutton.getHeight()/2);
-
 
         game.stage.addActor(backbutton.button);
         game.stage.addActor(speakerbutton.button);
@@ -212,7 +211,6 @@ public class SettingScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-       // game.stage.dispose();
 
     }
 }

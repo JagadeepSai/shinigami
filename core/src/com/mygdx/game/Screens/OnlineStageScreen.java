@@ -79,11 +79,11 @@ public class OnlineStageScreen extends ScreenAdapter {
         for(int j=0;j<s.length;j++){
             if (!((i+1)%2 == 0)) {
 
-                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]) , cardWidth, AspectRatio1 * 1.35f,false, font,assets);
+                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]) , cardWidth, AspectRatio1 * 1.35f,false, font,game,gam.set.contains(s[j][0]));
             }
             else
             {
-                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]), cardWidth, AspectRatio1 * 1.75f,true, font, assets);
+                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]), cardWidth, AspectRatio1 * 1.75f,true, font, game,gam.set.contains(s[j][0]));
             }
             scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
             scrollTable.row();

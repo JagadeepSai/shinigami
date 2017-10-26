@@ -1,5 +1,6 @@
 package com.mygdx.game.Cards;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Assets;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
+import com.mygdx.game.MainClass;
 
 import java.util.Date;
 
@@ -24,13 +26,18 @@ public class BWCard extends Card {
     public GeneralButton deletebutton;
     public GeneralButton playbutton;
     public ToggleButton Lovebutton;
-    Long id;
+    Long idea;
+    MainClass mainClass;
     Assets assets; //////////////////////////////////////// Lot to change;;;
+    boolean rede ;
 
-    public BWCard(String string,String username,boolean dis,int likes,Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, Assets assets) {
-        super(string,username,dis,likes,g_width,aspect_ratio,font,assets);
-        this.assets=assets;
-        this.id = id;
+    public BWCard(String string, String username, boolean dis, int likes, Long id, float g_width, float aspect_ratio, boolean white, BitmapFont font, final MainClass mainClass, boolean red) {
+        super(string,username,dis,likes,g_width,aspect_ratio,font,mainClass.assets);
+
+        this.mainClass=mainClass;
+        this.assets=mainClass.assets;
+        this.idea = id;
+        this.rede=red;
         // Play button;
         if (white) {
             playbutton = new GeneralButton(assets.CircledPlay);
@@ -51,16 +58,6 @@ public class BWCard extends Card {
             setL_color(Color.WHITE);
             setDp(assets.Black);
         }
-
-//        playbutton.addClickListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                super.clicked(event, x, y);
-//                //setScreen(new )
-//
-//            }
-//        });
-
         group.addActor(playbutton.button);
 
         if(!disp_user){
@@ -101,7 +98,7 @@ public class BWCard extends Card {
 
 
                 if(white) {
-                    Lovebutton = new ToggleButton(assets.LoveBlack, assets.LoveIn, false);
+                    Lovebutton = new ToggleButton(assets.LoveBlack, assets.LoveIn, red);
 
                     Lovebutton.setWidth(group.getWidth() / 6.8f);
                     Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2.5f);
@@ -112,7 +109,7 @@ public class BWCard extends Card {
                     setPosBlack();
                     setPosBlackUsername();
                     setLikes();
-                    Lovebutton = new ToggleButton(assets.LoveWhite, assets.LoveIn, false);
+                    Lovebutton = new ToggleButton(assets.LoveWhite, assets.LoveIn, red);
 
                     Lovebutton.setWidth(group.getWidth() / 6.8f);
                     Lovebutton.setHeight(Lovebutton.getWidth() * aspect_ratio /2);
@@ -126,6 +123,13 @@ public class BWCard extends Card {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Lovebutton.change();
+                        mainClass.saveToDatabase.rate(Long.toString(idea),!Lovebutton.getState());
+                        if (Lovebutton.getState()) {
+                            BWCard.super.Likes.setText(Integer.toString(Integer.parseInt(BWCard.super.Likes.getText().toString()) + 1));
+                            //Gdx.app.log("Boolean",rede+"");
+                        }else
+                            BWCard.super.Likes.setText(Integer.toString(Integer.parseInt(BWCard.super.Likes.getText().toString()) - 1));
+
                     }
                 });
 

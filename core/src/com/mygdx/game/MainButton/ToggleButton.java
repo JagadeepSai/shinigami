@@ -31,7 +31,7 @@ public class ToggleButton extends GeneralButton {
             float size2 = super.button.getImage().getHeight();
             super.button.getImage().setDrawable(t2);
             super.button.getImage().setSize(size1,size2);*/
-                super.button.getStyle().up = t2;
+                super.button.getStyle().up = t1;
                 //super.button.getImage().se
 //            super.buttonStyle.up = t2;
 //            super.buttonStyle.down = t2;
@@ -40,7 +40,7 @@ public class ToggleButton extends GeneralButton {
             float size2 = super.button.getImage().getHeight();
             super.button.getImage().setDrawable(t1);
             super.button.getImage().setSize(size1,size2);*/
-                super.button.getStyle().up = t1;
+                super.button.getStyle().up = t2;
                 //    super.buttonStyle.up = t1;
                 //   super.buttonStyle.down = t1;
             }

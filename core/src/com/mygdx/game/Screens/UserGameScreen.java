@@ -94,11 +94,10 @@ public class UserGameScreen extends ScreenAdapter {
             if (!((i+1)%2 == 0)) {
 
 
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, assets);
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, gam,false);
             }
-            else
-            {
-                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, assets);
+            else {
+                UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.75f,true, font, gam,false);
             }
             scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
             scrollTable.row();

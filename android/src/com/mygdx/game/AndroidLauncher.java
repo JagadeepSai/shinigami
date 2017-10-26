@@ -18,10 +18,11 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		androidCreateAccount=new AndroidCreateAccount(this);
 		androidGoogleSignin=new AndroidGoogleSignin();
-		androidSaveToDatabase=new AndroidSaveToDatabase();
+
 		MainClass mainClass= new MainClass();
 		mainClass.setCreateAccount(androidCreateAccount);
 		mainClass.setGoogleSignin(androidGoogleSignin);
+		androidSaveToDatabase=new AndroidSaveToDatabase(mainClass);
 		mainClass.setSaveToDatabase(androidSaveToDatabase);
 		initialize(mainClass, config);
 
