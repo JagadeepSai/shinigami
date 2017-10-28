@@ -283,28 +283,26 @@ public class LoginScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println(game.Username);
                 if(game.button_tune_play) game.assets.button_tune.play();
-
+                try {
                     if (state == true) {
                         String user = login.getText();
                         String pass = password.getText();
                         //Gdx.app.log(user,pass);
                         //Gdx.app.log("qq","11");
 
-                        if(createAccount.check(user, pass))
-                        {
+                        if (createAccount.check(user, pass)) {
                             game.getScreen().hide();
                             game.stage.clear();
                             game.Username = user;
                             //game.prefs.flush();
-                            game.prefs.putString("username",user).flush();
+                            game.prefs.putString("username", user).flush();
 
-                            System.out.println("Inside sucessfull login "+ game.Username);
+                            System.out.println("Inside sucessfull login " + game.Username);
 
 
                             SettingScreen settingScreen = new SettingScreen(game);
                             game.setScreen(settingScreen);
                         }
-
 
 
                     } else {
@@ -318,12 +316,15 @@ public class LoginScreen extends ScreenAdapter {
                             game.Username = user;
 
                             //game.prefs.flush();
-                            game.prefs.putString("username",user).flush();
+                            game.prefs.putString("username", user).flush();
 
                             SettingScreen settingScreen = new SettingScreen(game);
                             game.setScreen(settingScreen);
                         }
                     }
+                }catch (Exception ex){
+                    game.toast.showtost("Fields can't be empty");
+                }
                             }
 
         });

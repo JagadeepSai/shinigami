@@ -28,7 +28,7 @@ public class AndroidCreateAccount implements CreateAccount{
     public FirebaseAuth.AuthStateListener mAuthListener;
     Handler handler;
     boolean b = true;
-    boolean c=true;
+    String c=null;
 
     public AndroidCreateAccount(AndroidLauncher androidLauncher) {
         this.androidLauncher = androidLauncher;
@@ -123,45 +123,39 @@ public class AndroidCreateAccount implements CreateAccount{
 
     @Override
     public boolean check(String username, String password) {
-
+        c=null;
         mAuth.signInWithEmailAndPassword(username+"@firebase.com", password)
                 .addOnCompleteListener(androidLauncher, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            c=false;
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(androidLauncher, "Unable to login",
-                                            Toast.LENGTH_SHORT).show();
+                                c = "false";
+                                Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(androidLauncher, "Unable to login",
+                                                Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
+                                    }
+                                });
 
+                            } else {
+                                c = "true";
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(androidLauncher, "Succesfully",
+                                                Toast.LENGTH_SHORT).show();
 
+                                    }
+                                });
+                            }
                         }
-                        else {
-                            c=true;
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(androidLauncher, "Succesfully",
-                                            Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-                        }
-
-                        // ...
-                    }
                 });
-        return c;
+        while(c==null)System.out.println("C is null");
+        if(c.equals("true"))return true;
+        else return false;
     }
 }

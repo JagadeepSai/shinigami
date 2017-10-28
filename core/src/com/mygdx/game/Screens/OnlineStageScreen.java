@@ -39,6 +39,7 @@ public class OnlineStageScreen extends ScreenAdapter {
 
     Card UserCard;
     Card bufferEnd;
+    boolean safe=true;
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
     public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
@@ -53,16 +54,11 @@ public class OnlineStageScreen extends ScreenAdapter {
         assets=gam.assets;
         nav_control = new Group();
         UserName = "Username";
-        // cardList = new ArrayList<Card>();
-
-
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int)((float)cardWidth/10f);
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
-
-
         UserCard = new Card("Stage Online",UserName,false,0,cardWidth,AspectRatio1*1.75f,font,assets);
         UserCard.setCenter_L_name(false,2*UserCard.getHeight()/5);
         UserCard.setL_color(Color.BLACK);
@@ -72,34 +68,39 @@ public class OnlineStageScreen extends ScreenAdapter {
 
         scrollTable.add(UserCard.group).padBottom(padding).padTop(7*padding).expandX();
         scrollTable.row();
-        final String [][] s= game.saveToDatabase.get();
-        BWCard [] UserCards = new BWCard[s.length];
-        int i=0;
-        final Json json = new Json();
-        for(int j=0;j<s.length;j++){
-            if (!((i+1)%2 == 0)) {
+        try {
+            final String[][] s = game.saveToDatabase.get();
+            BWCard[] UserCards = new BWCard[s.length];
+            int i = 0;
+            final Json json = new Json();
 
-                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]) , cardWidth, AspectRatio1 * 1.35f,false, font,game,gam.set.contains(s[j][0]));
-            }
-            else
-            {
-                UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]), cardWidth, AspectRatio1 * 1.75f,true, font, game,gam.set.contains(s[j][0]));
-            }
-            scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
-            scrollTable.row();
-            UserCards[j].playbutton.button.isTouchable();
-            final String string = s[j][4];
-            UserCards[j].playbutton.button.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if(game.button_tune_play) game.assets.button_tune.play();
-                    game.getScreen().hide();
-                    game.stage.clear();
-                    game.setScreen(new PlayScreen(gam,json.fromJson(Stage.class,string),"OnlineStageScreen"));
+            for (int j = 0; j < s.length; j++) {
+                if (!((i + 1) % 2 == 0)) {
+
+                    UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]), cardWidth, AspectRatio1 * 1.35f, false, font, game, gam.set.contains(s[j][0]));
+                } else {
+                    UserCards[j] = new BWCard(s[j][1], s[j][3], true, Integer.parseInt(s[j][2]), Long.parseLong(s[j][0]), cardWidth, AspectRatio1 * 1.75f, true, font, game, gam.set.contains(s[j][0]));
                 }
-            });
-            i++;
+                scrollTable.add(UserCards[i].group).padBottom(padding).expandX();
+                scrollTable.row();
+                UserCards[j].playbutton.button.isTouchable();
+                final String string = s[j][4];
+                UserCards[j].playbutton.button.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        if (game.button_tune_play) game.assets.button_tune.play();
+                        game.getScreen().hide();
+                        game.stage.clear();
+                        game.setScreen(new PlayScreen(gam, json.fromJson(Stage.class, string), "OnlineStageScreen"));
+                    }
+                });
+                i++;
+            }
+        }catch (Exception ex){
+            gam.toast.showtost("Please check your internet or try again in few seconds");
+            safe=false;
         }
+
         scrollTable.add(bufferEnd.group).padBottom(padding);
         scrollTable.row();
         scrollPane = new ScrollPane(scrollTable);
@@ -127,7 +128,10 @@ public class OnlineStageScreen extends ScreenAdapter {
     @Override
     public void show() {
 
-
+        if(!safe){
+            game.stage.clear();
+            game.setScreen(new MainScreen(game));
+        }
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
             @Override

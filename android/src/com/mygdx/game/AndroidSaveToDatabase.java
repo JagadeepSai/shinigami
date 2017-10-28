@@ -61,9 +61,10 @@ public class AndroidSaveToDatabase implements SaveToDatabase{
         });
 
         mRootReference.child("raters").child(mainClass.Username+"@").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                set.clear();
                 int i=0;
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     System.out.println("Key  "+ child.getKey());
