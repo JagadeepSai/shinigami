@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -99,7 +100,14 @@ public class SettingScreen extends ScreenAdapter {
     public void render(float delta) {
         //game.stage.act(Gdx.graphics.getDeltaTime());
 
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)) {
 
+            if(game.button_tune_play)   game.assets.button_tune.play();
+            game.getScreen().hide();
+            game.stage.clear();
+            MainScreen mainScreen = new MainScreen(game);
+            game.setScreen(mainScreen);
+        }
 
 
         Gdx.gl.glClearColor(1,1,1,1);

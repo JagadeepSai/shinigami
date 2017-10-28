@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -118,6 +119,13 @@ public class OnlineStageScreen extends ScreenAdapter {
     }
     @Override
     public void render(float delta) {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            if(game.button_tune_play) game.assets.button_tune.play();
+            game.getScreen().hide();
+            game.stage.clear();
+            MainScreen mainScreen = new MainScreen(game);
+            game.setScreen(mainScreen);
+        }
         game.stage.act();
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

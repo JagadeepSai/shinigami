@@ -247,6 +247,23 @@ public class PlayScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
 
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            game.getScreen().hide();
+            game.stage.clear();
+
+            if  (PreviousScreen == "UserGameScreen") {
+                UserGameScreen userGameScreen = new UserGameScreen(game);
+                game.setScreen(userGameScreen);
+            }
+            else if (PreviousScreen == "MainScreen"){
+                MainScreen mainScreen = new MainScreen(game);
+                game.setScreen(mainScreen);
+            }
+            else if (PreviousScreen == "OnlineStageScreen"){
+                OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);
+                game.setScreen(onlineStageScreen);
+            }
+        }
 
         update(Gdx.graphics.getDeltaTime());
         Presentxp=player.getPosition().x;

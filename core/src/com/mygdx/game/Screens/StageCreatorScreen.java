@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
@@ -463,6 +464,23 @@ public class StageCreatorScreen extends ScreenAdapter{
 
     @Override
     public void render(float delta) {
+
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            if(game.button_tune_play)  game.assets.button_tune.play();
+
+            // game.stage.getCamera().translate(0,0,0);
+            game.stage.getCamera().position.set(GameWidth/2,GameHeight/2,0);
+            game.stage.getCamera().update();
+
+            game.getScreen().hide();
+            game.stage.clear();
+            //game.stage.getCamera().position.add(0,height,0);
+
+            //  game.stage.;
+            UserGameScreen userGameScreen = new UserGameScreen(game);
+            game.setScreen(userGameScreen);
+        }
+
         game.stage.act();
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

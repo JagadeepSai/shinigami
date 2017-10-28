@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -210,6 +211,15 @@ public class StageNameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            if(game.button_tune_play)   game.assets.button_tune.play();
+            game.getScreen().hide();
+            game.stage.clear();
+            UserGameScreen userGameScreen = new UserGameScreen(game);
+            game.setScreen(userGameScreen);
+
+        }
 
 
         Gdx.gl.glClearColor(1,1,1,1);

@@ -2,11 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Interface.CreateAccount;
@@ -53,6 +55,7 @@ public class MainClass extends Game {
 
 	@Override
 	public void create () {
+		Gdx.input.setCatchBackKey(true);
 		prefs= Gdx.app.getPreferences("preferences");
 		if(prefs.get()==null) {
 			prefs.putString("username","").flush();
@@ -88,6 +91,7 @@ public class MainClass extends Game {
 
 	@Override
 	public void render () {
+
 		super.render();
 	}
 	
