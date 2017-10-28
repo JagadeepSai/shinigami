@@ -241,29 +241,31 @@ public class StageNameScreen extends ScreenAdapter {
         });
 
         submitbutton.setTouchable();
-        submitbutton.button.addListener(new ClickListener(){
+        submitbutton.button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
                 String name = stagename.getText();
-                if(name.split("//s+").length != 1 || name.split("//s+")[0].length() < 10) {
-                    if(game.button_tune_play)    game.assets.button_tune.play();
 
-                    game.getScreen().hide();
-                    game.stage.clear();
-                    StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game, name);
-                    game.setScreen(stageCreatorScreen);
+                if ((name.length() == 0)) {
+                    game.toast.showtost("Enter Name");
+                } else if (name.length() > 10) {
+                    game.toast.showtost("Only max 10 letters in Name");
+                } else if (name.contains(" ")) {
+                    game.toast.showtost("No Spaces in the Name");
                 }
-                else{
-                    if (name.split("//s+").length != 1){
-                    game.toast.showtost("No Spaces in Name");
-                }else
-                    {
-                        game.toast.showtost("Only 10 Letters in Name");
-                    }
+                  else
+            {
+                if (game.button_tune_play) game.assets.button_tune.play();
 
-                }
+                game.getScreen().hide();
+                game.stage.clear();
+                StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game, name);
+                game.setScreen(stageCreatorScreen);
+
             }
+        }
+
 
         });
 

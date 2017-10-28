@@ -114,8 +114,8 @@ public class MainScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-
-        if(!game.assets.back_tune.isPlaying() && game.back_tune_play ) game.assets.back_tune.play();
+        game.assets.back_tune.setVolume(1);
+        if(!game.assets.back_tune.isPlaying() && game.back_tune_play) game.assets.back_tune.play();
         if (game.button_tune_play )game.assets.back_tune.setLooping(true);
 
     }

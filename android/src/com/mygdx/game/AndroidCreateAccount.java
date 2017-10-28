@@ -27,7 +27,7 @@ public class AndroidCreateAccount implements CreateAccount{
     public FirebaseAuth mAuth;
     public FirebaseAuth.AuthStateListener mAuthListener;
     Handler handler;
-    boolean b = true;
+    String b = null;
     String c=null;
 
     public AndroidCreateAccount(AndroidLauncher androidLauncher) {
@@ -61,7 +61,7 @@ public class AndroidCreateAccount implements CreateAccount{
                             Toast.LENGTH_SHORT).show();
                 }
             });
-            return false;
+            return true;
         }
 
         if(! password.equals(password2)){
@@ -86,14 +86,14 @@ public class AndroidCreateAccount implements CreateAccount{
             });
             return true;
         }
-
+        b=null;
         mAuth.createUserWithEmailAndPassword(username+ "@firebase.com", password)
                 .addOnCompleteListener(androidLauncher, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
-                            b=false;
+                            b="false";
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             handler.post(new Runnable() {
                                 @Override
@@ -104,6 +104,7 @@ public class AndroidCreateAccount implements CreateAccount{
                             });
                         }
                         else{
+                            b="true";
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -115,10 +116,11 @@ public class AndroidCreateAccount implements CreateAccount{
                         }
                     }
                 });
-        if(b){
-         return false;
+        while (b==null)System.out.println("NULL");
+        if(b.equals("false")){
+         return true;
      }
-     else return true;
+     else return false;
     }
 
     @Override

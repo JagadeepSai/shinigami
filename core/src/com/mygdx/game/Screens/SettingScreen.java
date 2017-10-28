@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Assets;
@@ -29,12 +30,7 @@ public class SettingScreen extends ScreenAdapter {
     ToggleButton speakerbutton;
     ToggleButton musicbutton;
     public GoogleSignin googleSignin;
-    private boolean fblogin = false;
-    private boolean accountlogin = false;
-    private boolean gpluslogin = false;
 
-    private  boolean speakerstate = true;
-    private boolean musicstate = true;
   //  Viewport viewport ;
  //   Table table = new Table();
 

@@ -73,11 +73,17 @@ public class MainClass extends Game {
 		viewport = new StretchViewport(0,0);
 		//UserGameScreen userGameScreen = new UserGameScreen(this);
 		assets.load();
-        saveToDatabase.load();
-		toast.showtost("Welcome "+Username);
-		MainScreen mainScreen = new MainScreen(this);
+		assets.back_tune.setVolume(0.35f);
+		assets.back_tune.play();
 
-        setScreen(mainScreen);
+        saveToDatabase.load();
+		Gdx.gl.glClearColor(205/255,205/255,205/255,0);
+		MainScreen mainScreen = new MainScreen(this);
+		Animate anime = new Animate(this);
+
+		setScreen(anime);
+		//toast.showtost("Welcome "+Username);
+
 	}
 
 	@Override
