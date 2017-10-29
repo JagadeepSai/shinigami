@@ -2,54 +2,29 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.tools.flame.EventManager;
 import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.Assets;
-import com.mygdx.game.InputListerners.StageScrollListener;
 import com.mygdx.game.MainButton.BallButton;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainButton.ToggleButton;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
-
-import org.lwjgl.Sys;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import sun.rmi.runtime.Log;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.floor;
-
-/**
- * Created by root on 8/10/17.
- */
-
-
 
 public class StageCreatorScreen extends ScreenAdapter{
     Assets assets;
@@ -337,7 +312,6 @@ public class StageCreatorScreen extends ScreenAdapter{
         skin.load(Gdx.files.internal("neon-ui.json"));
 
         skin.getFont("font").getData().setScale(AspectRatio1,AspectRatio1);
-
 
 
         backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);

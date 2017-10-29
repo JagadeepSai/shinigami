@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.MainClass;
 
-import com.mygdx.game.GifDecoder;
-
 /**
  * Created by root on 13/10/17.
  */
@@ -17,7 +15,6 @@ public class TransitionScreen extends ScreenAdapter {
     MainClass game;
     Animation<TextureRegion> animation;
     float elapsed;
-   // GifDecoder gifDecoder;
 
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
@@ -30,9 +27,6 @@ public class TransitionScreen extends ScreenAdapter {
 
     @Override
     public void show () {
-
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Transi/drop.gif").read());
-
     }
 
     @Override

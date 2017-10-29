@@ -37,9 +37,10 @@ import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
 import com.uwsoft.editor.renderer.SceneLoader;
 
+/**
+ * Screen which apppears when play button is pressed in a screen
+ */
 public class PlayScreen extends ScreenAdapter{
-
-
     public enum GameState{
         start,ongoing,end;
     }
@@ -73,15 +74,10 @@ public class PlayScreen extends ScreenAdapter{
     Image background ;
     Sprite sprite ;
 
-
     GeneralButton backbutton;
     GeneralButton restartbutton;
     Label Display;
 
-
-
-
-    public Box2DDebugRenderer b2dr= new Box2DDebugRenderer();
     public SpriteBatch batch = new SpriteBatch();
     public TextureRegion Player ;
     public TextureRegion Wall;
@@ -92,15 +88,12 @@ public class PlayScreen extends ScreenAdapter{
     public  PlayScreen(MainClass game , Stage stage,String Pre){
         this.game=game;
         PreviousScreen = Pre;
-       // game.back_tune.stop();
-
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int)((8*GameWidth/9)/10f);
-        BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
-
+        BitmapFont font12 = generator.generateFont(parameter);
+        generator.dispose();
 
         labelStyle = new Label.LabelStyle(font12,Color.BLACK);
 
@@ -113,11 +106,6 @@ public class PlayScreen extends ScreenAdapter{
         background = new Image(game.assets.White);
         background.setFillParent(true);
 
-
-       /* background.setWidth(GameWidth/3);
-        background.setHeight(background.getWidth()*AspectRatio);
-        background.setPosition(GameWidth/2 - background.getWidth()/2,GameHeight/2 - background.getHeight()/2);
-*/
         Display = new Label("Let's Party",labelStyle);
         Display.setPosition(group.getWidth()/5.5f,3.5f*group.getHeight()/5);
 
@@ -131,19 +119,12 @@ public class PlayScreen extends ScreenAdapter{
         restartbutton.setHeight((restartbutton.getWidth()/AspectRatio));
         restartbutton.setPosition(group.getWidth()- 1.25f*restartbutton.getWidth(),(2*group.getHeight()/6) - backbutton.getHeight()/2);
 
-
-        // Texture background2;
-
-        //background2 = new Texture(game.assets.Black);
-        //game.stage.getBatch().setColor(0,0,0,0.5f);
         sprite = new Sprite(this.game.assets.Black);
 
         sprite.setColor(0,0,0,0.1f);
         sprite.setSize(GameWidth,GameHeight);
         sprite.setPosition(-GameWidth/2,-GameHeight/2);
         sprite.setAlpha(0);
-
-
 
         group.addActor(background);
         group.addActor(Display);
@@ -152,7 +133,6 @@ public class PlayScreen extends ScreenAdapter{
         group.setVisible(false);
 
         game.stage.addActor(group);
-
 
         Player=game.assets.Player;
         Obstacle=game.assets.Obstacle;
@@ -194,7 +174,6 @@ public class PlayScreen extends ScreenAdapter{
                     }
                     break;
                 case end:
-                   // game.setScreen(new MainScreen(game));
                     break;
             }
             return true;
@@ -221,11 +200,10 @@ public class PlayScreen extends ScreenAdapter{
         }
     }
 
-
-
-    //Stage stage = new Stage(2,2);
-
-
+    /**
+     * Creates a Box2d body
+     * @return body
+     */
     public Body createPlayer(){
         Body pBody;
         BodyDef def= new BodyDef();
@@ -235,10 +213,6 @@ public class PlayScreen extends ScreenAdapter{
         pBody=world.createBody(def);
         CircleShape shape = new CircleShape();
         shape.setRadius(PlayerRadious);
-       // Gdx.app.log(String.valueOf(PlayerRadious),"");
-        //shape.setRadius(10);
-        //shape.setAsBox(32/2,32/2);
-        //shape.setAsBox(0.1f,0.1f);
         pBody.createFixture(shape,0.1f);
         shape.dispose();
         return pBody;
@@ -247,19 +221,13 @@ public class PlayScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
 
-
         update(Gdx.graphics.getDeltaTime());
         Presentxp=player.getPosition().x;
         if(Presentyp < player.getPosition().y)
             Presentyp=player.getPosition().y;
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //System.out.println(Presentxp);
-        //System.out.println(Presentyp);
         batch.begin();
-        //batch.draw(Obstacle,0,0,10,10);
-
-
         for(int i=0;i<PStage.noofobstacles;i++){
             batch.draw(Obstacle,Obstaclepos[i][1]-Obstaclepos[i][0] ,
                     Obstaclepos[i][2]-Obstaclepos[i][0],2*Obstaclepos[i][0],2*Obstaclepos[i][0]);
@@ -267,25 +235,26 @@ public class PlayScreen extends ScreenAdapter{
         batch.draw(Player,player.getPosition().x - PlayerRadious ,player.getPosition().y - PlayerRadious,2*PlayerRadious,2*PlayerRadious);
         batch.draw(Wall,w/2/Scale-1,-h/2,1,h);
         batch.draw(Wall,-w/2/Scale,-h/2,1,h);
-
-       // group.draw(batch,0);
         sprite.draw(batch);
         batch.end();
 
         game.stage.draw();
-
-      //  b2dr.render(world,camera.combined);
     }
+
+    /**
+     * Updates the map with time
+     * @param delta Timelapse between to updates
+     */
     public void update(float delta){
         world.step(1/60f,6,2);
         if(player.getPosition().y > Presentyp)
             camera.position.set(0,player.getPosition().y,0);
         camera.update();
+        //Check for wall
         if(player.getPosition().x < -w/2/Scale  || player.getPosition().x > w/2/Scale || player.getPosition().y < camera.position.y -h/2/Scale){
             if(!completed) {
                 if (game.button_tune_play) game.assets.gameOver_tune.play();
                 gameState = GameState.end;
-
                 Display.setText("Game Over");
                 group.setVisible(true);
                 sprite.setAlpha(0.5f);
@@ -314,12 +283,11 @@ public class PlayScreen extends ScreenAdapter{
 
     @Override
     public void resize(int width, int height) {
-        //super.resize(width, height);
+
     }
 
     @Override
     public void show() {
-       // Gdx.app.log(String.valueOf(h), String.valueOf(w));
 
         backbutton.setTouchable();
         backbutton.button.addListener(new ClickListener(){
@@ -328,7 +296,6 @@ public class PlayScreen extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
 
-               // game.back_tune.play();
                 if(game.button_tune_play)  game.assets.button_tune.play();
 
                 if(!game.completed) game.load = false;
@@ -347,8 +314,6 @@ public class PlayScreen extends ScreenAdapter{
                     OnlineStageScreen onlineStageScreen = new OnlineStageScreen(game);
                     game.setScreen(onlineStageScreen);
                 }
-
-
             }
         });
 
@@ -361,10 +326,7 @@ public class PlayScreen extends ScreenAdapter{
                     game.setScreen(new PlayScreen(game,PStage,PreviousScreen));
             }
         });
-
-
-
-
+        //Contact listiner for the world, detects collison
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
@@ -395,23 +357,19 @@ public class PlayScreen extends ScreenAdapter{
             }
         });
 
-
         gameState = GameState.start;
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(game.stage);
         multiplexer.addProcessor(new InputHandler());
-
-       // Gdx.input.setInputProcessor(new InputHandler());
         Gdx.input.setInputProcessor(multiplexer);
         Presentxp = player.getPosition().x - PlayerRadious;
         Presentyp = player.getPosition().y - PlayerRadious;
 
         Obstaclepos = new float[PStage.noofobstacles][3] ;
-
-
+        //Adding fixtures to the box2d bodies
         for (int i = 0; i < PStage.noofobstacles; i++) {
-            Obstaclepos[i]= new float[]{w*PStage.obstacles[i][0]/Scale,w*PStage.obstacles[i][1]/Scale,w*PStage.obstacles[i][2]/Scale};
-
+            Obstaclepos[i]= new float[]{w*PStage.obstacles[i][0]/Scale,
+                    w*PStage.obstacles[i][1]/Scale,w*PStage.obstacles[i][2]/Scale};
             BodyDef def = new BodyDef();
             def.type = BodyDef.BodyType.StaticBody;
             def.position.set(Obstaclepos[i][1], Obstaclepos[i][2]);
@@ -425,21 +383,22 @@ public class PlayScreen extends ScreenAdapter{
     }
     @Override
     public void hide() {
+
         super.hide();
     }
 
     @Override
     public void pause() {
-        //super.pause();
+        super.pause();
     }
 
     @Override
     public void resume() {
-        //super.resume();
+        super.resume();
     }
 
     @Override
     public void dispose() {
-        //super.dispose();
+        super.dispose();
     }
 }

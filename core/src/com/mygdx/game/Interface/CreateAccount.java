@@ -1,10 +1,11 @@
 package com.mygdx.game.Interface;
 
-/**
- * Created by suraj on 24/10/17.
- */
 
+
+/**
+ * Inplimented in AndroidCreateAccount class, in android directory
+ */
 public interface CreateAccount {
-    public boolean createAccount(String username,String password, String password2);
-    public boolean check(String username,String password);
+    boolean createAccount(String username,String password, String password2);
+    boolean check(String username,String password);
 }

@@ -5,5 +5,5 @@ package com.mygdx.game.Interface;
  */
 
 public interface Toast {
-    public void showtost(String s);
+    void showtost(String s);
 }

@@ -3,13 +3,12 @@ package com.mygdx.game.Interface;
 import java.util.Set;
 
 /**
- * Created by suraj on 25/10/17.
+ * Inplimented in Android savetodatabase class, in android directory
  */
-
 public interface SaveToDatabase {
-    public void load();
-    public boolean save(String id, String name,String username,String json);
-    public String[][] get();
-    public boolean rate(String s,boolean b);
-    public Set<String> getset();
+    void load();
+    boolean save(String id, String name,String username,String json);
+    String[][] get();
+    boolean rate(String s,boolean b);
+    Set<String> getset();
 }

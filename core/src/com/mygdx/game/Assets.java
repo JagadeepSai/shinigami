@@ -2,22 +2,16 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
-
 /**
- * Created by suraj on 14/10/17.
+ * Class containg all the assets used in the game
  */
 
 public class Assets {
     public static  Music button_tune;
     public static Music back_tune ;
     public static  Music gameOver_tune;
-
     public static Texture Parent;
     public static TextureRegion BackArrow;
     public static TextureRegion CircledPlay;
@@ -58,10 +52,12 @@ public class Assets {
     public static TextureRegion LoveWhite;
     public static TextureRegion Restart;
 
-
+    /**
+     * Called at the start, and only once in whole session
+     * Assigns the assets
+     */
 
     public static void load () {
-        System.out.print("Assets Being called");
         Parent= new Texture(Gdx.files.internal("spritesheet.png"));
         BackArrow= new TextureRegion(Parent,783,1536,260,260);
         CircledPlay= new TextureRegion(Parent,1155,1898,260,260 );
@@ -101,13 +97,8 @@ public class Assets {
         LoveBlack= new TextureRegion(new Texture(Gdx.files.internal("LoveBlack.png")));
         LoveIn= new TextureRegion(new Texture(Gdx.files.internal("LoveIn.png")));
         Restart = new TextureRegion(new Texture(Gdx.files.internal("Restart.png")));
-
         back_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/homescreen_music-not_to_be_played_when_user_plays_game.mp3"));
         button_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/Remaining_all_buttons.mp3"));
         gameOver_tune = Gdx.audio.newMusic(Gdx.files.internal("sounds/game_over_after _ball_hits_obstacle.wav"));
-
-
-
     }
-
 }

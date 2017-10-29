@@ -1,35 +1,34 @@
 package com.mygdx.game;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mygdx.game.Interface.CreateAccount;
-
-
 import static android.content.ContentValues.TAG;
 
+
 /**
- * Created by suraj on 24/10/17.
+ * This impliments CreateAccount class the core directory, and have necesarry functions for Creatingaccount and login
  */
+public class AndroidCreateAccount implements CreateAccount {
+    AndroidLauncher androidLauncher;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    Handler handler; /*! for showing toasts*/
+    String helper1 = null;
+    String helper2 = null;
 
-public class AndroidCreateAccount implements CreateAccount{
-    private AndroidLauncher androidLauncher;
-    public FirebaseAuth mAuth;
-    public FirebaseAuth.AuthStateListener mAuthListener;
-    Handler handler;
-    String b = null;
-    String c=null;
-
+    /**
+     * Constructor, checks if user has already logged in, and gives their username.
+     * @param androidLauncher
+     */
     public AndroidCreateAccount(AndroidLauncher androidLauncher) {
         this.androidLauncher = androidLauncher;
         mAuth = FirebaseAuth.getInstance();
@@ -45,16 +44,23 @@ public class AndroidCreateAccount implements CreateAccount{
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
 
+    /**
+     * Creates an account for a perticular username and password
+     *
+     * Check for correctness of username and passwords
+     * @param username username
+     * @param password password
+     * @param password2 retyped password
+     * @return true if succesfully created account
+     */
     @Override
     public boolean createAccount(String username, String password, String password2) {
-        if(username.isEmpty()){
-            handler.post(new Runnable()
-            {
+        if (username.isEmpty()) {
+            handler.post(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(androidLauncher, "Username Should be non empty",
@@ -64,8 +70,8 @@ public class AndroidCreateAccount implements CreateAccount{
             return true;
         }
 
-        if(! password.equals(password2)){
-            Log.d(password,password2);
+        if (!password.equals(password2)) {
+            Log.d(password, password2);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -76,7 +82,7 @@ public class AndroidCreateAccount implements CreateAccount{
             return true;
         }
 
-        if(password.length()<6){
+        if (password.length() < 6) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -86,15 +92,13 @@ public class AndroidCreateAccount implements CreateAccount{
             });
             return true;
         }
-        b=null;
-        mAuth.createUserWithEmailAndPassword(username+ "@firebase.com", password)
+        helper1 = null;
+        mAuth.createUserWithEmailAndPassword(username + "@firebase.com", password)
                 .addOnCompleteListener(androidLauncher, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
-                            b="false";
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            helper1 = "false";
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -102,9 +106,8 @@ public class AndroidCreateAccount implements CreateAccount{
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
-                        else{
-                            b="true";
+                        } else {
+                            helper1 = "true";
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -116,48 +119,52 @@ public class AndroidCreateAccount implements CreateAccount{
                         }
                     }
                 });
-        while (b==null)System.out.println("NULL");
-        if(b.equals("false")){
-         return true;
-     }
-     else return false;
+        while (helper1 == null) System.out.println("NULL");
+        if (helper1.equals("false")) {
+            return true;
+        } else return false;
     }
 
+    /**
+     * Autheticates with the username and password
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public boolean check(String username, String password) {
-        c=null;
-        mAuth.signInWithEmailAndPassword(username+"@firebase.com", password)
+        helper2 = null;
+        mAuth.signInWithEmailAndPassword(username + "@firebase.com", password)
                 .addOnCompleteListener(androidLauncher, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                                c = "false";
-                                Log.w(TAG, "signInWithEmail:failed", task.getException());
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(androidLauncher, "Unable to login",
-                                                Toast.LENGTH_SHORT).show();
+                            helper2 = "false";
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(androidLauncher, "Unable to login",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                                    }
-                                });
+                        } else {
+                            helper2 = "true";
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(androidLauncher, "Succesfully",
+                                            Toast.LENGTH_SHORT).show();
 
-                            } else {
-                                c = "true";
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(androidLauncher, "Succesfully",
-                                                Toast.LENGTH_SHORT).show();
-
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
+                    }
 
                 });
-        while(c==null)System.out.println("C is null");
-        if(c.equals("true"))return true;
+        while (helper2 == null) System.out.println("C is null");
+        if (helper2.equals("true")) return true;
         else return false;
     }
 }

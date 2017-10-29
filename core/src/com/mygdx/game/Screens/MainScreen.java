@@ -133,8 +133,6 @@ public class MainScreen extends ScreenAdapter {
                game.getScreen().hide();
                game.stage.clear();
 
-               //  GameScreen gameScreen = new GameScreen(game);
-//               game.setScreen(gameScreen);
                com.mygdx.game.Stage PStage;
 
                PStage = new com.mygdx.game.Stage(4.85f*GameWidth, 15);

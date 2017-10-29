@@ -2,7 +2,6 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,22 +20,16 @@ import com.mygdx.game.MainClass;
 import com.mygdx.game.Stage;
 
 /**
- * Created by root on 25/10/17.
+ * Shows all the stages share by users
  */
-
 public class OnlineStageScreen extends ScreenAdapter {
     MainClass game ;
     Assets assets;
     Table scrollTable = new Table();
-
     String UserName;
     GeneralButton backbutton;
-
-
     Group nav_control;
     ScrollPane scrollPane ;
-
-
     Card UserCard;
     Card bufferEnd;
     boolean safe=true;
@@ -69,6 +62,7 @@ public class OnlineStageScreen extends ScreenAdapter {
         scrollTable.add(UserCard.group).padBottom(padding).padTop(7*padding).expandX();
         scrollTable.row();
         try {
+            //getting maps liked by the user
             final String[][] s = game.saveToDatabase.get();
             BWCard[] UserCards = new BWCard[s.length];
             int i = 0;
@@ -96,7 +90,7 @@ public class OnlineStageScreen extends ScreenAdapter {
                 });
                 i++;
             }
-        }catch (Exception ex){
+        }catch (Exception ex){ //Check for internet connection
             gam.toast.showtost("Please check your internet or try again in few seconds");
             safe=false;
         }
@@ -109,9 +103,7 @@ public class OnlineStageScreen extends ScreenAdapter {
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
-
         nav_control.addActor(backbutton.button);
-
         game.stage.addActor(scrollPane);
         game.stage.addActor(nav_control);
         Gdx.input.setInputProcessor(game.stage);
@@ -121,13 +113,11 @@ public class OnlineStageScreen extends ScreenAdapter {
         game.stage.act();
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         game.stage.draw();
     }
 
     @Override
     public void show() {
-
         if(!safe){
             game.stage.clear();
             game.setScreen(new MainScreen(game));
@@ -143,9 +133,6 @@ public class OnlineStageScreen extends ScreenAdapter {
                 game.setScreen(mainScreen);
             }
         });
-
-
-
     }
 
     @Override

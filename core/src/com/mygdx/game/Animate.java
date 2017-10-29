@@ -1,39 +1,29 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Screens.MainScreen;
 
 import static com.badlogic.gdx.Gdx.gl;
 
 /**
- * Created by root on 28/10/17.
+ * Shows the animations at the start of app start
  */
-
 public class Animate extends ScreenAdapter {
 
     // Constant rows and columns of the sprite sheet
-    private static final int FRAME_COLS = 5, FRAME_ROWS = 8;
-
-    // Objects used
-    Animation<TextureRegion> walkAnimation; // Must declare frame type (TextureRegion)
+    int FRAME_COLS = 5, FRAME_ROWS = 8;
+    Animation<TextureRegion> walkAnimation;
     Texture walkSheet;
     int count = 0;
     Texture noragami ;
-
-
-    public float GameWidth = Gdx.graphics.getWidth();
-    public float GameHeight = Gdx.graphics.getHeight();
-    public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
-    public float AspectRatio = 16/9;
+    float GameWidth = Gdx.graphics.getWidth();
+    float GameHeight = Gdx.graphics.getHeight();
+    float AspectRatio = 16/9;
 
     // A variable for tracking elapsed time for the animation
     float stateTime;
@@ -68,7 +58,6 @@ public class Animate extends ScreenAdapter {
 
         // Instantiate a SpriteBatch for drawing and reset the elapsed animation
         // time to 0
-        //spriteBatch = new SpriteBatch();
         stateTime = 0f;
 
     }
@@ -81,7 +70,6 @@ public class Animate extends ScreenAdapter {
         Gdx.gl.glClearColor(205f/255,205f/255,205f/255,1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-       // Clear screen
         stateTime += delta; // Accumulate elapsed animation time
 
         // Get current frame of animation for the current stateTime
@@ -112,8 +100,7 @@ public class Animate extends ScreenAdapter {
     }
 
     @Override
-    public void dispose() { // SpriteBatches and Textures must always be disposed
-       // game.stage.getBatch().dispose();
+    public void dispose() {
         walkSheet.dispose();
     }
 

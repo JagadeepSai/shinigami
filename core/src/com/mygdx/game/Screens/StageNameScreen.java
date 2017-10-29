@@ -19,14 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Assets;
-import com.mygdx.game.Interface.Login;
 import com.mygdx.game.MainButton.GeneralButton;
 import com.mygdx.game.MainClass;
 
 /**
- * Created by root on 24/10/17.
+ * Shown when create stage button is tapped
  */
 
 public class StageNameScreen extends ScreenAdapter {
@@ -47,18 +45,12 @@ public class StageNameScreen extends ScreenAdapter {
     ImageButton cancelFocusButton;
     ImageButton.ImageButtonStyle style2;
 
-
-
     public float GameWidth = Gdx.graphics.getWidth();
     public float GameHeight = Gdx.graphics.getHeight();
     public float AspectRatio1 = (float)(Gdx.graphics.getHeight())/(float)(Gdx.graphics.getWidth());
     public float AspectRatio = 16/9;
 
     TextField stagename;
-    BitmapFont font = new BitmapFont();
-
-    boolean state = true;
-
     Skin skin = new Skin(Gdx.files.internal("neon-ui.json"));
     public  StageNameScreen(MainClass gam){
         this.game = gam;
@@ -68,31 +60,24 @@ public class StageNameScreen extends ScreenAdapter {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)((float)(8*GameWidth/9)/10f);
+        parameter.size = (int)((8*GameWidth/9)/10f);
         BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
-
-        //skin.add("myFont12",font12,BitmapFont.class);
+        generator.dispose();
 
         skin.addRegions(new TextureAtlas(Gdx.files.internal("neon-ui.atlas")));
         skin.load(Gdx.files.internal("neon-ui.json"));
 
         skin.getFont("font").getData().setScale(AspectRatio1*2f,AspectRatio1*2f);
 
-
         backbutton = new GeneralButton(assets.BackArrow,assets.BackArrow);
         backbutton.setWidth(GameWidth/6);
         backbutton.setHeight(backbutton.getWidth()/AspectRatio);
         backbutton.setPosition(GameWidth/5 - backbutton.getWidth(),(5*GameHeight)/(6*AspectRatio) + backbutton.getHeight()/2);
 
-
-
         submitbutton = new GeneralButton(assets.PlayButton,assets.PlayButton);
         submitbutton.setWidth(GameWidth/4.5f);
         submitbutton.setHeight(submitbutton.getWidth()/AspectRatio);
         submitbutton.setPosition(GameWidth/2 - submitbutton.getWidth()/2,GameWidth/(AspectRatio*2) + submitbutton.getHeight()/3);
-
-
 
         cursor = skin.getDrawable("color");
         empty = new Drawable() {
@@ -168,10 +153,7 @@ public class StageNameScreen extends ScreenAdapter {
         style2.down = null;
         cancelFocusButton = new ImageButton(style2);
 
-
-
         style = new TextField.TextFieldStyle(font12, Color.BLACK,cursor,empty,text_background);
-        //login = new TextField("", skin,"login");
         stagename = new TextField("",style);
         stagename.setMessageText("Stage Name");
         stagename.setWidth(GameWidth/1.5f);
@@ -179,20 +161,17 @@ public class StageNameScreen extends ScreenAdapter {
         stagename.setPosition(GameWidth/2 - stagename.getWidth()/2, GameHeight/1.7f - stagename.getWidth()/8);
 
         stagename.addListener(new FocusListener() {
-
             @Override
             public void keyboardFocusChanged(FocusEvent event, Actor actor, boolean focused) {
                 super.keyboardFocusChanged(event, actor, focused);
                 if (!focused)
                     Gdx.input.setOnscreenKeyboardVisible(false);
                 stagename.getOnscreenKeyboard().show(false);
-                // game.stage.unfocusAll();
             }
         });
 
-       background = new Image(new TextureRegion(new Texture(Gdx.files.internal("gray.jpg"))));
+        background = new Image(new TextureRegion(new Texture(Gdx.files.internal("gray.jpg"))));
         background.setFillParent(true);
-
 
         game.stage.addActor(background);
         game.stage.addActor(cancelFocusButton);
@@ -200,21 +179,12 @@ public class StageNameScreen extends ScreenAdapter {
         game.stage.addActor(stagename);
         game.stage.addActor(submitbutton.button);
         game.stage.addActor(backbutton.button);
-
-        //  game.stage.addActor(error);
-        //game.stage.getKeyboardFocus();
-        //  style = new TextFieldStyle();
-        //  login = new TextArea("Login",skin);
-
     }
 
     @Override
     public void render(float delta) {
-
-
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         game.stage.draw();
     }
 
@@ -246,7 +216,7 @@ public class StageNameScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
 
                 String name = stagename.getText();
-
+                //Checks for stage name correctness
                 if ((name.length() == 0)) {
                     game.toast.showtost("Enter Name");
                 } else if (name.length() > 10) {
@@ -254,22 +224,16 @@ public class StageNameScreen extends ScreenAdapter {
                 } else if (name.contains(" ")) {
                     game.toast.showtost("No Spaces in the Name");
                 }
-                  else
-            {
-                if (game.button_tune_play) game.assets.button_tune.play();
+                else {
+                    if (game.button_tune_play) game.assets.button_tune.play();
+                    game.getScreen().hide();
+                    game.stage.clear();
+                    StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game, name);
+                    game.setScreen(stageCreatorScreen);
 
-                game.getScreen().hide();
-                game.stage.clear();
-                StageCreatorScreen stageCreatorScreen = new StageCreatorScreen(game, name);
-                game.setScreen(stageCreatorScreen);
-
+                }
             }
-        }
-
-
         });
-
-        //super.show();
     }
 
     @Override

@@ -33,9 +33,7 @@ import java.util.Date;
 public class UserGameScreen extends ScreenAdapter {
     MainClass game ;
     Assets assets;
-    //List<Card> cardList;
     Table scrollTable = new Table();
-    Stage PStage;
     String UserName;
 
     GeneralButton designbutton;
@@ -64,10 +62,7 @@ public class UserGameScreen extends ScreenAdapter {
         assets=gam.assets;
         nav_control = new Group();
         UserName = "Username";
-       // cardList = new ArrayList<Card>();
-
         if(game.load){
-
             if (game.completed) {
                 System.out.println("Inside Sharing after complete");
                 game.saveToDatabase.save(game.idload, game.nameload,game.usernameload,game.jsonload);
@@ -75,8 +70,6 @@ public class UserGameScreen extends ScreenAdapter {
             game.load = false;
             game.completed = false;
         }
-
-
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/BebasNeue Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int)((float)cardWidth/10f);
@@ -104,8 +97,6 @@ public class UserGameScreen extends ScreenAdapter {
             if(words.isEmpty())break;
             final String [] stage = words.split("\\s+");
             if (!((i+1)%2 == 0)) {
-
-
                 UserCards[i] = new BWCard(stage[1], "", false,0, Long.parseLong(stage[0]) , cardWidth, AspectRatio1 * 1.35f,false, font, gam,false);
             }
             else {
@@ -135,26 +126,18 @@ public class UserGameScreen extends ScreenAdapter {
                     FileHandle fileHandle2= Gdx.files.local("usersaved.txt");
                     String [] stagesarray2 = fileHandle2.readString().split("\\r?\\n");
 
-
                     fileHandle2.writeString("",false);
-                    System.out.println("Inside : Empty");
-                    System.out.println("Hi"+fileHandle2.readString()+"In");
 
                     for (String words : stagesarray2) {
                         if (words.isEmpty()) break;
                         final String[] stage2 = words.split("\\s+");
 
                         if(id != Long.parseLong(stage2[0])) fileHandle2.writeString(words +'\n',true);
-                        else
-                        {
+                        else {
                             scrollTable.removeActor(UserCards[j].group);
-                           // System.out.println(fileHandle.readString());
                         }
 
                     }
-                   // System.out.println(fileHandle2.readString());
-
-
                 }
             });
 
@@ -174,25 +157,15 @@ public class UserGameScreen extends ScreenAdapter {
                     game.stage.clear();
                     game.setScreen(new PlayScreen(gam, json.fromJson(Stage.class, stage[2]), "UserGameScreen"));
                 }
-
-                 //   game.saveToDatabase.save(stage[0], stage[1],gam.Username,stage[2]);
                 }
             });
-
-
             i++;
         }
-
-
 
         scrollTable.add(bufferEnd.group).padBottom(padding);
         scrollTable.row();
         scrollPane = new ScrollPane(scrollTable);
         scrollPane.setFillParent(true);
-        //scrollPane.setPosition(0,5*GameHeight/6);
-
-        //scrollTable.setFillParent(true);
-      //  scrollTable.add(scrollPane).fill().expand();
 
         designbutton = new GeneralButton(assets.PalleteBB,assets.PalleteBB);
         designbutton.setWidth(GameWidth/5.3f);
@@ -211,9 +184,6 @@ public class UserGameScreen extends ScreenAdapter {
         game.stage.addActor(scrollPane);
         game.stage.addActor(nav_control);
 
-
-        /*game.stage.addActor(designbutton.button);
-        game.stage.addActor(backbutton.button);*/
         Gdx.input.setInputProcessor(game.stage);
     }
 
@@ -242,7 +212,6 @@ public class UserGameScreen extends ScreenAdapter {
             }
         });
 
-
         designbutton.setTouchable();
         designbutton.button.addListener(new ClickListener(){
             @Override
@@ -254,8 +223,6 @@ public class UserGameScreen extends ScreenAdapter {
                 game.setScreen(stageNameScreen);
             }
         });
-
-
     }
 
     @Override

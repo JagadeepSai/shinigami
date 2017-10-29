@@ -11,11 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Assets;
 
 /**
- * Created by root on 13/10/17.
+ * Used to make ui in screens where stages are shown
  */
-
 public class Card {
-
     public Group group;
     Image dp;
     Label L_name;
@@ -35,24 +33,13 @@ public class Card {
         dp = new Image(assets.White);
         dp.setSize(group.getWidth(),group.getHeight());
         dp.setPosition(0,0);
-
-
-        //,group.getHeight()/2.1f
-
         labelStyle = new LabelStyle(font, Color.WHITE);
         L_name = new Label(stagename,labelStyle);
-
-
-       // L_name.setSize(g_width,g_width/aspect_ratio);
-        L_name.setPosition(g_width/11,2.5f*group.getHeight()/5); //The Upper Left Corner is 0,0
-
-
-      //  L_name.setPosition( group.getWidth() / 2f - L_name.getWidth() / 2f, group.getHeight() / 2f - L_name.getHeight() / 2f );
+        L_name.setPosition(g_width/11,2.5f*group.getHeight()/5);
 
         group.addActor(dp);
         group.addActor(L_name);
         if(disp_user){
-
             Username = new Label(username,labelStyle);
             Username.setPosition(g_width/11,group.getHeight()/30);
             Username.setColor(Color.GRAY);
@@ -61,11 +48,8 @@ public class Card {
             Likes = new Label(Integer.toString(likes),labelStyle);
             Likes.setPosition(3.31f*group.getWidth()/6,-group.getHeight() + 4.5f*Likes.getHeight()/1.75f);
             group.addActor(Likes);
-
         }
-
     }
-
 
     public void L_name_scale(float scale){
         L_name.scaleBy(scale);
