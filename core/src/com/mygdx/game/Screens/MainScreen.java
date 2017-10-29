@@ -55,7 +55,7 @@ import static java.awt.SystemColor.info;
 /**
  * Created by root on 1/10/17.
  */
-
+  
 public class MainScreen extends ScreenAdapter {
 
     MainClass game;
